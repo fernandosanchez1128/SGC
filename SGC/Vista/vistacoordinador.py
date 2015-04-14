@@ -7,15 +7,15 @@ from Singleton import Singleton
 from CrearCurso import CrearCurso
 from ConsultarCurso import ConsultarCurso 
 
-( Ui_MainWindow, QMainWindow ) = uic.loadUiType( 'mainwindow.ui' )
+( Ui_VistaCoordinador, QMainWindow ) = uic.loadUiType( 'vistacoordinador.ui' )
 
 @Singleton
-class MainWindow ( QMainWindow ):
-    """MainWindow inherits QMainWindow"""
+class VistaCoordinador ( QMainWindow ):
+    """VistaCoordinador inherits QMainWindow"""
     
     def __init__ ( self, parent = None ):
         QMainWindow.__init__( self, parent )
-        self.ui = Ui_MainWindow()
+        self.ui = Ui_VistaCoordinador()
         self.ui.setupUi( self )
         self.connect(self.ui.btCrear, SIGNAL("clicked()"), self.crear_clicked)
         self.connect(self.ui.btConsultar, SIGNAL("clicked()"), self.consultar_clicked)
