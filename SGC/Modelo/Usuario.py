@@ -5,11 +5,11 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
 engine = create_engine('postgresql://brayanrod:bryan1112@localhost:5432/sgc', echo=True)
-#engine = create_engine('sqlite://usuario.db', echo=True)
+#engine = create_engine('sqlite:///usuario.db', echo=True)
 Base = declarative_base()
 
 
-class Usuario:
+class Usuario (Base):
     __tablename__ = 'usuario'
 
     __cedula = Column(String(40), primary_key=True)
