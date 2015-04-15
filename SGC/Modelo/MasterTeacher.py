@@ -13,7 +13,7 @@ Base = declarative_base()
 class MasterTeacher(Base, Usuario):
     __tablename__ = 'masterteacher'
 
-    __cedula = Column(Integer, ForeignKey('usuario._Usuario__cedula'), primary_key=True)
+    cedula = Column(Integer, ForeignKey('usuario.cedula'), primary_key=True)
 
     def __init__(self, pa_cedula, pa_nombres, pa_apellidos, pa_direccion, pa_telefono, pa_correoElectronico, pa_fechaNacimiento):
         self.setCedula(pa_cedula)
