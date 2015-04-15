@@ -6,8 +6,8 @@ from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-engine = create_engine('postgresql://brayanrod:bryan1112@localhost:5432/sgc', echo=True)
-#engine = create_engine('sqlite:///usuario.db', echo=True)
+#engine = create_engine('postgresql://brayanrod:bryan1112@localhost:5432/sgc', echo=True)
+engine = create_engine('sqlite:///usuario.db', echo=True)
 Base = declarative_base()
 
 
@@ -82,11 +82,3 @@ class Usuario (Base):
 
 
 Base.metadata.create_all(engine)
-
-
-Session = sessionmaker(bind=engine)
-session = Session()
-usuario = Usuario("123","B", "R", "Cra 2", "323", "a@aol.com", "01-01-2015")
-usuarios = [usuario]
-session.add_all(usuarios)
-session.commit()
