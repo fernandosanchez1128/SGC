@@ -3,6 +3,8 @@ __author__ = 'family'
 from sqlalchemy import (create_engine, Column, Date, Integer, ForeignKey, String, Table)
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 engine = create_engine('postgresql://brayanrod:bryan1112@localhost:5432/sgc', echo=True)
 #engine = create_engine('sqlite:///usuario.db', echo=True)
@@ -82,6 +84,9 @@ class Usuario (Base):
 Base.metadata.create_all(engine)
 
 
-
-usuario = Usuario("123","B", "R", "Cra 2", "323", "a@aol.com", "Dic 13")
-print usuario.getCedula()
+Session = sessionmaker(bind=engine)
+session = Session()
+usuario = Usuario("123","B", "R", "Cra 2", "323", "a@aol.com", "01-01-2015")
+usuarios = [usuario]
+session.add_all(usuarios)
+session.commit()
