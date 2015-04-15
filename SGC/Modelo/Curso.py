@@ -19,4 +19,8 @@ class Curso(Base):
         self.nombre = nombre
         self.descripcion= descripcion
         
+<<<<<<< HEAD
 Base.metadata.create_all(engine)
+=======
+Base.metadata.create_all(engine)
+>>>>>>> origin/brayan
