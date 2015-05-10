@@ -7,17 +7,22 @@ from LeaderTeacher import LeaderTeacher
 class FabricaUsuarios:
     def getUsuario(self, tipo, params):
         #Usuario
-        if(tipo==1 & len(params)==7):
-            objUs = Usuario(params[0],params[1],params[2],params[3],params[4],params[5],params[6])
-            return objUs
+        if(tipo==1 and len(params)==7):
+			print ("creando usuario")
+			objUs = Usuario(cedula =params[0],nombres =params[1],apellidos = params[2], direccion = params[3],telefono = params[4],correoElectronico = params[5], fechaNacimiento = params[6])	
+			return objUs
         #leaderTeacher
-        elif(tipo==2 & len(params)==7):
-            objMT = MasterTeacher(params[0],params[1],params[2],params[3],params[4],params[5],params[6])
-            return objMT
+        elif(tipo==2 and len(params)==7):
+			print ("creando MT")
+			objMT = MasterTeacher(cedula =params[0],nombres =params[1],apellidos = params[2], direccion = params[3],telefono = params[4],correoElectronico = params[5], fechaNacimiento = params[6])
+			return objMT
         #masterTeacher
-        elif(tipo==3 & len(params)==15):
-            objLT = LeaderTeacher(params[0],params[1],params[2],params[3],params[4],params[5],params[6],params[7],params[8],params[9],params[10],params[11],params[12],params[13])
-            return objLT
+        elif(tipo==3 and len(params)==13):
+			print ("creando LT")
+			objLT = LeaderTeacher(cedula =params[0],nombres =params[1],apellidos = params[2], direccion = params[3],telefono = params[4],correoElectronico = params[5], fechaNacimiento = params[6],
+			sede = params [7],institucion = params[8],codigoInstitucion = params[9],grado = params[10], departamentoSecretaria = params [11],municipioSecretaria = params [12])
+			return objLT
         else:
-            return None
+			print ("paso por none")
+			return None
 
