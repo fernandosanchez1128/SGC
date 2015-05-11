@@ -8,7 +8,7 @@ class Actividades (Base):
 
     id_curso = Column(Integer, ForeignKey('curso.id'), primary_key=True)
     id_actividad =  Column(Integer,Sequence('sec_actividad'), primary_key=True)
-    nombre = Column(String (20), unique = True)
+    nombre = Column(String (20))
     ponderado = Column(Float)
     curso = relationship("Curso")
     

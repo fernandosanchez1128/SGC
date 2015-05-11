@@ -34,8 +34,7 @@ class LogicaActividades ():
 		self.session.delete(actividades)	
 		self.session.commit()
 		self.session.close ()
-'''
+
 log = LogicaActividades()
-actividades = Actividades(nombre="nom4", id_curso=123, ponderado=0.4)
+actividades = Actividades(nombre="nom4", id_curso=122, ponderado=0.4)
 log.agregarActividades(actividades)
-'''
