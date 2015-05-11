@@ -1,13 +1,14 @@
 __author__ = 'family'
 
-from sqlalchemy import (create_engine, Column, Date, Integer, ForeignKey, String, Table,Sequence)
+from sqlalchemy import (create_engine, Column, Date, Integer, ForeignKey,ForeignKeyConstraint, String, Table,Sequence)
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from Curso import *
 from basetest import *
+from MasterTeacher import MasterTeacher
 Column(Integer, Sequence('sec_cohorte'), primary_key=True)
+
 class Cohorte (Base):
     __tablename__ = 'cohorte'
 

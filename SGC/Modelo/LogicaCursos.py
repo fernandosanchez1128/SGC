@@ -38,10 +38,10 @@ class LogicaCursos ():
 		self.session.commit()
 		self.session.close ()
 		
-'''
+
 log = LogicaCursos()
-curso = Curso(id = 124, nombre= 'miocurso2', descripcion='descripcion')
-log.agregarCurso(curso)'''
+curso = Curso(id = 122, nombre= 'micurso24', descripcion='descripcion')
+log.agregarCurso(curso)
 #cursos= log.consultarCursos()
 #print cursos[0].nombre
 
