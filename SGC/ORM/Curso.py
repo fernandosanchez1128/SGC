@@ -13,8 +13,8 @@ class Curso(Base):
     nombre = Column(String(40), index=True, nullable=False,unique = True)
     descripcion = Column(String(120), index=True)
     cohortes = relationship("Cohorte", backref='curso',cascade="all, delete, delete-orphan")
-    
- 
+
+
 
         
 Base.metadata.create_all(engine)

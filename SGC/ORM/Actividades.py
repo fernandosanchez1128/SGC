@@ -1,9 +1,10 @@
 __author__ = 'family'
-from sqlalchemy import (create_engine, Column, Date, Integer, ForeignKey, String, Table,Sequence)
+from sqlalchemy import (create_engine, Column, Date, Integer, ForeignKey, String, Float, Table,Sequence)
 from basetest import *
 Column(Integer, Sequence('sec_actividad'), primary_key=True)
-class Cohorte (Base):
-    __tablename__ = 'asignacion'
+from Curso import *
+class Actividades (Base):
+    __tablename__ = 'actividades'
 
     id_curso = Column(Integer, ForeignKey('curso.id'), primary_key=True)
     id_actividad =  Column(Integer,Sequence('sec_actividad'), primary_key=True)

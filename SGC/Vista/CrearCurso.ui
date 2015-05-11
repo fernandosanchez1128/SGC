@@ -39,13 +39,6 @@
        <number>20</number>
       </property>
       <item row="2" column="1">
-       <widget class="QLabel" name="lbNombre">
-        <property name="text">
-         <string>Nombre</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
        <widget class="QLabel" name="lbDescripcion">
         <property name="text">
          <string>Descripción</string>
@@ -53,9 +46,6 @@
        </widget>
       </item>
       <item row="2" column="2">
-       <widget class="QLineEdit" name="leNombre"/>
-      </item>
-      <item row="3" column="2">
        <widget class="QTextEdit" name="teDescripcion">
         <property name="maximumSize">
          <size>
@@ -66,16 +56,16 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QLabel" name="lbNombre_2">
+       <widget class="QLabel" name="lbNombre">
         <property name="text">
-         <string>Id</string>
+         <string>Nombre</string>
         </property>
        </widget>
       </item>
       <item row="1" column="2">
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <widget class="QLineEdit" name="leCurso"/>
+         <widget class="QLineEdit" name="leNombre"/>
         </item>
         <item>
          <widget class="QPushButton" name="btBuscar">
@@ -90,7 +80,16 @@
     </item>
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_3">
-      <property name="margin">
+      <property name="leftMargin">
+       <number>1</number>
+      </property>
+      <property name="topMargin">
+       <number>1</number>
+      </property>
+      <property name="rightMargin">
+       <number>1</number>
+      </property>
+      <property name="bottomMargin">
        <number>1</number>
       </property>
       <item>
@@ -190,6 +189,12 @@
     <string>Crear Curso</string>
    </property>
   </widget>
+  <zorder>centralwidget</zorder>
+  <zorder>verticalLayoutWidget</zorder>
+  <zorder>label</zorder>
+  <zorder>btCancelar</zorder>
+  <zorder>btCrear</zorder>
+  <zorder>leNombre</zorder>
  </widget>
  <resources/>
  <connections/>

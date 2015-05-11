@@ -1,9 +1,9 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from Matricula import *
+from ORM.Matricula import *
 from basetest import *
 from Curso import *
-from Cohorte import *
+from ORM.Cohorte import *
 class LogicaCohorte ():
 	Session = sessionmaker(bind=engine)
 	session = Session()

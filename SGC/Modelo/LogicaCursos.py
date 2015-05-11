@@ -1,10 +1,9 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from Curso import *
+from ORM.Curso import *
 
-from basetest import *
+from ORM.basetest import *
 class LogicaCursos ():
-	#def __init__ (self) :
 	Session = sessionmaker(bind=engine)
 	session = Session()
 	def __init__ (self) :
@@ -21,28 +20,28 @@ class LogicaCursos ():
 		self.session.close()	
 		return cursos
 		
-	def consultarCurso(self, id_curso_mod):
-		curso = self.session.query(Curso).filter_by(id_curso= id_curso_mod).first()
+	def consultarCurso(self, nombre_curso):
+		curso = self.session.query(Curso).filter_by(nombre= nombre_curso).first()
 		self.session.close()	
 		return curso
 		
-	def modificarCurso (self, id_curso_mod, curso_mod):
-		curso = self.session.query(Curso).filter_by(id_curso= id_curso_mod).first()
+	def modificarCurso (self, nombre_curso, curso_mod):
+		curso = self.session.query(Curso).filter_by(nombre= nombre_curso).first()
 		curso.nombre= curso_mod.nombre
 		curso.descripcion= curso_mod.descripcion
 		self.session.commit()
 		self.session.close ()
 		
 	def eliminarCurso (self, id_curso_el):
-		curso = self.session.query(Curso).filter_by(id_curso= id_curso_el).first()
+		curso = self.session.query(Curso).filter_by(id= id_curso_el).first()
 		self.session.delete(curso)
 		self.session.commit()
 		self.session.close ()
 		
 '''
 log = LogicaCursos()
-curso = Curso(id_curso = 123, nombre= 'miocursomodificado', descripcion='descripcion')
-log.agregarCurso(curso)
+curso = Curso(id = 124, nombre= 'miocurso2', descripcion='descripcion')
+log.agregarCurso(curso)'''
 #cursos= log.consultarCursos()
 #print cursos[0].nombre
-'''
+
