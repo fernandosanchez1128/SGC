@@ -3,10 +3,10 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4 import QtCore, QtGui
 
-from LogicaCursos import *
-from Curso import * 
-from Actividades import *
-from LogicaActividades import *
+from Modelo.LogicaCursos import *
+from ORM.Curso import *
+from ORM.Actividades import *
+from Modelo.LogicaActividades import *
 
 ( Ui_CrearCurso, QDialog ) = uic.loadUiType( 'CrearCurso.ui' )
 
@@ -27,23 +27,23 @@ class CrearCurso ( QDialog ):
         self.connect(self.ui.btCrear, SIGNAL("clicked()"), self.crear_clicked)
         self.connect(self.ui.btBuscar, SIGNAL("clicked()"), self.buscar_clicked)
         if tipo ==1:
-            self.ui.btBuscar.setVisible(False)
-            self.ui.btCrear.setText("Crear Curso")
+			self.ui.btBuscar.setVisible(False)
+			self.ui.btCrear.setText("Crear Curso")
 			self.ui.leNombre.setEnabled(True)
 			self.ui.teDescripcion.setEnabled(True)
-			self.ui.label.setText("Creación de cursos")
+			self.ui.label.setText("Creacion de cursos")
         elif tipo ==2:
-            self.ui.btBuscar.setVisible(True)
-            self.ui.btCrear.setText("Modificar Curso")
+			self.ui.btBuscar.setVisible(True)
+			self.ui.btCrear.setText("Modificar Curso")
 			self.ui.leNombre.setEnabled(True)
 			self.ui.teDescripcion.setEnabled(True)
-			self.ui.label.setText("Edición de cursos")
+			self.ui.label.setText("Edicion de cursos")
         elif tipo==3:
 			self.ui.btBuscar.setVisible(True)
 			self.ui.btCrear.setText("Borrar Curso")
 			self.ui.leNombre.setEnabled(False)
 			self.ui.teDescripcion.setEnabled(False)
-			self.ui.label.setText("Eliminación de cursos")
+			self.ui.label.setText("Eliminacion de cursos")
 
     def __del__ ( self ):
         self.ui = None
