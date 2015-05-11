@@ -27,7 +27,6 @@ class LogicaCursos ():
 		
 	def modificarCurso (self, nombre_curso, curso_mod):
 		curso = self.session.query(Curso).filter_by(nombre= nombre_curso).first()
-		curso.nombre= curso_mod.nombre
 		curso.descripcion= curso_mod.descripcion
 		self.session.commit()
 		self.session.close ()
@@ -38,10 +37,10 @@ class LogicaCursos ():
 		self.session.commit()
 		self.session.close ()
 		
-
+'''
 log = LogicaCursos()
 curso = Curso(id = 122, nombre= 'micurso24', descripcion='descripcion')
-log.agregarCurso(curso)
+log.agregarCurso(curso)'''
 #cursos= log.consultarCursos()
 #print cursos[0].nombre
 
