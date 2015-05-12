@@ -1,6 +1,6 @@
 
 from LeaderTeacher import *
-from sqlalchemy import (create_engine, Column, Date, Integer, ForeignKey, ForeignKeyConstraint, String, Table)
+from sqlalchemy import (create_engine, Column, Date, Integer,Float,ForeignKey, ForeignKeyConstraint, String, Table)
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
