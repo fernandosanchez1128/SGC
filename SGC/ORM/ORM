@@ -1,0 +1,32 @@
+from sqlalchemy import Integer, ForeignKey, String, Column, create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship, sessionmaker
+
+Base = declarative_base()
+
+engine = create_engine('postgresql://brayanrod:bryan1112@localhost:5432/pruebas', echo=True)
+
+class User(Base):
+    __tablename__ = 'user'
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+
+    addresses = relationship("Address", backref="user")
+
+class Address(Base):
+    __tablename__ = 'address'
+    id = Column(Integer, primary_key=True)
+    email = Column(String)
+    user_id = Column(Integer, ForeignKey('user.id'))
+
+
+
+
+Base.metadata.create_all(engine)
+
+Session = sessionmaker(bind=engine)
+session = Session()
+
+user = User (id= 123, name= 'usuario')
+session.add(user)
+session.commit()

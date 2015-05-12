@@ -46,7 +46,8 @@ class MainWindow(QMainWindow):
         log_curso= LogicaCursos()
         curso = log_curso.consulta_by_name(nombre_curso)
         actividades = LogicaActividades().actividades_curso(curso.id)
-        self.ui.tableWidget.setColumnCount(len(actividades))
+        num_actividades = len(actividades)
+        self.ui.tableWidget.setColumnCount(num_actividades)
         indice = 0
         for actividad in actividades:
             #en implementacion cambiar actividad por actividad.nombre
@@ -58,7 +59,8 @@ class MainWindow(QMainWindow):
         print curso.id,codigo_cohorte
         regs_matricula = LogicaMatricula().consultar_estudiantes(int(curso.id),int(codigo_cohorte))
         print "tamano",len(regs_matricula)
-        self.ui.tableWidget.setRowCount(len(regs_matricula))
+        num_estudiantes = len(regs_matricula)
+        self.ui.tableWidget.setRowCount(num_estudiantes)
         indice = 0
         for reg_matricula in regs_matricula:
             estudiante = LogicaUsuario().buscarUsuario(reg_matricula.cedula_lt)
@@ -66,3 +68,5 @@ class MainWindow(QMainWindow):
             item = QtGui.QTableWidgetItem(str(estudiante.cedula))
             self.ui.tableWidget.setVerticalHeaderItem(indice, item)
             indice+=1
+
+

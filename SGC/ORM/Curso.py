@@ -1,6 +1,6 @@
+__author__ = 'family'
 from sqlalchemy import (create_engine, Column, Date, Integer, ForeignKey, String, Table,Sequence)
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship
 from sqlalchemy.orm import relationship
 
 
@@ -12,10 +12,12 @@ class Curso(Base):
     __tablename__ = 'curso'
     id = Column(Integer,Sequence('sec_curso'), primary_key=True)
     nombre = Column(String(40), index=True, nullable=False,unique = True)
-    descripcion = Column(String(120))
-    #actividades = relationship("Actividades", backref='curso', cascade="all, delete, delete-orphan")
-    cohortes = relationship("Cohorte", backref='curso',cascade="all, delete, delete-orphan")
-
-
+    descripcion = Column(String(120), index=True)
+    cohortes = relationship("Cohorte",cascade="all, delete, delete-orphan")
+    actividades = relationship("Actividades",cascade="all, delete, delete-orphan")
+    
+ 
+from Cohorte import Cohorte
+from Actividades import Actividades
 
 Base.metadata.create_all(engine)
