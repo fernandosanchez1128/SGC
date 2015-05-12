@@ -1,8 +1,8 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from ORM.Actividades import Actividades
-from basetest import *
 from ORM.Curso import Curso
+from ORM.Actividades import Actividades
+from ORM.basetest import *
 class LogicaActividades ():
     Session = sessionmaker(bind=engine)
     session = Session()
@@ -41,8 +41,9 @@ class LogicaActividades ():
         return actividades
 
 
-'''		
-log = LogicaActividades()
-actividades = Actividades(nombre="nom3", id_curso=123, ponderado=0.4)
-log.editarActividades(2, actividades)
-'''
+# #
+# log = LogicaActividades()
+# # actividades = Actividades(nombre="nom3", id_curso=1, ponderado=0.4)
+# # log.agregarActividades(actividades)
+# log.actividades_curso(1)
+

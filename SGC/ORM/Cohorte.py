@@ -16,7 +16,6 @@ class Cohorte (Base):
     id_cohorte = Column(Integer, Sequence('sec_cohorte') , primary_key=True)
     ano = Column(Integer, primary_key=True)
     semestre = Column(Integer, primary_key=True)
-    curso = relationship("Curso")
     
     def __repr__(self):
 		codigo = str (self.id_cohorte)

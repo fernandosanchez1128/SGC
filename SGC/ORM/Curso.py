@@ -17,7 +17,21 @@ class Curso(Base):
     actividades = relationship("Actividades",cascade="all, delete, delete-orphan")
     
  
-from Cohorte import Cohorte
-from Actividades import Actividades
+from Cohorte import *
+from Actividades import *
 
 Base.metadata.create_all(engine)
+#~ Session = sessionmaker(bind=engine)
+#~ session = Session()
+#~ curso = Curso (nombre = "curso2")
+#~ cohorte1 = Actividades (nombre = 'act',ponderado= 0.5)
+#~ cohorte2 = Actividades (nombre = 'act',ponderado= 0.5)
+#~ curso.actividades.append (cohorte1)
+#~ curso.actividades.append (cohorte2)
+#~ session.add(curso)
+#~ session.commit()
+#~ session.close()
+#~ print ("consulta")
+#~ curso2 = session.query(Curso).filter_by (nombre = "espanol").first()
+#~ print curso2
+#~ print curso2.cohortes

@@ -8,6 +8,7 @@ from Modelo.LogicaDicta import LogicaDicta
 from Modelo.LogicaActividades import LogicaActividades
 from Modelo.LogicaMatricula import LogicaMatricula
 from Modelo.LogicaUsuario import LogicaUsuario
+from ORM.Curso import *
 from Actividades import Actividades
 
 (Ui_MainWindow, QMainWindow) = uic.loadUiType('mainwindow.ui')
@@ -45,6 +46,8 @@ class MainWindow(QMainWindow):
         # busqueda de las actividades
         log_curso= LogicaCursos()
         curso = log_curso.consulta_by_name(nombre_curso)
+        # print "actividades",curso.actividades
+        print curso.actividades
         actividades = LogicaActividades().actividades_curso(curso.id)
         num_actividades = len(actividades)
         self.ui.tableWidget.setColumnCount(num_actividades)
