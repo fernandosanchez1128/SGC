@@ -12,7 +12,7 @@ class Usuario (Base):
     direccion = Column(String(40), index=True)
     telefono = Column(String(40), index=True)
     correo_electronico = Column(String(40), index=True, nullable=False)
-    fechaNacimiento = Column(Date, index=True)
+    fecha_nacimiento = Column(Date, index=True)
     
     type = Column(String(50))
 
