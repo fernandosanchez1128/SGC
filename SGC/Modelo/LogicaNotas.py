@@ -1,0 +1,37 @@
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from Actividades import *
+from basetest import *
+from LeaderTeacher import *
+from Notas import *
+
+class LogicaNotas ():
+	Session = sessionmaker(bind=engine)
+	session = Session()
+	
+	def __init__ (self) :
+		#llamado para prueba del iterador 
+		print ("contructorNotas")
+		
+	def agregarNotas (self, notas)	:
+		self.session.add(notas)
+		self.session.commit()
+		self.session.close ()
+		
+	def consultarNotas (self, actividad, idLT)	:
+		notas = self.session.query(Notas).filter_by(id_actividades= actividad, cedula_lt=idLT).first()
+		self.session.close()	
+		return notas
+	
+	def editarNotas (self,  idActividad, idLT, newNota):
+		notaEditada = self.session.query(Notas).filter_by(id_actividades= idActividad, cedula_lt=idLT).first()
+		notaEditada.nota = newNota.nota
+		notaEditada.asistencia= newNota.asistencia
+		self.session.commit()
+		self.session.close ()
+	
+	def eliminarNotas (self,  idActividad, idLT):		
+		notas = self.session.query(Notas).filter_by(id_actividades=idActividad, cedula_lt=idLT).first()
+		self.session.delete(notas)	
+		self.session.commit()
+		self.session.close ()

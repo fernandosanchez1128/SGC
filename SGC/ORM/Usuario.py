@@ -1,21 +1,7 @@
 __author__ = 'family'
-
-from sqlalchemy import (create_engine, Column, Date, Integer, ForeignKey, String, Table)
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-
-#engine = create_engine('postgresql://brayanrod:bryan1112@localhost:5432/sgc', echo=True)
-#engine = create_engine('postgresql://braymrr:braymrr@pgsql/braymrr', echo=True)
-#engine = create_engine('sqlite:///usuario.db', echo=True)
-#Base = declarative_base()
-
+from sqlalchemy import (create_engine, Column, Date, Integer, ForeignKey, String, Table,Sequence)
 
 from basetest import *
-
-
-Session = sessionmaker(bind=engine)
 
 class Usuario (Base):
     __tablename__ = 'usuario'

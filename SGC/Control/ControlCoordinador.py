@@ -1,6 +1,6 @@
 __author__ = 'family'
 
-from Modelo import Curso
+from ORM.Curso import Curso
 
 class ControlCoordinador:
 
@@ -19,4 +19,4 @@ class ControlCoordinador:
     #si tipo es 1 el criterio es el codigo del curso, si es 2 el criterio es el nombre
     def modificarCurso(self, criterio, tipo, descripcion):
         #modificacion de descripcion
-        return None
+        pass

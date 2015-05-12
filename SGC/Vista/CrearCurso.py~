@@ -2,13 +2,16 @@
 from PyQt4 import uic
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
+<<<<<<< HEAD
+from Modelo.Curso import Curso
+=======
 from PyQt4 import QtCore, QtGui
 
 from Modelo.LogicaCursos import *
 from ORM.Curso import *
 from ORM.Actividades import *
 from Modelo.LogicaActividades import *
-
+>>>>>>> fe6dd266141f57bc2c7bc1abd9b3db28d8b53e05
 
 ( Ui_CrearCurso, QDialog ) = uic.loadUiType( 'CrearCurso.ui' )
 
@@ -55,6 +58,8 @@ class CrearCurso ( QDialog ):
         
     def cancelar_clicked(self):
         self.close()
+<<<<<<< HEAD
+=======
         
     def crear_clicked(self):
 		if self.tipo==1:
@@ -106,3 +111,4 @@ class CrearCurso ( QDialog ):
 				i+=1
 		
 		    
+>>>>>>> fe6dd266141f57bc2c7bc1abd9b3db28d8b53e05

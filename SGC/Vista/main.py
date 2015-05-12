@@ -14,7 +14,7 @@ if __name__ == '__main__':
 
     # create widget
     w = VistaCoordinador. Instance()
-    w.setWindowTitle( 'My PyQt4 QtGui Project' )
+    w.setWindowTitle( 'Coordinador' )
     w.show()
 
     # connection
