@@ -23,9 +23,9 @@ class LeaderTeacher(Usuario, Base):
     codigoInstitucion = Column(String(40))
     grado = Column(Integer)
     departamentoSecretaria= 
-    municipioSecretaria = ""
-    tutorProgramaPTA = False
-    usuarioColombiaAprende = False
+    municipioSecretaria = Column(String(40))
+    tutorProgramaPTA = Column(Boolean)
+    usuarioColombiaAprende = Column(Boolean)
     __mapper_args__ = {
         'polymorphic_identity':'leaderteacher',
     }

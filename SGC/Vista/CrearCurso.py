@@ -1,6 +1,7 @@
 from PyQt4 import uic
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
+from Modelo.Curso import Curso
 
 ( Ui_CrearCurso, QDialog ) = uic.loadUiType( 'CrearCurso.ui' )
 
