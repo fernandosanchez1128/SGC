@@ -42,7 +42,7 @@ class CrearCurso ( QDialog ):
         elif tipo==3:
 			self.ui.btBuscar.setVisible(True)
 			self.ui.btCrear.setText("Borrar Curso")
-			self.ui.leNombre.setEnabled(False)
+			self.ui.leNombre.setEnabled(True)
 			self.ui.teDescripcion.setEnabled(False)
 			self.ui.label.setText("Eliminación de cursos")
 
@@ -71,7 +71,6 @@ class CrearCurso ( QDialog ):
 		elif self.tipo==2:
 			nombre_c = str(self.ui.leNombre.text())
 			curso = Curso(nombre= nombre_c, descripcion=str(self.ui.teDescripcion.toPlainText()))
-
 			self.logicaCursos.modificarCurso(nombre_c, curso)
 			i=0
 			curso = self.logicaCursos.consultarCurso(nombre_c)
@@ -79,12 +78,12 @@ class CrearCurso ( QDialog ):
 			while i<self.ui.sbNumActividades.value():
 				nombre_ac = str(self.ui.twActividades.item(i, 0).text())
 				ponderado_ac = float(self.ui.twActividades.item(i, 1).text())
-				actividad = Actividades(nombre = nombre_ac, ponderado = ponderado_ac, id_curso =int(self.ui.leCurso.text()) )
+				actividad = Actividades(nombre = nombre_ac, ponderado = ponderado_ac, id_curso =curso.id )
 				self.logicaActividades.agregarActividades(actividad)
 				i+=1
 			self.close()
 		elif self.tipo==3:
-			id_curso_mod = int(self.ui.leCurso.text())
+			id_curso_mod = self.logicaCursos.consultarCurso(str(self.ui.leNombre.text())).id
 			self.logicaActividades.eliminarActividadesXCurso(id_curso_mod)
 			self.logicaCursos.eliminarCurso(id_curso_mod)
 			self.close()

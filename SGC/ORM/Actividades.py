@@ -2,7 +2,6 @@ __author__ = 'family'
 from sqlalchemy import (create_engine, Column, Date, Integer, ForeignKey, String, Float, Table,Sequence)
 from basetest import *
 Column(Integer, Sequence('sec_actividad'), primary_key=True)
-from Curso import *
 class Actividades (Base):
     __tablename__ = 'actividades'
 
