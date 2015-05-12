@@ -24,14 +24,6 @@ class ControladorLt ():
 		
 		while (cursos_iterator.hasNext()) :
 			print cursos_iterator.next().nombre
-	
-			
-	#~ def main ():
-	#~ if __name__=="__main__":
-		#~ main()			
-		
-		
-				
 
 	
 	

@@ -47,6 +47,10 @@ class LogicaMatricula():
         cantidad = self.session.query(Matricula).filter_by(id_cohorte=id_cohorte, id_curso=id_curso).all()
         self.session.close()
         return cantidad
+        
+    
+        
+       
 
 
 

@@ -16,7 +16,10 @@ from Actividades import Actividades
 
 class MainWindow(QMainWindow):
     """MainWindow inherits QMainWindow"""
-
+	codigo_profesor = ""
+	fachadaMt = FachadaMt()
+	id_curso = 0
+	id_cohorte = 0
     def __init__(self, parent=None):
         QMainWindow.__init__(self, parent)
         self.ui = Ui_MainWindow()
@@ -29,9 +32,10 @@ class MainWindow(QMainWindow):
         self.ui = None
 
     def empezar(self):
-        registros = LogicaDicta().consultarCursosProf("1")
+		#cambiar por el codigo del profesor
+        registros = self.fachadaMt.consulta_cursos_prof("1")
         for reg_mat in registros :
-            curso = LogicaCursos().consultarCurso(reg_mat.id_curso)
+            curso = self.fachadaMt.consulta_curso(reg_mat.id_curso)
             item = QString(curso.nombre + "-" + str(reg_mat.id_cohorte))
             self.ui.lista_cursos.addItem(item)
 
@@ -45,9 +49,9 @@ class MainWindow(QMainWindow):
 
         # busqueda de las actividades
         log_curso= LogicaCursos()
-        curso = log_curso.consulta_by_name(nombre_curso)
+        curso = self.fachadaMt.consulta_curso_by_name(nombre_curso)
         # print "actividades",curso.actividades
-        print curso.actividades
+        #print curso.actividades
         actividades = LogicaActividades().actividades_curso(curso.id)
         num_actividades = len(actividades)
         self.ui.tableWidget.setColumnCount(num_actividades)
@@ -60,16 +64,20 @@ class MainWindow(QMainWindow):
 
         # consulta para estudiantes
         print curso.id,codigo_cohorte
-        regs_matricula = LogicaMatricula().consultar_estudiantes(int(curso.id),int(codigo_cohorte))
-        print "tamano",len(regs_matricula)
+        estudiantes  = self.fachadaMt.estudiantes_curso(int(curso.id),int(codigo_cohorte))
+        print "tamano",len(estudiantes)
         num_estudiantes = len(regs_matricula)
         self.ui.tableWidget.setRowCount(num_estudiantes)
         indice = 0
-        for reg_matricula in regs_matricula:
-            estudiante = LogicaUsuario().buscarUsuario(reg_matricula.cedula_lt)
+        for estudiante in estudiantesa:
             print estudiante.nombres
             item = QtGui.QTableWidgetItem(str(estudiante.cedula))
             self.ui.tableWidget.setVerticalHeaderItem(indice, item)
             indice+=1
+        self.id_curso = int (curso.id)
+        self.id_cohorte = int (curso.id_cohorte)    
+        
+            
+            
 
 
