@@ -17,13 +17,13 @@ from basetest import *
 
 Session = sessionmaker(bind=engine)
 
-class Cohorte (Base):
+class Asignacion (Base):
     __tablename__ = 'asignacion'
 
-    id_curso = Column(Integer, index=True, ForeignKey('Cohorte.id_curso'), primary_key=True)
-    id_cohorte = Column(Integer, index=True, ForeignKey('Cohorte.id_cohorte'), primary_key=True)
-    id_actividad =  Column(Integer, index=True, ForeignKey('Actividad.id_actividad'), primary_key=True)
-    fecha  = Column (Date)
+    id_curso = Column(Integer, index=True, ForeignKey('cohorte.id_curso'), primary_key=True)
+    id_cohorte = Column(Integer, index=True, ForeignKey('cohorte.id_cohorte'), primary_key=True)
+    id_actividad =  Column(Integer, index=True, ForeignKey('actividades.id_actividad'), primary_key=True)
+    fecha_hora  = Column (Date)
     
     
 
