@@ -1,8 +1,7 @@
-from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+
 from ORM.Matricula import Matricula
 from ORM.basetest import *
-from ORM.Curso import Curso
 
 
 class LogicaMatricula():

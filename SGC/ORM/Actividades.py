@@ -1,6 +1,8 @@
 __author__ = 'family'
-from sqlalchemy import (create_engine, Column, Date, Integer, ForeignKey, String, Float, Table,Sequence)
+from sqlalchemy import (Float, Sequence,UniqueConstraint)
+
 from basetest import *
+
 Column(Integer, Sequence('sec_actividad'), primary_key=True)
 class Actividades (Base):
     __tablename__ = 'actividades'
@@ -9,6 +11,8 @@ class Actividades (Base):
     id_actividad =  Column(Integer,Sequence('sec_actividad'), primary_key=True)
     nombre = Column(String (20))
     ponderado = Column(Float)
+    __table_args__ = (UniqueConstraint('id_curso', 'nombre', name='unique_name'),)
+
     
 Base.metadata.create_all(engine)
 

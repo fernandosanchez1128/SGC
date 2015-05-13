@@ -1,6 +1,5 @@
-from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from ORM.Curso import Curso
+
 from ORM.Actividades import Actividades
 from ORM.basetest import *
 
@@ -20,7 +19,6 @@ class LogicaActividades():
 
     def consultarActividades(self):
         actividades = self.session.query(Actividades).all()
-        self.session.close()
         return actividades
 
     def consultarActividadesXCurso(self, id_curso_ac):
@@ -30,7 +28,7 @@ class LogicaActividades():
 
     def consultarCursos(self):
         actividades = self.session.query(Actividades).all()
-        self.session.close()
+        #self.session.close()
         return actividades
 
     def editarActividades(self, idActividad, newActividades):

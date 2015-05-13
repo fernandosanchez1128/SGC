@@ -1,4 +1,4 @@
-from sqlalchemy import (create_engine, Column, Date, Integer, ForeignKey, String, Table, Sequence)
+from sqlalchemy import (Sequence)
 
 from basetest import *
 

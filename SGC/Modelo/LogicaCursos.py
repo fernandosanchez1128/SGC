@@ -1,7 +1,6 @@
-from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from ORM.Curso import *
 
+from ORM.Curso import *
 from ORM.basetest import *
 
 

@@ -75,12 +75,15 @@ class MainWindow(QMainWindow):
             indice += 1
         self.id_curso = int(curso.id)
         self.id_cohorte = int(codigo_cohorte)
-        for  i in range (0,num_actividades,1) :
-            for  a in range (0,num_estudiantes,1) :
+        for  i in range (0,num_estudiantes,1) :
+            cod_estudiante =self.ui.tableWidget.verticalHeaderItem (i).text()
+            print cod_estudiante
+            for  a in range (0,num_actividades,1) :
                 item = QtGui.QTableWidgetItem()
                 cadena = str (i)+ "-" + str(a)
                 item.setText(QString (cadena))
                 self.ui.tableWidget.setItem(i,a,item)
+                cod_actividad =self.ui.tableWidget.horizontalHeaderItem (a).text()
         
             
             

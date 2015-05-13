@@ -1,5 +1,3 @@
-from Observable import *
-
 class Matricula (object, observable):
 	
 	id_lt = ""

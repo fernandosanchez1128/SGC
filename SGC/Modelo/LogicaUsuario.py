@@ -1,5 +1,5 @@
-from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+
 from ORM.MasterTeacher import *
 
 
@@ -29,7 +29,7 @@ class LogicaUsuario():
         usuario.telefono = usuario_mod.telefono
         usuario.direccion = usuario_mod.direccion
         usuario.correo_electronico = usuario_mod.correo_electronico
-        usuario.fechaNacimiento = usuario_mod.fechaNacimiento
+        usuario.fecha_nacimiento = usuario_mod.fecha_nacimiento
         self.session.commit()
         self.session.close()
 

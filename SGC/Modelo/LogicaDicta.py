@@ -1,6 +1,9 @@
 from sqlalchemy.orm import sessionmaker
+
 from ORM.Curso import *
 from ORM.Dicta import Dicta
+
+
 class LogicaDicta ():
     Session = sessionmaker(bind=engine)
     session = Session()

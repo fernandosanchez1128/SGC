@@ -46,3 +46,7 @@ class FachadaMt():
 
     def cerrar_session_curso (self):
         self.logCursos.cerrar_session()
+
+    def actividades (self):
+        actividades =self.logActividades.consultarActividades()
+        return actividades

@@ -1,7 +1,6 @@
-from sqlalchemy import (create_engine, Column, Date, Integer, ForeignKey, String, Table, Sequence)
+from sqlalchemy import (Sequence)
 
 from basetest import *
-from LeaderTeacher import LeaderTeacher
 
 Column(Integer, Sequence('sec_zona'), primary_key=True)
 
