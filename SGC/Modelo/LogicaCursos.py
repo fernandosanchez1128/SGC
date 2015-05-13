@@ -13,35 +13,43 @@ class LogicaCursos ():
 	def agregarCurso (self, curso)	:
 		self.session.add(curso)
 		self.session.commit()
-		self.session.close ()
 		
 	def consultarCursos (self)	:
-		cursos = self.session.query(Curso).all()	
-		self.session.close()	
+		cursos = self.session.query(Curso).all()
 		return cursos
 		
 	def consultarCurso(self, nombre_curso):
 		curso = self.session.query(Curso).filter_by(nombre= nombre_curso).first()
-		self.session.close()	
 		return curso
 		
 	def modificarCurso (self, nombre_curso, curso_mod):
 		curso = self.session.query(Curso).filter_by(nombre= nombre_curso).first()
 		curso.descripcion= curso_mod.descripcion
 		self.session.commit()
-		self.session.close ()
+
+	def modificarCursoActividades (self, nombre_curso, curso_mod):
+		curso = self.session.query(Curso).filter_by(nombre= nombre_curso).first()
+		curso.descripcion= curso_mod.descripcion
+		curso.actividades = curso_mod.actividades
+		self.session.commit()
 		
-	def eliminarCurso (self, id_curso_el):
-		curso = self.session.query(Curso).filter_by(id= id_curso_el).first()
+	def eliminarCurso (self, nombre):
+		curso = self.session.query(Curso).filter_by(nombre = nombre).first()
 		self.session.delete(curso)
 		self.session.commit()
-		self.session.close ()
+
+
+	def cerrarSesion(self):
+		self.session.close()
 		
 '''
 log = LogicaCursos()
+
 curso = Curso(id = 122, nombre= 'micurso24', descripcion='descripcion')
 log.agregarCurso(curso)
-cursos= log.consultarCurso('micurso24')
-print cursos.actividades
+
+cursos= log.eliminarCurso('curso 1')
 '''
+
+
 

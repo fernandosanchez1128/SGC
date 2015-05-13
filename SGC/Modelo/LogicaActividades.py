@@ -1,8 +1,9 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from ORM.Curso import Curso
 from ORM.Actividades import Actividades
 from ORM.basetest import *
-from ORM.Curso import Curso
+
 class LogicaActividades ():
     Session = sessionmaker(bind=engine)
     session = Session()
@@ -12,9 +13,19 @@ class LogicaActividades ():
 		print ("contructorAct")
 
     def agregarActividades (self, actividades)	:
-        self.session.add(actividades)
-        self.session.commit()
-        self.session.close ()
+		self.session.add(actividades)
+		self.session.commit()
+		self.session.close ()
+
+    def consultarActividades (self)	:
+		actividades = self.session.query(Actividades).all()
+		self.session.close()
+		return actividades
+
+    def consultarActividadesXCurso (self, id_curso_ac)	:
+		actividades = self.session.query(Actividades).filter_by(id_curso= id_curso_ac).all()
+		self.session.close()
+		return actividades
 
     def consultarCursos (self)	:
         actividades = self.session.query(Actividades).all()
@@ -30,10 +41,17 @@ class LogicaActividades ():
         self.session.close ()
 
     def eliminarActividades (self,  idActividad):
-        actividades = self.session.query(Actividades).filter_by(id_actividades= idActividad).first()
-        self.session.delete(actividades)
-        self.session.commit()
-        self.session.close ()
+		actividades = self.session.query(Actividades).filter_by(id_actividades= idActividad).first()
+		self.session.delete(actividades)
+		self.session.commit()
+		self.session.close ()
+
+    def eliminarActividadesXCurso (self,  idCurso_el):
+		actividades = self.session.query(Actividades).filter_by(id_curso= idCurso_el).all()
+		for actividad in actividades:
+			self.session.delete(actividad)
+			self.session.commit()
+		self.session.close ()
 
     def actividades_curso (self,id_curso):
         actividades = self.session.query(Actividades).filter_by(id_curso = id_curso).all()
@@ -41,8 +59,9 @@ class LogicaActividades ():
         return actividades
 
 
-'''		
-log = LogicaActividades()
-actividades = Actividades(nombre="nom3", id_curso=123, ponderado=0.4)
-log.editarActividades(2, actividades)
-'''
+# #
+# log = LogicaActividades()
+# # actividades = Actividades(nombre="nom3", id_curso=1, ponderado=0.4)
+# # log.agregarActividades(actividades)
+# log.actividades_curso(1)
+
