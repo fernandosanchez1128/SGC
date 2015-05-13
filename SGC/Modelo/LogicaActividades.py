@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from ORM.Actividades import Actividades
-from basetest import *
+from ORM.basetest import *
 from ORM.Curso import Curso
 class LogicaActividades ():
     Session = sessionmaker(bind=engine)
