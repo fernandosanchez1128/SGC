@@ -31,6 +31,11 @@ class LogicaActividades():
         #self.session.close()
         return actividades
 
+    def consultarActividad (self,nombre,id_curso):
+        actividad = self.session.query(Actividades).filter_by(nombre = nombre , id_curso = id_curso)
+        self.session.close()
+        return actividad
+
     def editarActividades(self, idActividad, newActividades):
         actividades = self.session.query(Actividades).filter_by(id_actividades=idActividad).first()
         actividades.nombre = newActividades.nombre

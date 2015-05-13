@@ -81,9 +81,15 @@ class MainWindow(QMainWindow):
             for  a in range (0,num_actividades,1) :
                 item = QtGui.QTableWidgetItem()
                 cadena = str (i)+ "-" + str(a)
-                item.setText(QString (cadena))
+                #item.setText(QString (cadena))
+                #self.ui.tableWidget.setItem(i,a,item)
+                nombre_actividad =self.ui.tableWidget.horizontalHeaderItem(a).text()
+                actividad =self.fachadaMt.consultar_actividad(nombre_actividad,self.id_curso)
+                nota = self.fachadaMt.consultar_nota(self.id_curso,actividad.id_actividad,cod_estudiante)
+                if (nota != None):
+                    item.setText(QString (nota.nota))
+
                 self.ui.tableWidget.setItem(i,a,item)
-                cod_actividad =self.ui.tableWidget.horizontalHeaderItem (a).text()
         
             
             

@@ -3,6 +3,7 @@ from Modelo.LogicaDicta import LogicaDicta
 from Modelo.LogicaActividades import LogicaActividades
 from Modelo.LogicaMatricula import LogicaMatricula
 from Modelo.LogicaUsuario import LogicaUsuario
+from Modelo.LogicaNotas import  LogicaNotas
 
 
 class FachadaMt():
@@ -11,6 +12,7 @@ class FachadaMt():
     logActividades = LogicaActividades()
     logMatricula = LogicaMatricula()
     logUsuario = LogicaUsuario()
+    logNotas  = LogicaNotas()
 
     def __init__(self):
         print "constructor"
@@ -50,3 +52,12 @@ class FachadaMt():
     def actividades (self):
         actividades =self.logActividades.consultarActividades()
         return actividades
+
+    def consultar_actividad (self,nombre,id_curso):
+        actividad = self.logActividades.consultarActividad(nombre,id_curso)
+        return actividad
+
+    def consultar_nota (self,id_curso,id_actividad,cedula_lt):
+        nota = self.logNotas.consultarNotas(id_actividad,cedula_lt,id_curso)
+        return nota
+
