@@ -1,6 +1,7 @@
+from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-
 from ORM.Curso import *
+
 from ORM.basetest import *
 
 
@@ -15,16 +16,16 @@ class LogicaCursos():
     def agregarCurso(self, curso):
         self.session.add(curso)
         self.session.commit()
-        self.session.close()
 
     def consultarCursos(self):
         cursos = self.session.query(Curso).all()
-        self.session.close()
         return cursos
 
     def consultarCurso(self, nombre_curso):
         curso = self.session.query(Curso).filter_by(nombre=nombre_curso).first()
         return curso
+
+
     def consultarCurso_id(self, id_curso):
         curso = self.session.query(Curso).filter_by(id=id_curso).first()
         return curso
@@ -34,7 +35,13 @@ class LogicaCursos():
         curso = self.session.query(Curso).filter_by(nombre=nombre_curso).first()
         curso.descripcion = curso_mod.descripcion
         self.session.commit()
-        self.session.close()
+
+    def modificarCursoActividades(self, nombre_curso, curso_mod):
+        curso = self.session.query(Curso).filter_by(nombre=nombre_curso).first()
+        curso.descripcion = curso_mod.descripcion
+        curso.actividades = curso_mod.actividades
+        self.session.commit()
+
 
     def eliminarCurso(self, id_curso_el):
         curso = self.session.query(Curso).filter_by(id=id_curso_el).first()
@@ -42,8 +49,9 @@ class LogicaCursos():
         self.session.commit()
         self.session.close()
 
-    def cerrar_session(self):
+    def cerrarSesion(self):
         self.session.close()
+
 
 '''
 log = LogicaCursos()
