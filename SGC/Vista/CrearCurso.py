@@ -4,10 +4,6 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4 import QtCore, QtGui
 
-from Modelo.LogicaCursos import *
-from ORM.Curso import *
-from ORM.Actividades import *
-from Modelo.LogicaActividades import *
 from Control.ControlCoordinador import ControlCoordinador
 
 
@@ -20,7 +16,6 @@ class CrearCurso ( QDialog ):
     def __init__ ( self, parent = None , tipo=1):
         self.tipo= tipo
         self.control= ControlCoordinador()
-        self.logicaActividades= LogicaActividades()
         QDialog.__init__( self, parent )
         self.ui = Ui_CrearCurso()
         self.ui.setupUi( self )
@@ -31,22 +26,22 @@ class CrearCurso ( QDialog ):
         self.connect(self.ui.btBuscar, SIGNAL("clicked()"), self.buscar_clicked)
         if tipo ==1:
 			self.ui.btBuscar.setVisible(False)
-			self.ui.btCrear.setText(("Crear Curso").ascii().decode("utf8") )
+			self.ui.btCrear.setText("Crear Curso")
 			self.ui.leNombre.setEnabled(True)
 			self.ui.teDescripcion.setEnabled(True)
-			self.ui.label.setText(("Creación de cursos").ascii().decode("utf8") )
+			self.ui.label.setText(QString.fromUtf8("<P><b><FONT SIZE = 4> Creación de cursos </b></P></br>") )
         elif tipo ==2:
 			self.ui.btBuscar.setVisible(True)
 			self.ui.btCrear.setText("Modificar Curso")
 			self.ui.leNombre.setEnabled(True)
 			self.ui.teDescripcion.setEnabled(True)
-			self.ui.label.setText(("Edición de cursos").ascii().decode("utf8") )
+			self.ui.label.setText(QString.fromUtf8("<P><b><FONT SIZE = 4> Edición de cursos </b></P></br>") )
         elif tipo==3:
 			self.ui.btBuscar.setVisible(True)
 			self.ui.btCrear.setText("Borrar Curso")
 			self.ui.leNombre.setEnabled(True)
 			self.ui.teDescripcion.setEnabled(False)
-			self.ui.label.setText(("Eliminación de cursos").ascii().decode("utf8") )
+			self.ui.label.setText(QString.fromUtf8("<P><b><FONT SIZE = 4> Eliminación de cursos </b></P></br>") )
 
     def __del__ ( self ):
         self.ui = None
@@ -70,6 +65,7 @@ class CrearCurso ( QDialog ):
 				i+=1
 			self.control.crearCurso(nombre_c,descripcion_c,actividades)
 			self.close()
+			self.control.cerrarSesion()
 		elif self.tipo==2:
 			nombre_c = str(self.ui.leNombre.text())
 			descripcion=str(self.ui.teDescripcion.toPlainText())
@@ -82,19 +78,19 @@ class CrearCurso ( QDialog ):
 				i+=1
 			self.control.modificarCurso(nombre_c,descripcion, actividades)
 			self.close()
+			self.control.cerrarSesion()
 		elif self.tipo==3:
-			id_curso_mod = self.logicaCursos.consultarCurso(str(self.ui.leNombre.text())).id
-			self.logicaActividades.eliminarActividadesXCurso(id_curso_mod)
-			self.logicaCursos.eliminarCurso(id_curso_mod)
+			nombre_c = str(self.ui.leNombre.text())
+			self.control.eliminarCurso(nombre_c)
 			self.close()
+			self.control.cerrarSesion()
 
     def buscar_clicked(self):
-		curso = self.logicaCursos.consultarCurso(str(self.ui.leNombre.text()))
+		curso = self.control.buscarCurso(str(self.ui.leNombre.text()))
 		self.ui.teDescripcion.setText(curso.descripcion)
 		self.ui.leNombre.setEnabled(False)
 		if (self.tipo==2)|(self.tipo==3):
-			id_c = self.logicaCursos.consultarCurso(str(self.ui.leNombre.text())).id
-			actividades = self.logicaActividades.consultarActividadesXCurso(id_c)
+			actividades = curso.actividades
 			self.ui.sbNumActividades.setValue(len(actividades))
 			i=0
 			for actividad in actividades:
