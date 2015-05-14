@@ -1,6 +1,5 @@
 from sqlalchemy import (Boolean, Float, ForeignKeyConstraint)
 from basetest import *
-from sqlalchemy import UniqueConstraint
 
 class Notas(Base):
     __tablename__ = 'notas'

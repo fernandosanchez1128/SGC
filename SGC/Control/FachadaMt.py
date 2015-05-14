@@ -57,7 +57,7 @@ class FachadaMt():
         actividad = self.logActividades.consultarActividad(nombre,id_curso)
         return actividad
 
-    def consultar_nota (self,id_curso,id_actividad,cedula_lt):
-        nota = self.logNotas.consultarNotas(id_actividad,cedula_lt,id_curso)
+    def consultar_nota (self,id_curso,id_actividad,cedula_lt,id_cohorte):
+        nota = self.logNotas.consultarNota(id_actividad,cedula_lt,id_curso,id_cohorte)
         return nota
 

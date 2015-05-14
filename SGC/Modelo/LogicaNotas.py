@@ -17,8 +17,8 @@ class LogicaNotas():
         self.session.commit()
         self.session.close()
 
-    def consultarNotas(self, actividad, idLT,id_curso):
-        notas = self.session.query(Notas).filter_by(id_actividades=actividad, cedula_lt=idLT,id_curso = id_curso).first()
+    def consultarNota(self, actividad, idLT,id_curso,id_cohorte):
+        notas = self.session.query(Notas).filter_by(id_actividades=actividad, cedula_lt=idLT,id_curso = id_curso,id_cohorte = id_cohorte).first()
         self.session.close()
         return notas
 
