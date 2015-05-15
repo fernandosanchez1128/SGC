@@ -7,11 +7,9 @@ from PyQt4.QtGui import *
 from mainwindow import MainWindow
 
 if __name__ == '__main__':
-
     # create application
     app = QApplication( sys.argv )
-    app.setApplicationName( 'My PyQt4 QtGui Project' )
-
+    app.setApplicationName( 'My PyQt4 QtGui Project')
     # create widget
     w = MainWindow()
     w.setWindowTitle( 'My PyQt4 QtGui Project' )

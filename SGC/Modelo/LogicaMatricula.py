@@ -1,8 +1,7 @@
-from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+
 from ORM.Matricula import Matricula
 from ORM.basetest import *
-from ORM.Curso import Curso
 
 
 class LogicaMatricula():
@@ -47,6 +46,10 @@ class LogicaMatricula():
         cantidad = self.session.query(Matricula).filter_by(id_cohorte=id_cohorte, id_curso=id_curso).all()
         self.session.close()
         return cantidad
+        
+    
+        
+       
 
 
 

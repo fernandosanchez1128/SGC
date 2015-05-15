@@ -1,21 +1,21 @@
 from PyQt4 import uic
-from PyQt4 import  QtGui
-from duplicity import log
+from PyQt4 import QtGui
+
 from PyQt4.QtCore import *
-from Modelo.Cursos import Cursos
-from Modelo.LogicaCursos import LogicaCursos
-from Modelo.LogicaDicta import LogicaDicta
-from Modelo.LogicaActividades import LogicaActividades
-from Modelo.LogicaMatricula import LogicaMatricula
-from Modelo.LogicaUsuario import LogicaUsuario
-from ORM.Curso import *
-from Actividades import Actividades
+
+from Control.FachadaMt import FachadaMt
+
 
 (Ui_MainWindow, QMainWindow) = uic.loadUiType('mainwindow.ui')
 
 
 class MainWindow(QMainWindow):
     """MainWindow inherits QMainWindow"""
+    codigo_profesor = ""
+    fachadaMt = FachadaMt()
+    id_curso = 0
+    id_cohorte = 0
+
 
     def __init__(self, parent=None):
         QMainWindow.__init__(self, parent)
@@ -25,51 +25,73 @@ class MainWindow(QMainWindow):
         self.connect(self.ui.lista_cursos, SIGNAL("itemDoubleClicked(QListWidgetItem*)"), self.cargarNotas)
         self.empezar()
 
+
     def __del__(self):
         self.ui = None
 
+
     def empezar(self):
-        registros = LogicaDicta().consultarCursosProf("1")
-        for reg_mat in registros :
-            curso = LogicaCursos().consultarCurso(reg_mat.id_curso)
+        # cambiar por el codigo del profesor
+        registros = self.fachadaMt.consulta_cursos_prof("1")
+        for reg_mat in registros:
+            curso = self.fachadaMt.consulta_curso(reg_mat.id_curso)
             item = QString(curso.nombre + "-" + str(reg_mat.id_cohorte))
             self.ui.lista_cursos.addItem(item)
+
 
     def cargarNotas(self):
         item_seleccionado = str(self.ui.lista_cursos.currentItem().text())
         # extraccion del codigo y del cohorte
         index = item_seleccionado.find('-')
         nombre_curso = item_seleccionado[:index]
-        codigo_cohorte = item_seleccionado[index+1:len(item_seleccionado)]
+        codigo_cohorte = item_seleccionado[index + 1:len(item_seleccionado)]
 
 
         # busqueda de las actividades
-        log_curso= LogicaCursos()
-        curso = log_curso.consulta_by_name(nombre_curso)
+        curso = self.fachadaMt.consulta_curso_by_name(nombre_curso)
         # print "actividades",curso.actividades
-        print curso.actividades
-        actividades = LogicaActividades().actividades_curso(curso.id)
+        # print curso.actividades
+        actividades = curso.actividades
         num_actividades = len(actividades)
         self.ui.tableWidget.setColumnCount(num_actividades)
         indice = 0
         for actividad in actividades:
-            #en implementacion cambiar actividad por actividad.nombre
+            # en implementacion cambiar actividad por actividad.nombre
             item1 = QtGui.QTableWidgetItem(actividad.nombre)
             self.ui.tableWidget.setHorizontalHeaderItem(indice, item1)
             indice += 1
-
+        self.fachadaMt.cerrar_session_curso()
         # consulta para estudiantes
-        print curso.id,codigo_cohorte
-        regs_matricula = LogicaMatricula().consultar_estudiantes(int(curso.id),int(codigo_cohorte))
-        print "tamano",len(regs_matricula)
-        num_estudiantes = len(regs_matricula)
+        print curso.id, codigo_cohorte
+        estudiantes = self.fachadaMt.estudiantes_curso(int(curso.id), int(codigo_cohorte))
+        print "tamano", len(estudiantes)
+        num_estudiantes = len(estudiantes)
         self.ui.tableWidget.setRowCount(num_estudiantes)
         indice = 0
-        for reg_matricula in regs_matricula:
-            estudiante = LogicaUsuario().buscarUsuario(reg_matricula.cedula_lt)
+        for estudiante in estudiantes:
             print estudiante.nombres
             item = QtGui.QTableWidgetItem(str(estudiante.cedula))
             self.ui.tableWidget.setVerticalHeaderItem(indice, item)
-            indice+=1
+            indice += 1
+        self.id_curso = int(curso.id)
+        self.id_cohorte = int(codigo_cohorte)
+        for  i in range (0,num_estudiantes,1) :
+            cod_estudiante =self.ui.tableWidget.verticalHeaderItem (i).text()
+            print cod_estudiante
+            for  a in range (0,num_actividades,1) :
+                item = QtGui.QTableWidgetItem()
+                cadena = str (i)+ "-" + str(a)
+                #item.setText(QString (cadena))
+                #self.ui.tableWidget.setItem(i,a,item)
+                nombre_actividad =self.ui.tableWidget.horizontalHeaderItem(a).text()
+                actividad =self.fachadaMt.consultar_actividad(nombre_actividad,self.id_curso)
+                nota = self.fachadaMt.consultar_nota(self.id_curso,actividad.id_actividad,cod_estudiante)
+                if (nota != None):
+                    item.setText(QString (nota.nota))
+
+                self.ui.tableWidget.setItem(i,a,item)
+        
+            
+            
 
 

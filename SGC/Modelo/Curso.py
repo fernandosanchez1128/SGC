@@ -1,7 +1,5 @@
-from sqlalchemy import (create_engine, Column, Date, Integer, ForeignKey,
-    String, Table)
+from sqlalchemy import (create_engine, Column, Integer, String)
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship
 
 #engine = create_engine('mysql://fernando:fernando1128@localhost/test', echo=True)
 engine = create_engine('sqlite:///cursos.db', echo=True)
