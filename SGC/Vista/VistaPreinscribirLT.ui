@@ -32,7 +32,7 @@
     <string>Preinscripcion</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_3">
+  <widget class="QLineEdit" name="txtApellidos">
    <property name="geometry">
     <rect>
      <x>110</x>
@@ -99,7 +99,7 @@
     <string>Nombre</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_2">
+  <widget class="QLineEdit" name="txtNombre">
    <property name="geometry">
     <rect>
      <x>110</x>
@@ -109,7 +109,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit">
+  <widget class="QLineEdit" name="txtid">
    <property name="geometry">
     <rect>
      <x>110</x>
@@ -148,7 +148,7 @@
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Informacion Profesional&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -167,7 +167,7 @@
          <string>Codigo Dane de la institucion</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_6">
+       <widget class="QLineEdit" name="txtDane">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -177,7 +177,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_7">
+       <widget class="QLineEdit" name="txtGrado">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -187,7 +187,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_4">
+       <widget class="QLineEdit" name="txtSede">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -197,7 +197,7 @@
          </rect>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_9">
+       <widget class="QLineEdit" name="txtMunicipio">
         <property name="geometry">
          <rect>
           <x>330</x>
@@ -259,7 +259,7 @@
          <string>Grado</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_5">
+       <widget class="QLineEdit" name="txtInstitucion">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -282,7 +282,7 @@
          <string>Institucion a la que pertenece</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit_8">
+       <widget class="QLineEdit" name="txtSecretaria">
         <property name="geometry">
          <rect>
           <x>330</x>
@@ -315,7 +315,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Area a la cual se va a inscribir</string>
+         <string>Curso a la cual se va a inscribir</string>
         </property>
        </widget>
        <widget class="QWidget" name="verticalLayoutWidget">
@@ -353,7 +353,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QRadioButton" name="radioButton_5">
+          <widget class="QRadioButton" name="TutorNo">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -369,7 +369,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QRadioButton" name="radioButton_6">
+          <widget class="QRadioButton" name="TutorSi">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -383,7 +383,7 @@
          </item>
         </layout>
        </widget>
-       <widget class="QComboBox" name="comboBox">
+       <widget class="QComboBox" name="comboCursos">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -404,7 +404,7 @@
        <attribute name="title">
         <string>3 de 3</string>
        </attribute>
-       <widget class="QRadioButton" name="radioButton_8">
+       <widget class="QRadioButton" name="ColAprendeSi">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -438,7 +438,7 @@
          <string>Tiene usuario Colombia Aprende?</string>
         </property>
        </widget>
-       <widget class="QRadioButton" name="radioButton_7">
+       <widget class="QRadioButton" name="ColAprendeNo">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -456,7 +456,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="btAceptar">
    <property name="geometry">
     <rect>
      <x>480</x>
@@ -478,7 +478,7 @@
     <string>Preinscribir</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="btSalir">
    <property name="geometry">
     <rect>
      <x>480</x>
@@ -491,7 +491,7 @@
     <string>Cerrar</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_10">
+  <widget class="QLineEdit" name="txtCorreo">
    <property name="geometry">
     <rect>
      <x>110</x>
@@ -514,7 +514,7 @@
     <string>Correo</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_11">
+  <widget class="QLineEdit" name="txtDireccion">
    <property name="geometry">
     <rect>
      <x>110</x>
@@ -537,7 +537,7 @@
     <string>Direccion</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_12">
+  <widget class="QLineEdit" name="txtCelular">
    <property name="geometry">
     <rect>
      <x>110</x>

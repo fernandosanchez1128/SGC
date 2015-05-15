@@ -4,7 +4,8 @@ import sys
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-from vistacoordinador import VistaCoordinador
+#from vistacoordinador import VistaCoordinador
+from PreinscribirLT import PreinscribirLT
 
 if __name__ == '__main__':
 
@@ -13,8 +14,8 @@ if __name__ == '__main__':
     app.setApplicationName( 'My PyQt4 QtGui Project' )
 
     # create widget
-    w = VistaCoordinador. Instance()
-    w.setWindowTitle( 'Coordinador' )
+    w = PreinscribirLT()
+    #w.setWindowTitle( 'Pre' )
     w.show()
 
     # connection
