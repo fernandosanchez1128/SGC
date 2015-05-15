@@ -16,8 +16,13 @@ class LeaderTeacher(Usuario, Base):
     cedula = Column(String(20), ForeignKey('usuario.cedula'), primary_key=True)
     municipio = Column(String(40))
     genero = Column(String(10))
+    institucion = Column(String(50))
+    escalafon = Column(Integer)
     sede = Column(String(40))
-    codigo_institucion = Column(String(20))
+    codigo_dane = Column(String(20))
+    dpto_secretaria  = Column(String(20))
+    tutor = Column(Boolean) #no estoy seguro del tipo
+    usuario_col_aprende = Column(String(50))
     dpto_secretaria  = Column(String(20))
     tipo_institucion = Column(String(20))
     
