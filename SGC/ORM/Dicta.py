@@ -12,10 +12,10 @@ from basetest import *
 
 class Dicta (Base):
     __tablename__ = 'dicta'
-    cedula_mt = Column(String(40), primary_key=True)
+    cedula_mt = Column(String(40),ForeignKey = ('masterteacher.cedula') primary_key=True)
     id_curso = Column(Integer,primary_key=True)
     id_cohorte = Column(Integer, primary_key=True)
-    ForeignKeyConstraint(['cedula_mt', 'id_curso', 'id_cohorte'],['masterteacher.cedula','curso.id','cohorte.id_cohorte'])
+    __table_args__ = (ForeignKeyConstraint([id_curso, id_cohorte],['cohorte.id_curso','cohorte.id_cohorte']),{})
 
 
 
