@@ -52,12 +52,13 @@ class LogicaCursos():
     def cerrarSesion(self):
         self.session.close()
 
-
 '''
+
 log = LogicaCursos()
 curso = Curso(id = 122, nombre= 'micurso24', descripcion='descripcion')
 log.agregarCurso(curso)
-cursos= log.consultarCurso('micurso24')
-print cursos.actividades
-'''
+#cursos= log.consultarCurso('micurso24')
+#print cursos.actividades
 
+
+'''

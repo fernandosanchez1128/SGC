@@ -1,6 +1,6 @@
 from sqlalchemy.orm import sessionmaker
 
-from ORM.Actividades import Actividades
+from ORM.Actividades import *
 from ORM.basetest import *
 
 

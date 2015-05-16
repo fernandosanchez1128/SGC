@@ -3,6 +3,7 @@ __author__ = 'family'
 from ORM.Curso import Curso
 from ORM.Actividades import Actividades
 from Modelo.LogicaCursos import LogicaCursos
+from Modelo.LogicaCohorte import LogicaCohorte
 
 class ControlCoordinador:
 

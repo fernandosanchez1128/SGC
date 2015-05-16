@@ -1,5 +1,6 @@
 __author__ = 'cenesis'
 
+from sqlalchemy import (create_engine, Column, Date, Integer, ForeignKey, String, Table,Sequence, Boolean)
 from Usuario import Usuario
 
 
