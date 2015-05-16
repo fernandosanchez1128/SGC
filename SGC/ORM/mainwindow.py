@@ -85,7 +85,7 @@ class MainWindow(QMainWindow):
                 #self.ui.tableWidget.setItem(i,a,item)
                 nombre_actividad =self.ui.tableWidget.horizontalHeaderItem(a).text()
                 actividad =self.fachadaMt.consultar_actividad(nombre_actividad,self.id_curso)
-                nota = self.fachadaMt.consultar_nota(self.id_curso,actividad.id_actividad,cod_estudiante)
+                nota = self.fachadaMt.consultar_nota(self.id_curso,actividad.id_actividad,cod_estudiante,self.id_cohorte)
                 if (nota != None):
                     item.setText(QString (nota.nota))
 
