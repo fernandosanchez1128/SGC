@@ -10,23 +10,22 @@ from PyQt4 import QtCore, QtGui
 ##from Modelo.LogicaActividades import *
 
 
-( Ui_VistaPreinscribirLT, QDialog ) = uic.loadUiType( 'VistaPreinscribirLT.ui' )
+( Ui_VistaRegistrarLT, QDialog ) = uic.loadUiType( 'VistaRegistrarLT.ui' )
 
-class PreinscribirLT ( QDialog ):
+class RegistrarLT ( QDialog ):
 
     def __init__ ( self, parent = None):
         #self.tipo= tipo
         #self.logicaCursos= LogicaCursos()
         #self.logicaActividades= LogicaActividades()
         QDialog.__init__( self, parent )
-        self.ui = Ui_VistaPreinscribirLT()
+        self.ui = Ui_VistaRegistrarLT()
         self.ui.setupUi( self )
-        for i in range(3):
-            self.ui.comboCursos.addItem("curso"+QString(str(i)))
         #self.ui.twActividades.setRowCount(self.ui.sbNumActividades.value())
         #self.connect(self.ui.sbNumActividades, SIGNAL("valueChanged(int)"), self.change_actividades)
         self.connect(self.ui.btSalir, SIGNAL("clicked()"), self.cancelar_clicked)
-        self.connect(self.ui.btAceptar, SIGNAL("clicked()"), self.inscribir_clicked)
+        self.connect(self.ui.btRegistrar, SIGNAL("clicked()"), self.inscribir_clicked)
+        self.connect(self.ui.btBuscar, SIGNAL("clicked()"), self.buscar_clicked)
 
 
     def __del__ ( self ):
@@ -34,37 +33,36 @@ class PreinscribirLT ( QDialog ):
 
     def cancelar_clicked(self):
         self.close()
+    
+    def buscar_clicked(self):
+        print("Buscando...")
 
     def inscribir_clicked(self):
         print("Capturando Informacion...")
-        cedula=str(self.ui.txtid.text())
-        nombre=str(self.ui.txtNombre.text())
-        apellidos=str(self.ui.txtApellidos.text())
-        correo=str(self.ui.txtCorreo.text())
-        celular=str(self.ui.txtCelular.text())
-        direccion=str(self.ui.txtDireccion.text())
-        ###1 DE 3
-        sede=str(self.ui.txtSede.text())
-        institucion=str(self.ui.txtInstitucion.text())
-        Dane=str(self.ui.txtDane.text())
-        grado=str(self.ui.txtGrado.text())
-        secretaria=str(self.ui.txtSecretaria.text())
-        municipio=str(self.ui.txtMunicipio.text())
-        ###2 DE 3
-        curso=str(self.ui.comboCursos.currentText())
-        ##Tutor false aunque no seleccione ninguna
-        if(self.ui.TutorSi.isChecked()):
-            tutor=True
-        else:
-            tutor=False
-        ###3 DE 3
-        ##col_aprende false aunque no seleccione ninguna
-        if(self.ui.ColAprendeSi.isChecked()):
-            col_aprende=True
-        else:
-            col_aprende=False
-        print(cedula,nombre,apellidos,correo,celular,direccion,sede,institucion,Dane,grado,secretaria,municipio,curso,tutor,col_aprende)
-
+        Zonas=[]
+        Modalidad=[]
+        ModalidadTec=[]
+        if (self.ui.zonaurbana.isChecked()):
+            Zonas.append("Zona urbana")
+        if (self.ui.zonaurbanamarginada.isChecked()):
+            Zonas.append("Zona urbana marginada")
+        if (self.ui.zonarural.isChecked()):
+            Zonas.append("Zona rural")
+        if (self.ui.zonaruraldificil.isChecked()):
+            Zonas.append("Zona rural dificil acceso")
+        print(Zonas)
+        if (self.ui.modalacademica.isChecked()):
+            Modalidad.append("Academica")
+        elif(self.ui.modaltecnica.isChecked()):
+            Modalidad.append("Tecnica")
+        print(Modalidad)
+        if (self.ui.agro.isChecked()):
+            ModalidadTec.append("Agropecuario")
+        if (self.ui.comercial.isChecked()):
+            ModalidadTec.append("Comercial")
+        if (self.ui.promoSionSocial.isChecked()):
+            ModalidadTec.append("Promocion Social")
+        print(ModalidadTec)
 
     '''
 		elif self.tipo==2:

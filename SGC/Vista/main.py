@@ -5,7 +5,8 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 #from vistacoordinador import VistaCoordinador
-from PreinscribirLT import PreinscribirLT
+#from PreinscribirLT import PreinscribirLT
+from RegistrarLT import RegistrarLT
 
 if __name__ == '__main__':
 
@@ -14,7 +15,7 @@ if __name__ == '__main__':
     app.setApplicationName( 'My PyQt4 QtGui Project' )
 
     # create widget
-    w = PreinscribirLT()
+    w = RegistrarLT()
     #w.setWindowTitle( 'Pre' )
     w.show()
 
