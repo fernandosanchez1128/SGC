@@ -1,7 +1,7 @@
 __author__ = 'cenesis'
 
 from Usuario import Usuario
-
+from sqlalchemy import Boolean
 
 from basetest import *
 class LeaderTeacher(Usuario, Base):

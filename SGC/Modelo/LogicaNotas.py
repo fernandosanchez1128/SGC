@@ -1,7 +1,7 @@
 from sqlalchemy.orm import sessionmaker
 
 from basetest import *
-from Notas import Notas
+#from Notas import Notas
 
 
 class LogicaNotas():

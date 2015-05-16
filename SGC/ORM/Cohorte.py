@@ -15,6 +15,7 @@ class Cohorte(Base):
     id_cohorte = Column(Integer, Sequence('sec_cohorte'), primary_key=True)
     ano = Column(Integer, primary_key=True)
     semestre = Column(Integer, primary_key=True)
+    __table_args__ = (UniqueConstraint('id_curso', 'id_cohorte', name='unique'),)
 
     def __repr__(self):
         codigo = str(self.id_cohorte)
