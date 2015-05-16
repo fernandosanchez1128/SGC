@@ -3,6 +3,8 @@ from sqlalchemy import (Float, Sequence,UniqueConstraint)
 
 from basetest import *
 
+
+from Curso import *
 Column(Integer, Sequence('sec_actividad'), primary_key=True)
 class Actividades (Base):
     __tablename__ = 'actividades'
@@ -16,10 +18,12 @@ class Actividades (Base):
     
 Base.metadata.create_all(engine)
 
+'''
+Session = sessionmaker(bind=engine)
+session = Session()
+ac = Actividades (id_curso = 122, nombre = 2, ponderado = 0.2)
 
-'''session = Session()
+session.add(ac)
+session.commit()
 
-
-session.add(user)
-session.commit()'''
-
+'''

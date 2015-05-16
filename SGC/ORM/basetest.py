@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy.orm import relationship, backref, sessionmaker
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKeyConstraint
 from sqlalchemy import Table, Text
 

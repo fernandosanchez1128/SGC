@@ -1,6 +1,6 @@
 __author__ = 'family'
 
-from sqlalchemy import (Sequence, UniqueConstraint)
+from sqlalchemy import (Sequence, UniqueConstraint, Index)
 
 from basetest import *
 
@@ -15,25 +15,28 @@ class Cohorte(Base):
     id_cohorte = Column(Integer, Sequence('sec_cohorte'), primary_key=True)
     ano = Column(Integer, primary_key=True)
     semestre = Column(Integer, primary_key=True)
-    __table_args__ = (UniqueConstraint('id_curso', 'id_cohorte', name='unique_id_cohorte'),)
 
     def __repr__(self):
         codigo = str(self.id_cohorte)
         return codigo
 
-
+Index('myindex', Cohorte.id_curso, Cohorte.id_cohorte, Cohorte.ano, Cohorte.semestre, unique=True)
 Base.metadata.create_all(engine)
-# ~ Session = sessionmaker(bind=engine)
-#~ session = Session()
+
+
+'''
+Session = sessionmaker(bind=engine)
+session = Session()
 #~ curso = Curso (nombre = "espanol")
-#~ cohorte1 = Cohorte (ano = 2015,semestre = 1)
+cohorte1 = Cohorte (id_curso=122,id_cohorte =1,ano = 2015,semestre = 2)
 #~ cohorte2 = Cohorte (ano = 2015,semestre = 1)
 #~ curso.cohortes.append (cohorte1)
 #~ curso.cohortes.append (cohorte2)
-#~ session.add(curso)
-#~ session.commit()
-#~ session.close()
+session.add(cohorte1)
+session.commit()
+session.close()
 #~ print ("consulta")
 #~ curso2 = session.query(Curso).filter_by (nombre = "espanol").first()
 #~ print curso2
 #~ print curso2.cohortes
+'''
