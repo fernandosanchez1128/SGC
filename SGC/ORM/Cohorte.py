@@ -20,7 +20,7 @@ class Cohorte(Base):
         codigo = str(self.id_cohorte)
         return codigo
 
-Index('myindex', Cohorte.id_curso, Cohorte.id_cohorte, Cohorte.ano, Cohorte.semestre, unique=True)
+#Index('myindex', Cohorte.id_curso, Cohorte.id_cohorte, Cohorte.ano, Cohorte.semestre, unique=True)
 Base.metadata.create_all(engine)
 
 
