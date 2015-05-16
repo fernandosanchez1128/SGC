@@ -3,8 +3,6 @@ from sqlalchemy import (Float, Sequence,UniqueConstraint)
 
 from basetest import *
 
-
-from Curso import *
 Column(Integer, Sequence('sec_actividad'), primary_key=True)
 class Actividades (Base):
     __tablename__ = 'actividades'
