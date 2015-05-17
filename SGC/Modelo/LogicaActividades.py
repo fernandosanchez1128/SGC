@@ -32,7 +32,7 @@ class LogicaActividades():
         return actividades
 
     def consultarActividad (self,nombre,id_curso):
-        actividad = self.session.query(Actividades).filter_by(nombre = nombre , id_curso = id_curso)
+        actividad = self.session.query(Actividades).filter_by(nombre = nombre , id_curso = id_curso).first()
         self.session.close()
         return actividad
 
