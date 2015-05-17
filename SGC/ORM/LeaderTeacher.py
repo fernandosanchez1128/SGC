@@ -40,11 +40,12 @@ class LeaderTeacher(Usuario, Base):
     niveles_desempenados = relationship("Niveles", backref='leaderteacher',cascade="all, delete, delete-orphan")
     
     grado = Column(Integer)
-    departamentoSecretaria= Column (String (20))
-    municipioSecretaria = Column(String(40))
+    departamento_secretaria= Column (String (20))
+    municipio_secretaria = Column(String(40))
     __mapper_args__ = {
         'polymorphic_identity':'leaderteacher',
     }
+
 from AreasDesempenadas import *
 from Zona import *
 from Modalidad import *
@@ -57,3 +58,10 @@ Base.metadata.create_all(engine)
     
 
 
+
+# Session = sessionmaker(bind=engine)
+# session = Session()
+# user = LeaderTeacher(cedula  = 1421, correo_electronico='c@ah.com', contrasena= 'c')
+#
+# session.add(user)
+# session.commit()
