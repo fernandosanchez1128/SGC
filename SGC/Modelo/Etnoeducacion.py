@@ -1,10 +1,7 @@
-from sqlalchemy import (create_engine, Column, Date, Integer, ForeignKey, String, Table,Sequence)
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy import (Sequence)
+
 from basetest import *
-from LeaderTeacher import LeaderTeacher
+
 Column(Integer, Sequence('sec_etnoeducacion'), primary_key=True)
 class Etnoeducacion(Base):
 	__tablename__ = 'etnoeducacion'

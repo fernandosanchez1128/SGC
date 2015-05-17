@@ -11,8 +11,8 @@ class Usuario (Base):
     apellidos = Column(String(50), index=True)
     direccion = Column(String(40), index=True)
     telefono = Column(String(40), index=True)
-    correoElectronico = Column(String(40), index=True, nullable=False)
-    fechaNacimiento = Column(Date, index=True)
+    correo_electronico = Column(String(40), index=True, nullable=False)
+    fecha_nacimiento = Column(Date, index=True)
     
     type = Column(String(50))
 

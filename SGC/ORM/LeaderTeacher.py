@@ -3,12 +3,6 @@ __author__ = 'cenesis'
 from Usuario import Usuario
 
 
-#engine = create_engine('postgresql://brayanrod:bryan1112@localhost:5432/sgc', echo=True)
-#engine = create_engine('postgresql://braymrr:braymrr@pgsql/braymrr', echo=True)
-#engine = create_engine('sqlite:///leaderteacher.db', echo=True)
-#Base = declarative_base()
-
-
 from basetest import *
 class LeaderTeacher(Usuario, Base):
     __tablename__ = 'leaderteacher'
@@ -16,8 +10,13 @@ class LeaderTeacher(Usuario, Base):
     cedula = Column(String(20), ForeignKey('usuario.cedula'), primary_key=True)
     municipio = Column(String(40))
     genero = Column(String(10))
+    institucion = Column(String(50))
+    escalafon = Column(Integer)
     sede = Column(String(40))
-    codigo_institucion = Column(String(20))
+    codigo_dane = Column(String(20))
+    dpto_secretaria  = Column(String(20))
+    tutor = Column(Boolean) #no estoy seguro del tipo
+    usuario_col_aprende = Column(String(50))
     dpto_secretaria  = Column(String(20))
     tipo_institucion = Column(String(20))
     
@@ -38,7 +37,7 @@ class LeaderTeacher(Usuario, Base):
     modalidad = relationship("Modalidad", backref='leaderteacher',cascade="all, delete, delete-orphan")
     grados_desempenados = relationship("GradosDesempenados", backref='leaderteacher',cascade="all, delete, delete-orphan")
     etnoeducacion = relationship("Etnoeducacion", backref='leaderteacher',cascade="all, delete, delete-orphan")
-    niveles_desempenados = relationship("NivelesDesempenados", backref='leaderteacher',cascade="all, delete, delete-orphan")
+    niveles_desempenados = relationship("Niveles", backref='leaderteacher',cascade="all, delete, delete-orphan")
     
     grado = Column(Integer)
     departamentoSecretaria= Column (String (20))
@@ -46,6 +45,12 @@ class LeaderTeacher(Usuario, Base):
     __mapper_args__ = {
         'polymorphic_identity':'leaderteacher',
     }
+from AreasDesempenadas import *
+from Zona import *
+from Modalidad import *
+from GradosDesempenados import *
+from Etnoeducacion import *
+from NivelesDesempenados import *
 
 
 Base.metadata.create_all(engine)
