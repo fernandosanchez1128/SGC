@@ -7,14 +7,14 @@ from Control.ControlDigitador import *
 
 
 
-( Ui_VistaPreinscribirLT, QDialog ) = uic.loadUiType( 'VistaPreinscribirLT.ui' )
+( Ui_VistaAspirante, QDialog ) = uic.loadUiType( 'VistaAspirante.ui' )
 
-class PreinscribirLT ( QDialog ):
+class CrearAspirante ( QDialog ):
 
     def __init__ ( self, parent = None):
         self.ControlDigi = ControlDigitador()
         QDialog.__init__( self, parent )
-        self.ui = Ui_VistaPreinscribirLT()
+        self.ui = Ui_VistaAspirante()
         self.ui.setupUi( self )
         cursos=self.ControlDigi.consultarCursos()
         for curso in cursos:
@@ -82,5 +82,5 @@ class PreinscribirLT ( QDialog ):
         parametros.append(secretaria)
         parametros.append(tutor)
         parametros.append(col_aprende)
-        parametros.append(newcurso.id)
+        #parametros.append(newcurso.id)
         self.ControlDigi.agregarAspirante(parametros)

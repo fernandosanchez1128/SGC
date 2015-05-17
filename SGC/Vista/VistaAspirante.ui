@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>PreinscribirQdialog</class>
- <widget class="QDialog" name="PreinscribirQdialog">
+ <class>AspiranteQdialog</class>
+ <widget class="QDialog" name="AspiranteQdialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -29,7 +29,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Preinscripcion</string>
+    <string>Crear Aspirante</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="txtApellidos">
@@ -148,7 +148,7 @@
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Informacion Profesional&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -604,7 +604,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Preinscribir</string>
+    <string>Agregar</string>
    </property>
   </widget>
   <widget class="QPushButton" name="btSalir">

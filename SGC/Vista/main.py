@@ -4,9 +4,9 @@ import sys
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-#from vistacoordinador import VistaCoordinador
-from PreinscribirLT import PreinscribirLT
+from CrearAspirante import CrearAspirante
 from RegistrarLT import RegistrarLT
+from CrearPreinscripcion import CrearPreinscripcion
 
 if __name__ == '__main__':
 
@@ -16,8 +16,8 @@ if __name__ == '__main__':
 
     # create widget
     #w = RegistrarLT()
-    w = PreinscribirLT()
-    #w.setWindowTitle( 'Pre' )
+    #w = CrearAspirante()
+    w= CrearPreinscripcion()
     w.show()
 
     # connection

@@ -59,17 +59,17 @@
     <string>Consultar</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="btPreinscribirLT">
+  <widget class="QPushButton" name="btAspirante">
    <property name="geometry">
     <rect>
      <x>90</x>
-     <y>170</y>
+     <y>130</y>
      <width>191</width>
      <height>27</height>
     </rect>
    </property>
    <property name="text">
-    <string>Preinscribir</string>
+    <string>Crear Aspirante</string>
    </property>
    <property name="shortcut">
     <string extracomment="Preinscripcion"/>
@@ -92,7 +92,7 @@
    <property name="geometry">
     <rect>
      <x>140</x>
-     <y>340</y>
+     <y>320</y>
      <width>98</width>
      <height>27</height>
     </rect>
@@ -105,7 +105,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>80</y>
+     <y>60</y>
      <width>281</width>
      <height>51</height>
     </rect>
@@ -125,6 +125,19 @@
    </property>
    <property name="text">
     <string>DIGITADOR</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btPreinscribir">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>170</y>
+     <width>191</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Preinscribir</string>
    </property>
   </widget>
  </widget>

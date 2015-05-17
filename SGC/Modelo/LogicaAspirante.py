@@ -15,3 +15,7 @@ class LogicaAspirante():
         self.session.add(aspirante)
         self.session.commit()
         self.session.close()
+
+    def consultarAspirante(self, id_asp):
+        aspirante=self.session.query(Aspirante).filter_by(cedula=id_asp).first()
+        return aspirante

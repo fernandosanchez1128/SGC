@@ -23,7 +23,9 @@ class Aspirante(Base):
     dpto_secretaria  = Column(String(20))
     tutor = Column(Boolean)
     usuario_col_aprende = Column(Boolean)
-    id_curso = Column(Integer)
-    ForeignKeyConstraint(['id_curso'],['curso.id'])
+    #id_curso = Column(Integer)
+    #ForeignKeyConstraint(['id_curso'],['curso.id'])
+
+from Preinscripcion import Preinscripcion
     
 Base.metadata.create_all(engine)
