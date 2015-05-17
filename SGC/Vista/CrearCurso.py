@@ -3,6 +3,7 @@ from PyQt4 import uic
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4 import QtCore, QtGui
+from sqlalchemy.exc import SQLAlchemyError
 
 from Control.ControlCoordinador import ControlCoordinador
 
@@ -63,9 +64,12 @@ class CrearCurso ( QDialog ):
 				ponderado_ac = float(self.ui.twActividades.item(i, 1).text())
 				actividades.append([nombre_ac, ponderado_ac])
 				i+=1
-			self.control.crearCurso(nombre_c,descripcion_c,actividades)
-			self.close()
-			self.control.cerrarSesion()
+			try:
+				self.control.crearCurso(nombre_c,descripcion_c,actividades)
+				self.close()
+				self.control.cerrarSesion()
+			except SQLAlchemyError:
+
 		elif self.tipo==2:
 			nombre_c = str(self.ui.leNombre.text())
 			descripcion=str(self.ui.teDescripcion.toPlainText())
