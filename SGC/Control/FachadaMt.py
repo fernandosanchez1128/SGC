@@ -5,6 +5,7 @@ from Modelo.LogicaMatricula import LogicaMatricula
 from Modelo.LogicaUsuario import LogicaUsuario
 from Modelo.LogicaNotas import  LogicaNotas
 from ORM.Notas import Notas
+import time
 
 
 class FachadaMt():
@@ -21,7 +22,9 @@ class FachadaMt():
 
     def consulta_cursos_prof(self, cedulaMt):
         # reemplazar por cedula MT
-        registros = self.logDicta.consultarCursosProf("1")
+        fecha = time.strftime("%d/%m/%y")
+        registros = self.logDicta.consultarCursosProf("1",fecha)
+
         return registros
 
 

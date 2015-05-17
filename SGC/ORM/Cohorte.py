@@ -1,6 +1,6 @@
 __author__ = 'family'
 
-from sqlalchemy import (Sequence, UniqueConstraint, Index)
+from sqlalchemy import (Sequence, UniqueConstraint, Index,Date)
 
 from basetest import *
 
@@ -15,6 +15,8 @@ class Cohorte(Base):
     id_cohorte = Column(Integer, Sequence('sec_cohorte'), primary_key=True)
     ano = Column(Integer, primary_key=True)
     semestre = Column(Integer, primary_key=True)
+    fecha_inicio = Column(Date,nullable=False)
+    fecha_fin = Column(Date,nullable=False)
     __table_args__ = (UniqueConstraint('id_curso', 'id_cohorte', name='unique'),)
 
     def __repr__(self):
