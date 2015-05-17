@@ -14,7 +14,7 @@ class Curso(Base):
     nombre = Column(String(40), index=True, nullable=False,unique = True)
     descripcion = Column(String(120), index=True)
     cohortes = relationship("Cohorte",cascade="all, delete, delete-orphan", primaryjoin="and_(Curso.id==Cohorte.id_curso) ")
-    #actividades = relationship("Actividades",cascade="all, delete, delete-orphan", primaryjoin="and_(Curso.id==Actividades.id_curso) ")
+    actividades = relationship("Actividades",cascade="all, delete, delete-orphan", primaryjoin="and_(Curso.id==Actividades.id_curso) ")
     
  
 from Cohorte import Cohorte
