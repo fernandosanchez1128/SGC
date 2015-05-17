@@ -4,6 +4,7 @@ from PyQt4 import QtGui
 from PyQt4.QtCore import *
 
 from Control.FachadaMt import FachadaMt
+from Asignacion import Asignacion
 
 
 (Ui_MainWindow, QMainWindow) = uic.loadUiType('mainwindow.ui')
@@ -85,7 +86,6 @@ class MainWindow(QMainWindow):
         font.setBold(True)
         font.setWeight(75)
         for estudiante in estudiantes:
-            #print estudiante.nombres
             item = QtGui.QTableWidgetItem(str(estudiante.cedula))
             item.setFont(font)
             self.ui.tableWidget.setVerticalHeaderItem(indice, item)
@@ -170,4 +170,7 @@ class MainWindow(QMainWindow):
 
 
     def asignacion (self):
-        ventana = asignacion
+        if (self.id_curso == 0 or self.id_cohorte ==0):
+            QtGui.QMessageBox.warning(self, 'Error', "Por favor escoga un curso", QtGui.QMessageBox.Ok)
+        else:
+            ventana = Asignacion(self.id_curso,self.id_cohorte).exec_()
