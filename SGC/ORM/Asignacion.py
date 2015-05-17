@@ -5,6 +5,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy import DateTime
 
 #engine = create_engine('postgresql://brayanrod:bryan1112@localhost:5432/sgc', echo=True)
 #engine = create_engine('postgresql://braymrr:braymrr@pgsql/braymrr', echo=True)
@@ -23,8 +24,9 @@ class Asignacion (Base):
     id_curso = Column(Integer, index=True, primary_key=True)
     id_cohorte = Column(Integer, index=True, primary_key=True)
     id_actividad =  Column(Integer, index=True, primary_key=True)
-    ForeignKeyConstraint(['id_curso', 'id_cohorte', 'id_actividad'],['actividades.id_curso','cohorte.id_cohorte','actividades.id_actividad'])
-    fecha_hora  = Column (Date)
+    fecha_hora  = Column (DateTime)
+    __table_args__ = (ForeignKeyConstraint([id_curso, id_cohorte],['cohorte.id_curso','cohorte.id_cohorte']),{})
+    __table_args__ = (ForeignKeyConstraint([id_actividad, id_curso],['actividades.id_actividad','actividades.id_curso']),{})
     
     
 
