@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>VistaPreinscribirLT</class>
- <widget class="QDialog" name="VistaPreinscribirLT">
+ <class>PreinscribirQdialog</class>
+ <widget class="QDialog" name="PreinscribirQdialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -449,6 +449,135 @@
         </property>
         <property name="text">
          <string>No</string>
+        </property>
+       </widget>
+       <widget class="QWidget" name="panelSexo" native="true">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>90</y>
+          <width>121</width>
+          <height>81</height>
+         </rect>
+        </property>
+        <widget class="QLabel" name="label_19">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>10</y>
+           <width>51</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+           <strikeout>false</strikeout>
+           <kerning>false</kerning>
+          </font>
+         </property>
+         <property name="text">
+          <string>Sexo</string>
+         </property>
+        </widget>
+        <widget class="QRadioButton" name="femenino">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>30</y>
+           <width>106</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Femenino</string>
+         </property>
+        </widget>
+        <widget class="QRadioButton" name="masculino">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>50</y>
+           <width>106</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Masculino</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QLabel" name="label_20">
+        <property name="geometry">
+         <rect>
+          <x>360</x>
+          <y>20</y>
+          <width>151</width>
+          <height>17</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+          <strikeout>false</strikeout>
+          <kerning>false</kerning>
+         </font>
+        </property>
+        <property name="text">
+         <string>Fecha de Nacimiento</string>
+        </property>
+       </widget>
+       <widget class="Line" name="line_2">
+        <property name="geometry">
+         <rect>
+          <x>240</x>
+          <y>0</y>
+          <width>16</width>
+          <height>241</height>
+         </rect>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+       </widget>
+       <widget class="QCalendarWidget" name="calendario">
+        <property name="geometry">
+         <rect>
+          <x>290</x>
+          <y>40</y>
+          <width>264</width>
+          <height>180</height>
+         </rect>
+        </property>
+        <property name="selectedDate">
+         <date>
+          <year>2015</year>
+          <month>5</month>
+          <day>16</day>
+         </date>
+        </property>
+        <property name="firstDayOfWeek">
+         <enum>Qt::Monday</enum>
+        </property>
+        <property name="gridVisible">
+         <bool>false</bool>
+        </property>
+        <property name="selectionMode">
+         <enum>QCalendarWidget::SingleSelection</enum>
+        </property>
+        <property name="horizontalHeaderFormat">
+         <enum>QCalendarWidget::ShortDayNames</enum>
+        </property>
+        <property name="verticalHeaderFormat">
+         <enum>QCalendarWidget::NoVerticalHeader</enum>
+        </property>
+        <property name="navigationBarVisible">
+         <bool>true</bool>
+        </property>
+        <property name="dateEditEnabled">
+         <bool>true</bool>
         </property>
        </widget>
       </widget>

@@ -43,6 +43,12 @@ class PreinscribirLT ( QDialog ):
         correo=str(self.ui.txtCorreo.text())
         celular=str(self.ui.txtCelular.text())
         direccion=str(self.ui.txtDireccion.text())
+        if(self.ui.femenino.isChecked()):
+            genero="Femenino"
+        if(self.ui.masculino.isChecked()):
+            genero="Masculino"
+        f_nacimiento=QDate.getDate(self.ui.calendario.selectedDate())
+        print(genero,f_nacimiento)
         ###1 DE 3
         sede=str(self.ui.txtSede.text())
         institucion=str(self.ui.txtInstitucion.text())
