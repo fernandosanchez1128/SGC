@@ -41,7 +41,7 @@ class LeaderTeacher(Usuario, Base):
     
     grado = Column(Integer)
     departamentoSecretaria= Column (String (20))
-    municipioSecretaria = Column(String(40))
+    municipio_secretaria = Column(String(40))
     __mapper_args__ = {
         'polymorphic_identity':'leaderteacher',
     }

@@ -21,7 +21,7 @@ class MainWindow(QMainWindow):
         QMainWindow.__init__(self, parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.connect(self.ui.boton, SIGNAL("clicked()"), self.empezar)
+        self.connect(self.ui.boton, SIGNAL("clicked()"), self.asignacion)
         self.connect(self.ui.lista_cursos, SIGNAL("itemDoubleClicked(QListWidgetItem*)"), self.cargarNotas)
         self.connect(self.ui.tableWidget, SIGNAL(("cellChanged(int,int)")), self.guardarNota)
         self.empezar()
@@ -36,7 +36,12 @@ class MainWindow(QMainWindow):
         registros = self.fachadaMt.consulta_cursos_prof("1")
         for reg_mat in registros:
             curso = self.fachadaMt.consulta_curso(reg_mat.id_curso)
-            item = QString(curso.nombre + "-" + str(reg_mat.id_cohorte))
+            item = QtGui.QListWidgetItem()
+            item.setText(QString(curso.nombre + "-" + str(reg_mat.id_cohorte)))
+            font = QtGui.QFont()
+            font.setBold(True)
+            font.setWeight(75)
+            item.setFont (font)
             self.ui.lista_cursos.addItem(item)
 
 
@@ -56,25 +61,33 @@ class MainWindow(QMainWindow):
         num_actividades = len(actividades)
         self.ui.tableWidget.setColumnCount(num_actividades*2)
         indice = 0
+        fuente = QtGui.QFont()
+        fuente.setBold(True)
+        fuente.setWeight(75)
         for actividad in actividades:
             item1 = QtGui.QTableWidgetItem(actividad.nombre)
+            item1.setFont(fuente)
             self.ui.tableWidget.setHorizontalHeaderItem(indice, item1)
             item2 = QtGui.QTableWidgetItem("asistio")
+            item2.setFont(fuente)
             indice += 1
             self.ui.tableWidget.setHorizontalHeaderItem(indice, item2)
             indice += 1
         self.fachadaMt.cerrar_session_curso()
         # consulta para estudiantes
-        print curso.id, codigo_cohorte
+        #print curso.id, codigo_cohorte
         estudiantes = self.fachadaMt.estudiantes_curso(int(curso.id), int(codigo_cohorte))
-        print "tamano", len(estudiantes)
+        #print "tamano", len(estudiantes)
         num_estudiantes = len(estudiantes)
         self.ui.tableWidget.setRowCount(num_estudiantes)
         indice = 0
-
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
         for estudiante in estudiantes:
-            print estudiante.nombres
+            #print estudiante.nombres
             item = QtGui.QTableWidgetItem(str(estudiante.cedula))
+            item.setFont(font)
             self.ui.tableWidget.setVerticalHeaderItem(indice, item)
             indice += 1
         self.id_curso = int(curso.id)
@@ -91,7 +104,7 @@ class MainWindow(QMainWindow):
                     actividad =self.fachadaMt.consultar_actividad(nombre_actividad,self.id_curso)
                     # print self.id_curso, actividad.id_actividad, cod_estudiante, self.id_cohorte
                     nota = self.fachadaMt.consultar_nota(self.id_curso,actividad.id_actividad,cod_estudiante,self.id_cohorte)
-                    print "nota", nota
+                    #print "nota", nota
                     if (nota != None):
                         item.setText(QString(str(nota.nota)))
                         if (nota.nota== 0):
@@ -136,7 +149,7 @@ class MainWindow(QMainWindow):
                 if (validacion):
 
                     if (nota >= 0.0 and nota <= 5.0):
-                        print id_actividad, cedula
+                        #print id_actividad, cedula
                         self.fachadaMt.guardar_nota(id_actividad, self.id_curso, self.id_cohorte, cedula, nota,True)
                     else:
                         QtGui.QMessageBox.warning(self, 'Error', "ingrese un numero entre 0.0 y 5.0", QtGui.QMessageBox.Ok)
@@ -156,3 +169,5 @@ class MainWindow(QMainWindow):
                     item_ant.setFlags(Qt.ItemIsSelectable|Qt.ItemIsDragEnabled|Qt.ItemIsEnabled|Qt.ItemIsEditable)
 
 
+    def asignacion (self):
+        ventana = asignacion

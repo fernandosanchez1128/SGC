@@ -1,7 +1,7 @@
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import between,funcfilter
 
-from basetest import *
+from ORM.basetest import *
 from ORM.Cohorte import Cohorte
 from ORM.Dicta import Dicta
 
