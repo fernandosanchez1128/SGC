@@ -99,9 +99,6 @@
     <string>Guardar</string>
    </property>
   </widget>
-  <zorder>gridLayoutWidget</zorder>
-  <zorder>label</zorder>
-  <zorder>guardar</zorder>
  </widget>
  <resources/>
  <connections/>

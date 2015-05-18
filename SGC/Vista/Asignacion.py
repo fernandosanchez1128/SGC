@@ -1,6 +1,7 @@
 from PyQt4 import uic
 from PyQt4 import QtGui
 from PyQt4.QtCore import *
+from PyQt4 import QtCore, QtGui
 from Control.FachadaMt import FachadaMt
 
 ( Ui_Asignacion, QMainWindow ) = uic.loadUiType( 'Asignacion.ui' )
@@ -40,7 +41,9 @@ class Asignacion ( QMainWindow ):
             fecha = QtGui.QDateTimeEdit()
             fecha.setCalendarPopup(True)
             fecha.setDateRange(time_ini,time_final)
+            fecha.setCursor(QtGui.QCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor)))
             checkBox = QtGui.QCheckBox()
+            checkBox.setCursor(QtGui.QCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor)))
             checkBox.setText(QString("Asignar"))
             name = str (indice)
             checkBox.setObjectName(QString (name))

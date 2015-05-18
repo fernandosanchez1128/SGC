@@ -144,6 +144,7 @@ class MainWindow(QMainWindow):
                     validacion = True
                 except ValueError:
                     validacion = False
+                    item.setText("")
                     msj = "ingrese un numero"+str(columna)
                     QtGui.QMessageBox.warning(self, 'Error',msj , QtGui.QMessageBox.Ok)
                 if (validacion):
