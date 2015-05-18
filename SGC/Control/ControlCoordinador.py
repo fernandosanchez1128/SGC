@@ -18,7 +18,7 @@ class ControlCoordinador:
             ponderado_ac = actividad[1]
             obj_actividad = Actividades(nombre = nombre_ac, ponderado = ponderado_ac)
             obj_actividades.append(obj_actividad)
-        curso = Curso(nombre= nombre, descripcion=descripcion, actividades = obj_actividades)
+        curso = Curso(nombre= nombre, descripcion=descripcion, actividades = obj_actividades, cohortes = [])
         self.logicaCursos.agregarCurso(curso)
 
     def modificarCurso(self, nombre_c, descripcion_c, actividades):
@@ -28,7 +28,7 @@ class ControlCoordinador:
             ponderado_ac = actividad[1]
             obj_actividad = Actividades(nombre = nombre_ac, ponderado = ponderado_ac)
             obj_actividades.append(obj_actividad)
-        curso = Curso(nombre= nombre_c, descripcion=descripcion_c, actividades = obj_actividades)
+        curso = Curso(nombre= nombre_c, descripcion=descripcion_c, actividades = obj_actividades, cohortes = [])
         self.logicaCursos.modificarCursoActividades(nombre_c,curso)
 
     def eliminarCurso(self, nombre):
@@ -36,6 +36,10 @@ class ControlCoordinador:
 
     def buscarCurso(self, nombre):
         return self.logicaCursos.consultarCurso(nombre)
+
+    def numeroCohortes(self,id_curso):
+        num = len(self.logicaCursos.consultarCurso_id(id_curso).cohortes)
+        return num
 
     def cerrarSesion(self):
         self.logicaCursos.cerrarSesion()

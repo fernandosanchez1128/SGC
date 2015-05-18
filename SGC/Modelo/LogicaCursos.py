@@ -25,11 +25,9 @@ class LogicaCursos():
         curso = self.session.query(Curso).filter_by(nombre=nombre_curso).first()
         return curso
 
-
     def consultarCurso_id(self, id_curso):
         curso = self.session.query(Curso).filter_by(id=id_curso).first()
         return curso
-
 
     def modificarCurso(self, nombre_curso, curso_mod):
         curso = self.session.query(Curso).filter_by(nombre=nombre_curso).first()
@@ -40,8 +38,8 @@ class LogicaCursos():
         curso = self.session.query(Curso).filter_by(nombre=nombre_curso).first()
         curso.descripcion = curso_mod.descripcion
         curso.actividades = curso_mod.actividades
+        curso.cohortes = curso_mod.cohortes
         self.session.commit()
-
 
     def eliminarCurso(self, id_curso_el):
         curso = self.session.query(Curso).filter_by(id=id_curso_el).first()

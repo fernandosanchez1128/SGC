@@ -4,15 +4,16 @@ import sys
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-from mainwindow import MainWindow
+#from mainwindow import MainWindow
+from vistacoordinador import *
 
 if __name__ == '__main__':
     # create application
     app = QApplication( sys.argv )
-    app.setApplicationName( 'My PyQt4 QtGui Project')
+    app.setApplicationName( 'SGC')
     # create widget
-    w = MainWindow()
-    w.setWindowTitle( 'My PyQt4 QtGui Project' )
+    w = VistaCoordinador.Instance()
+    w.setWindowTitle( 'Coordinador' )
     w.show()
 
     # connection
