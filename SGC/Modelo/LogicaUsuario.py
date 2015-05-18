@@ -22,6 +22,11 @@ class LogicaUsuario():
         self.session.close()
         return usuario
 
+    def buscarUsuarioUsername(self, username):
+        usuario = self.session.query(Usuario).filter_by(correo_electronico=username).first()
+        self.session.close()
+        return usuario
+
     def modificarUsuario(self, cedula_user, usuario_mod):
         usuario = self.session.query(Usuario).filter_by(cedula=cedula_user).first()
         usuario.nombres = usuario_mod.nombres
