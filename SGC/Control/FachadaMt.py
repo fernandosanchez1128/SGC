@@ -5,6 +5,10 @@ from Modelo.LogicaMatricula import LogicaMatricula
 from Modelo.LogicaUsuario import LogicaUsuario
 from Modelo.LogicaNotas import  LogicaNotas
 from ORM.Notas import Notas
+from Modelo.LogicaCohorte import LogicaCohorte
+from Modelo.LogicaAsignacion import LogicaAsignacion
+from ORM.Asignacion import Asignacion
+from PyQt4 import QtGui
 import time
 
 
@@ -15,6 +19,8 @@ class FachadaMt():
     logMatricula = LogicaMatricula()
     logUsuario = LogicaUsuario()
     logNotas  = LogicaNotas()
+    logCohorte = LogicaCohorte()
+    logAsignacion = LogicaAsignacion()
 
     def __init__(self):
         print "constructor"
@@ -70,5 +76,28 @@ class FachadaMt():
         exito = self.logNotas.agregarNotas(nota)
         if (exito == False):
             self.logNotas.editarNotas(id_actividad,cedula,id_curso,id_cohorte,nota_ingresada,asistencia)
+
+    def consultar_cohorte (self,id_curso,id_cohorte):
+        cohorte = self.logCohorte.consulta_cohorte(id_curso,id_cohorte)
+        return cohorte
+
+    def consular_asignacion (self,id_curso,id_cohorte,id_actividad):
+        asignacion = self.logAsignacion.consulta_asignacion(id_curso,id_cohorte, id_actividad)
+        return asignacion
+
+    def agregar_entrega (self,id_curso,id_cohorte,id_actividad,fecha):
+        asignacion = Asignacion(id_curso = id_curso,id_cohorte=id_cohorte,id_actividad = id_actividad,fecha_hora = fecha)
+        exito = self.logAsignacion.agregar_asignacion(asignacion)
+        if (exito == 0):
+            self.logAsignacion.editar_asignacion(id_curso,id_cohorte,id_actividad,fecha)
+        if (exito == 2):
+            QtGui.QMessageBox.warning(None, 'Error',"ha ocurrido un error inesperado" , QtGui.QMessageBox.Ok)
+
+
+
+
+
+
+
 
 

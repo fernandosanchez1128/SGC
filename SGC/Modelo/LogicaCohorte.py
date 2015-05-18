@@ -1,4 +1,5 @@
 from ORM.Cohorte import *
+from sqlalchemy.orm import sessionmaker
 
 
 class LogicaCohorte():
@@ -12,6 +13,11 @@ class LogicaCohorte():
         self.session.add(cohorte)
         self.session.commit()
         self.session.close()
+
+    def consulta_cohorte (self,id_curso,id_cohorte):
+        cohorte = self.session.query(Cohorte).filter_by(id_curso=id_curso,id_cohorte = id_cohorte).first()
+        self.session.close()
+        return cohorte
 
     def ultimoCohorte(self, id_curso, ano, semestre):
         cohorte = self.session.query(Cohorte).filter_by(id_curso=id_curso, ano=ano, semestre=semestre).all()
