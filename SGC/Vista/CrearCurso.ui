@@ -141,7 +141,7 @@
         </column>
         <column>
          <property name="text">
-          <string>Ponderado</string>
+          <string>Ponderado (%)</string>
          </property>
         </column>
        </widget>
@@ -189,12 +189,6 @@
     <string>Crear Curso</string>
    </property>
   </widget>
-  <zorder>centralwidget</zorder>
-  <zorder>verticalLayoutWidget</zorder>
-  <zorder>label</zorder>
-  <zorder>btCancelar</zorder>
-  <zorder>btCrear</zorder>
-  <zorder>leNombre</zorder>
  </widget>
  <resources/>
  <connections/>

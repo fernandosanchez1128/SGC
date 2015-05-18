@@ -3,6 +3,8 @@ from PyQt4 import uic
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4 import QtCore, QtGui
+from sqlalchemy.exc import SQLAlchemyError
+import sys
 
 from Control.ControlCoordinador import ControlCoordinador
 
@@ -56,16 +58,39 @@ class CrearCurso ( QDialog ):
 		if self.tipo==1:
 			nombre_c= str(self.ui.leNombre.text())
 			descripcion_c =str(self.ui.teDescripcion.toPlainText())
-			i=0
-			actividades = []
-			while i<self.ui.sbNumActividades.value():
-				nombre_ac = str(self.ui.twActividades.item(i, 0).text())
-				ponderado_ac = float(self.ui.twActividades.item(i, 1).text())
-				actividades.append([nombre_ac, ponderado_ac])
-				i+=1
-			self.control.crearCurso(nombre_c,descripcion_c,actividades)
-			self.close()
-			self.control.cerrarSesion()
+			if not (nombre_c.strip()=="" or descripcion_c.strip()==""):
+				try:
+					i=0
+					actividades = []
+					acum_pon = 0
+					while i<self.ui.sbNumActividades.value():
+						nombre_ac = str(self.ui.twActividades.item(i, 0).text())
+						if nombre_ac.strip()=="":
+							QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
+												   QString.fromUtf8("Recuerde llenar todos los campos."))
+						ponderado_ac = float(self.ui.twActividades.item(i, 1).text())/100 #la idea es que el usuario ingrese un numero entre 0 y 100
+						acum_pon+=ponderado_ac
+						actividades.append([nombre_ac, ponderado_ac])
+						i+=1
+					if not(acum_pon==1 or self.ui.sbNumActividades.value()==0) :
+						QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
+												   QString.fromUtf8("Recuerde que la suma de ponderados de todas las actividades debe dar 100"))
+					else:
+						self.control.crearCurso(nombre_c,descripcion_c,actividades)
+						self.close()
+						self.control.cerrarSesion()
+				except SQLAlchemyError:
+					QtGui.QMessageBox.warning(self, self.tr("Error en Base de Datos"),
+												   QString.fromUtf8("Error en Base de Datos. \n"
+												   "Recuerde que los nombres de los cursos son únicos \n"
+												   "y que no debe haber dos actividades con el mismo nombre en el mismo curso."))
+				except:
+					QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
+												   QString.fromUtf8("Recuerde que los ponderados de las actividades deben ser numeros entre 0 y 100."))
+			else:
+				QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
+												   QString.fromUtf8("Recuerde llenar todos los campos."))
+
 		elif self.tipo==2:
 			nombre_c = str(self.ui.leNombre.text())
 			descripcion=str(self.ui.teDescripcion.toPlainText())
