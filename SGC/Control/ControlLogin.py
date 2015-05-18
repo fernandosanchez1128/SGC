@@ -11,3 +11,6 @@ class ControlLogin:
 
     def buscarUsuarioUsername(self, username):
         return self.logicaUsuario.buscarUsuarioUsername(username)
+
+    def modificarFechaAcceso(self, username, fecha):
+        self.logicaUsuario.modificarUsuarioFechaAcceso(username, fecha)
