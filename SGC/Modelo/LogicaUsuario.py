@@ -40,6 +40,12 @@ class LogicaUsuario():
         self.session.commit()
         self.session.close()
 
+    def modificarUsuarioFechaAcceso(self, username, fecha):
+        usuario = self.session.query(Usuario).filter_by(correo_electronico=username).first()
+        usuario.fecha_ultimo_acceso = fecha
+        self.session.commit()
+        self.session.close()
+
     def eliminarUsuario(self, cedula_user):
         usuario = self.session.query(Usuario).filter_by(cedula=cedula_user).first()
         self.session.delete(usuario)
