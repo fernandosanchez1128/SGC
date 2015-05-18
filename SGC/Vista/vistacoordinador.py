@@ -5,7 +5,6 @@ from PyQt4.QtGui import *
 from Singleton import Singleton
 
 from CrearCurso import CrearCurso
-from ConsultarCurso import ConsultarCurso 
 
 ( Ui_VistaCoordinador, QMainWindow ) = uic.loadUiType( 'vistacoordinador.ui' )
 
