@@ -48,7 +48,7 @@ class LeaderTeacher(Usuario, Base):
 
 from AreasDesempenadas import *
 from Zona import *
-from Modalidad import *
+#from Modalidad import *
 from GradosDesempenados import *
 from Etnoeducacion import *
 from NivelesDesempenados import *
