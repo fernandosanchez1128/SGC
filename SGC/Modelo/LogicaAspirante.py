@@ -9,7 +9,7 @@ class LogicaAspirante():
     session = Session()
 
     def __init__(self):
-        print ("En logica...")
+        print ("En logica Aspirante")
 
     def agregarAspirante(self, aspirante):
         self.session.add(aspirante)

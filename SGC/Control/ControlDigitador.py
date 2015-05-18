@@ -1,17 +1,22 @@
-__author__ = 'family'
-#from Modelo import FabricaUsuarios
+__author__ = 'nelson'
+from Modelo.FabricaUsuarios import FabricaUsuarios
 from ORM.Aspirante import Aspirante
 from Modelo.LogicaAspirante import LogicaAspirante
 from Modelo.LogicaCursos import LogicaCursos
 from ORM.Preinscripcion import Preinscripcion
 from Modelo.LogicaPreinscripcion import LogicaPreinscripcion
+from Modelo.LogicaLeaderTeacher import LogicaLeaderTeacher
+from Modelo.LogicaUsuario import LogicaUsuario
+
 
 class ControlDigitador:
     def __init__(self):
-        #self.fabrica=  FabricaUsuarios()
         self.LogicaAspirante = LogicaAspirante()
         self.LogicaCursos = LogicaCursos()
         self.LogicaPreinscripcion=LogicaPreinscripcion()
+        self.Fabrica=FabricaUsuarios()
+        self.LogicaLT=LogicaLeaderTeacher()
+        self.LogicaUsuarios=LogicaUsuario()
 
     def consultarCursos(self):
         cursos=self.LogicaCursos.consultarCursos()
@@ -25,9 +30,18 @@ class ControlDigitador:
         id_curso=self.LogicaCursos.consultarCurso(nombre)
         return id_curso
 
-    def agregarLT(self, tipo, parametros):
-        #return self.fabrica.getUsuario(tipo, parametros)
-        return 0
+    def agregarLT(self, tipo, params):
+        leaderTeacher=self.Fabrica.getUsuario(tipo,params)
+        print("paso por fabrica")
+        self.LogicaLT.agregarLT(leaderTeacher)
+        print("paso por logica")
+
+
+    def agregarUsuarioLT(self, tipo, parametros):
+        print("Entro en agregar user LT")
+        usLT = self.Fabrica.getUsuario(tipo,parametros)
+        self.LogicaUsuarios.agregarUsuario(usLT)
+
 
     def agregarAspirante(self, params):
         aspirante = Aspirante(cedula=params[0], nombres=params[1], apellidos=params[2], direccion=params[3],
@@ -41,6 +55,6 @@ class ControlDigitador:
         preinscripcion=Preinscripcion(cedula_asp=params[0], id_curso=params[1], fecha=params[2] )
         self.LogicaPreinscripcion.agregarPreinscripcion(preinscripcion)
 
-
-
-
+    def cerrarSesion(self):
+        self.LogicaUsuarios.cerrarSesion()
+        self.LogicaLT.cerrarSesion()

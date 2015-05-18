@@ -81,6 +81,9 @@
    </property>
   </widget>
   <widget class="QLineEdit" name="txtnombre">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>100</x>
@@ -104,6 +107,9 @@
    </property>
   </widget>
   <widget class="QLineEdit" name="txtapellido">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>100</x>
@@ -190,7 +196,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>7</number>
+       <number>6</number>
       </property>
       <widget class="QWidget" name="tabWidgetPage1">
        <attribute name="title">

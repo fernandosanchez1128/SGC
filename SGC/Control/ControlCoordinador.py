@@ -5,6 +5,7 @@ from ORM.Actividades import Actividades
 from Modelo.LogicaCursos import LogicaCursos
 from Modelo.LogicaCohorte import LogicaCohorte
 
+
 class ControlCoordinador:
 
     def __init__(self):

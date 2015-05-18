@@ -4,15 +4,18 @@ from ORM.MasterTeacher import *
 
 
 class LogicaUsuario():
+
+
     # def __init__ (self)
     Session = sessionmaker(bind=engine)
     session = Session()
 
     def __init__(self):
         #llamado para prueba del iterador
-        print ("contructor")
+        print ("contructor Logica Usuarios")
 
     def agregarUsuario(self, usuario):
+        print("ENTRO EN AGREGAR USUARIO")
         self.session.add(usuario)
         self.session.commit()
         self.session.close()
@@ -39,3 +42,5 @@ class LogicaUsuario():
         self.session.commit()
         self.session.close()
 
+    def cerrarSesion(self):
+        self.session.close()

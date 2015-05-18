@@ -15,9 +15,9 @@ if __name__ == '__main__':
     app.setApplicationName( 'My PyQt4 QtGui Project' )
 
     # create widget
-    #w = RegistrarLT()
+    w = RegistrarLT()
     #w = CrearAspirante()
-    w= CrearPreinscripcion()
+    #w= CrearPreinscripcion()
     w.show()
 
     # connection

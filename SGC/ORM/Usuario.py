@@ -21,6 +21,7 @@ class Usuario (Base):
         'polymorphic_on':type
     }
 
+
 Base.metadata.create_all(engine)
 
 

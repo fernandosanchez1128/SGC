@@ -4,10 +4,8 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4 import QtCore, QtGui
 
-##from Modelo.LogicaCursos import *
-##from ORM.Curso import *
-##from ORM.Actividades import *
-##from Modelo.LogicaActividades import *
+
+from Control.ControlDigitador import ControlDigitador
 
 
 ( Ui_VistaRegistrarLT, QDialog ) = uic.loadUiType( 'VistaRegistrarLT.ui' )
@@ -15,14 +13,10 @@ from PyQt4 import QtCore, QtGui
 class RegistrarLT ( QDialog ):
 
     def __init__ ( self, parent = None):
-        #self.tipo= tipo
-        #self.logicaCursos= LogicaCursos()
-        #self.logicaActividades= LogicaActividades()
+        self.controldigi=ControlDigitador()
         QDialog.__init__( self, parent )
         self.ui = Ui_VistaRegistrarLT()
         self.ui.setupUi( self )
-        #self.ui.twActividades.setRowCount(self.ui.sbNumActividades.value())
-        #self.connect(self.ui.sbNumActividades, SIGNAL("valueChanged(int)"), self.change_actividades)
         self.connect(self.ui.btSalir, SIGNAL("clicked()"), self.cancelar_clicked)
         self.connect(self.ui.btRegistrar, SIGNAL("clicked()"), self.inscribir_clicked)
         self.connect(self.ui.btBuscar, SIGNAL("clicked()"), self.buscar_clicked)
@@ -36,17 +30,19 @@ class RegistrarLT ( QDialog ):
     
     def buscar_clicked(self):
         print("Buscando...")
+        ced=str(self.ui.txtid.text())
+        asp=self.controldigi.consultarAspirante(ced)
+        self.ui.txtnombre.setText(asp.nombres)
+        self.ui.txtapellido.setText(asp.apellidos)
 
     def inscribir_clicked(self):
+        parametros=[]
         print("Capturando Informacion...")
         id=str(self.ui.txtid.text())
-        nombres="recuperar con consulta"
-        self.ui.txtnombre.setText(nombres)
-        apellidos="recuperar con consulta"
-        self.ui.txtapellido.setText(apellidos)
+
         ###1 De 8
         Zonas=[]
-        Modalidad=[]
+        Modalidad="Academica"
         if (self.ui.zonaurbana.isChecked()):
             Zonas.append("Zona urbana")
         if (self.ui.zonaurbanamarginada.isChecked()):
@@ -55,12 +51,12 @@ class RegistrarLT ( QDialog ):
             Zonas.append("Zona rural")
         if (self.ui.zonaruraldificil.isChecked()):
             Zonas.append("Zona rural dificil acceso")
-        print(Zonas)
+        #print(Zonas)
         if (self.ui.modalacademica.isChecked()):
-            Modalidad.append("Academica")
+            Modalidad="Academica"
         elif(self.ui.modaltecnica.isChecked()):
-            Modalidad.append("Tecnica")
-        print(Modalidad)
+            Modalidad="Tecnica"
+        #print(Modalidad)
 
         ### 2 de 8
         ModalidadTec=[]
@@ -95,7 +91,7 @@ class RegistrarLT ( QDialog ):
         if (self.ui.otromodalidad.isChecked()):
             otram=str(self.ui.txtotromodalidad.text())
             ModalidadTec.append(otram)
-        print(ModalidadTec)
+        #print(ModalidadTec)
         ### 3 de 8
         etnoeducativa=[]
         if (self.ui.afro.isChecked()):
@@ -108,7 +104,7 @@ class RegistrarLT ( QDialog ):
             etnoeducativa=[]
             etnoeducativa.append("Ninguna Etnia")
 
-        print(etnoeducativa)
+        #print(etnoeducativa)
         niveles=[]
         if (self.ui.transicion.isChecked()):
             niveles.append("Transicion")
@@ -125,7 +121,7 @@ class RegistrarLT ( QDialog ):
         if (self.ui.otronivel.isChecked()):
             otronivel=str(self.ui.txtotronivel.text())
             niveles.append(otronivel)
-        print(niveles)
+        #print(niveles)
         ###4 de 8
         grados=[]
         if (self.ui.gtransicion.isChecked()):
@@ -157,7 +153,7 @@ class RegistrarLT ( QDialog ):
         if (self.ui.gotro.isChecked()):
             otrogrado=str(self.ui.txtotrogrado.text())
             grados.append(otrogrado)
-        print(grados)
+        #print(grados)
 
         ### 5 de 8
         areas=[]
@@ -179,7 +175,7 @@ class RegistrarLT ( QDialog ):
             areas.append("Matematicas")
         if (self.ui.tecnologia.isChecked()):
             areas.append("Tecnologia")
-        print(areas)
+        #print(areas)
 
         ### 6 de 8
         nivel_educacion=[]
@@ -199,49 +195,80 @@ class RegistrarLT ( QDialog ):
             nivel_educacion.append("Nivel Maestria")
         if (self.ui.niveldoctorado.isChecked()):
             nivel_educacion.append("Nivel Doctorado")
-        print(nivel_educacion)
+        #print(nivel_educacion)
 
         ## 7 de 8
         exp_preescolar=int(self.ui.exppreescolar.value())
-        print(exp_preescolar)
+        #print(exp_preescolar)
         exp_primaria=int(self.ui.expprimaria.value())
-        print(exp_primaria)
+        #print(exp_primaria)
         exp_secundaria=int(self.ui.expsecundaria.value())
-        print(exp_secundaria)
+        #print(exp_secundaria)
         exp_media=int(self.ui.expmedia.value())
-        print(exp_media)
+        #print(exp_media)
         exp_superior=int(self.ui.expsuperior.value())
-        print(exp_superior)
+        #print(exp_superior)
         ## 8 de 8
         exp_rural=int(self.ui.exprural.value())
-        print(exp_rural)
+        #print(exp_rural)
         exp_urbana=int(self.ui.expurbana.value())
-        print(exp_urbana)
+        #print(exp_urbana)
         exp_publico=int(self.ui.exppublico.value())
-        print(exp_publico)
+        #print(exp_publico)
         exp_privado=int(self.ui.expprivado.value())
-        print(exp_privado)
+        #print(exp_privado)
         exp_total=int(self.ui.exptotal.value())
-        print(exp_total)
+        #print(exp_total)
 
-    '''
-		elif self.tipo==2:
-			nombre_c = str(self.ui.leNombre.text())
-			curso = Curso(nombre= nombre_c, descripcion=str(self.ui.teDescripcion.toPlainText()))
-			self.logicaCursos.modificarCurso(nombre_c, curso)
-			i=0
-			curso = self.logicaCursos.consultarCurso(nombre_c)
-			self.logicaActividades.eliminarActividadesXCurso(curso.id)
-			while i<self.ui.sbNumActividades.value():
-				nombre_ac = str(self.ui.twActividades.item(i, 0).text())
-				ponderado_ac = float(self.ui.twActividades.item(i, 1).text())
-				actividad = Actividades(nombre = nombre_ac, ponderado = ponderado_ac, id_curso =curso.id )
-				self.logicaActividades.agregarActividades(actividad)
-				i+=1
-			self.close()
-		elif self.tipo==3:
-			id_curso_mod = self.logicaCursos.consultarCurso(str(self.ui.leNombre.text())).id
-			self.logicaActividades.eliminarActividadesXCurso(id_curso_mod)
-			self.logicaCursos.eliminarCurso(id_curso_mod)
-			self.close()
-	'''
+        #Consultamos aspirante para almacenar los datos
+
+        asp=self.controldigi.consultarAspirante(id)
+
+        #DATOS PARA USUARIO
+        paramUser= []
+        paramUser.append(id)
+        paramUser.append(asp.nombres)
+        paramUser.append(asp.apellidos)
+        paramUser.append(asp.direccion)
+        paramUser.append(asp.telefono)
+        paramUser.append(asp.correo_electronico)
+        paramUser.append(asp.fecha_nacimiento)
+
+
+        #DATOS PARA LT
+        parametros.append(id)
+
+        parametros.append(asp.municipio)
+        parametros.append(asp.genero)
+        parametros.append(asp.institucion)
+        parametros.append(asp.escalafon)
+        parametros.append(asp.sede)
+        parametros.append(asp.codigo_dane)
+        parametros.append(asp.dpto_secretaria)
+        parametros.append(asp.tutor)
+        parametros.append(asp.usuario_col_aprende)
+
+        parametros.append(Modalidad)
+        parametros.append(exp_preescolar)
+        parametros.append(exp_primaria)
+        parametros.append(exp_secundaria)
+        parametros.append(exp_media)
+        parametros.append(exp_superior)
+        parametros.append(exp_rural)
+        parametros.append(exp_urbana)
+        parametros.append(exp_publico)
+        parametros.append(exp_privado)
+        parametros.append(exp_total)
+        parametros.append(areas)
+        parametros.append(Zonas)
+        parametros.append(ModalidadTec)
+        parametros.append(grados)
+        parametros.append(etnoeducativa)
+        parametros.append(niveles)
+        parametros.append(nivel_educacion)
+
+        #Primero creamos el usuario
+        self.controldigi.agregarUsuarioLT(1,paramUser)
+        self.controldigi.cerrarSesion()
+        #Segundo creamos el LT
+        self.controldigi.agregarLT(3,parametros)
