@@ -1,6 +1,6 @@
 __author__ = 'family'
 
-from sqlalchemy import (Sequence, UniqueConstraint, Index,Date)
+from sqlalchemy import (Sequence, UniqueConstraint, Index, Date)
 
 from basetest import *
 

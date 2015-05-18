@@ -1,6 +1,7 @@
 from sqlalchemy.orm import sessionmaker
 
-from ORM.basetest import *
+
+from basetest import *
 from ORM.Notas import Notas
 
 

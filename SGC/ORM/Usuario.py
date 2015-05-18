@@ -19,6 +19,7 @@ class Usuario (Base):
     type = Column(String(50))
 
 
+
 Base.metadata.create_all(engine)
 
 # Session = sessionmaker(bind=engine)

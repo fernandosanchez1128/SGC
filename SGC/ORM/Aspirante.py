@@ -1,16 +1,10 @@
-__author__ = 'cenesis'
+__author__ = 'nelson'
 
-from sqlalchemy import (create_engine, Column, Date, Integer, ForeignKey, String, Table,Sequence, Boolean)
-from Usuario import Usuario
-
-
-#engine = create_engine('postgresql://brayanrod:bryan1112@localhost:5432/sgc', echo=True)
-#engine = create_engine('postgresql://braymrr:braymrr@pgsql/braymrr', echo=True)
-#engine = create_engine('sqlite:///leaderteacher.db', echo=True)
-#Base = declarative_base()
-
-
+from sqlalchemy import (create_engine, Column, Date, Integer, ForeignKey,ForeignKeyConstraint, String, Table,Sequence, Boolean)
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship
 from basetest import *
+
 class Aspirante(Base):
     __tablename__ = 'aspirante'
     cedula = Column(String(20), primary_key=True)
@@ -23,11 +17,15 @@ class Aspirante(Base):
     municipio = Column(String(40))
     genero = Column(String(10))
     institucion = Column(String(50))
-    escalafon = Column(Integer)
+    escalafon = Column(String(40)   )
     sede = Column(String(40))
     codigo_dane = Column(String(20))
     dpto_secretaria  = Column(String(20))
-    tutor = Column(Boolean) #no estoy seguro del tipo
-    usuario_col_aprende = Column(String(50))
+    tutor = Column(Boolean)
+    usuario_col_aprende = Column(Boolean)
+    #id_curso = Column(Integer)
+    #ForeignKeyConstraint(['id_curso'],['curso.id'])
+
+from Preinscripcion import Preinscripcion
     
 Base.metadata.create_all(engine)

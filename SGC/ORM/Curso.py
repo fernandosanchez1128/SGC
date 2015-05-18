@@ -12,7 +12,7 @@ class Curso(Base):
     __tablename__ = 'curso'
     id = Column(Integer,Sequence('sec_curso'), primary_key=True)
     nombre = Column(String(40), index=True, nullable=False,unique = True)
-    descripcion = Column(String, index=True)
+    descripcion = Column(String(120), index=True)
     cohortes = relationship("Cohorte",cascade="all, delete, delete-orphan", primaryjoin="and_(Curso.id==Cohorte.id_curso) ")
     actividades = relationship("Actividades",cascade="all, delete, delete-orphan", primaryjoin="and_(Curso.id==Actividades.id_curso) ")
     
