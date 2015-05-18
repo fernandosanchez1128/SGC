@@ -15,7 +15,7 @@ class LogicaDicta ():
         print ("contructorAct")
 
     def consultarCursosProf(self, cedula,fecha):
-        cursos=self.session.query(Dicta).join(Cohorte).filter(Dicta.cedula_mt == cedula,Cohorte.fecha_inicio <= fecha,Cohorte.fecha_fin >= fecha).all()
+        cursos=self.session.query(Dicta).join(Cohorte).filter(Dicta.cedula_mt == cedula,Cohorte.fecha_inicio <= fecha,Cohorte.fecha_fin >= fecha).order_by(Dicta.id_curso).all()
         print cursos
         self.session.close()
         return cursos

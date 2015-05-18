@@ -35,10 +35,19 @@ class MainWindow(QMainWindow):
     def empezar(self):
         # cambiar por el codigo del profesor
         registros = self.fachadaMt.consulta_cursos_prof("1")
+        id_curso_ant = 0
+        num_curso =0
         for reg_mat in registros:
             curso = self.fachadaMt.consulta_curso(reg_mat.id_curso)
             item = QtGui.QListWidgetItem()
-            item.setText(QString(curso.nombre + "-" + str(reg_mat.id_cohorte)))
+            item.setWhatsThis(QString (str (reg_mat.id_cohorte)))
+            if (curso.id == id_curso_ant):
+                num_curso +=1
+                item.setText(QString(curso.nombre + QString("-") +QString(str(num_curso))))
+            else:
+                num_curso =0
+                item.setText(QString(curso.nombre))
+            id_curso_ant = curso.id
             font = QtGui.QFont()
             font.setBold(True)
             font.setWeight(75)
@@ -47,13 +56,17 @@ class MainWindow(QMainWindow):
 
 
     def cargarNotas(self):
-        item_seleccionado = str(self.ui.lista_cursos.currentItem().text())
+        item_seleccionado = self.ui.lista_cursos.currentItem()
         # extraccion del codigo y del cohorte
-        index = item_seleccionado.find('-')
-        nombre_curso = item_seleccionado[:index]
-        codigo_cohorte = item_seleccionado[index + 1:len(item_seleccionado)]
-
-
+        nombre_curso_com = str(item_seleccionado.text())
+        codigo_cohorte = str (item_seleccionado.whatsThis())
+        index = nombre_curso_com.find('-')
+        nombre_curso = ""
+        if (index != -1):
+            nombre_curso = nombre_curso_com[:index]
+        else :
+            nombre_curso = nombre_curso_com
+        print "nombre" ,nombre_curso
         # busqueda de las actividades
         curso = self.fachadaMt.consulta_curso_by_name(nombre_curso)
         # print "actividades",curso.actividades
