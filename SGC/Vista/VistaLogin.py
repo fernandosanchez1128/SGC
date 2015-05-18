@@ -3,6 +3,7 @@ from PyQt4 import uic
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from Control.ControlLogin import ControlLogin
+from datetime import*
 
 ( Ui_VistaLogin, QDialog ) = uic.loadUiType( 'VistaLogin.ui' )
 
@@ -25,18 +26,59 @@ class VistaLogin ( QDialog ):
             QMessageBox.information(self, "Login", "Usuario o Contrasena Invalidos")
         else:
             tipoUsuario=str(objUsuario.type)
-            print "TipoUsuario"
-            print tipoUsuario
+            fechaAcceso=objUsuario.fecha_ultimo_acceso
+            fechaActual=date.today()
+            delta=timedelta(days=180)
 
             if objUsuario.contrasena==str(self.ui.txtPassword.text()):
                 if tipoUsuario=='coordinador':
-                    QMessageBox.information(self, "Login", "Ingresa Coordinador")
+                    if fechaAcceso is None:
+                        self.control.modificarFechaAcceso(username, fechaActual)
+                        QMessageBox.information(self, "Login", "Ingresa Coordinador")
+                    else:
+                        if fechaAcceso>=fechaActual-delta:
+                            self.control.modificarFechaAcceso(username, fechaActual)
+                            QMessageBox.information(self, "Login", "Ingresa Coordinador")
+                        else:
+                            QMessageBox.information(self, "Login", "Su ultimo acceso al sistema fue hace mas de 180 dias\n"
+                                                                   "por lo tanto su cuenta fue inhabilitada, por favor\n"
+                                                                   "contacte al administrador para reactivarla")
                 elif tipoUsuario=='leaderteacher':
-                    QMessageBox.information(self, "Login", "Ingresa Leader Teacher")
+                    if fechaAcceso is None:
+                        self.control.modificarFechaAcceso(username, fechaActual)
+                        QMessageBox.information(self, "Login", "Ingresa Leader Teacher")
+                    else:
+                        if fechaAcceso>=fechaActual-delta:
+                            self.control.modificarFechaAcceso(username, fechaActual)
+                            QMessageBox.information(self, "Login", "Ingresa Leader Teacher")
+                        else:
+                            QMessageBox.information(self, "Login", "Su ultimo acceso al sistema fue hace mas de 180 dias\n"
+                                                                   "por lo tanto su cuenta fue inhabilitada, por favor\n"
+                                                                   "contacte al administrador para reactivarla")
                 elif tipoUsuario=='masterteacher':
-                    QMessageBox.information(self, "Login", "Ingresa Master Teacher")
+                    if fechaAcceso is None:
+                        self.control.modificarFechaAcceso(username, fechaActual)
+                        QMessageBox.information(self, "Login", "Ingresa Master Teacher")
+                    else:
+                        if fechaAcceso>=fechaActual-delta:
+                            self.control.modificarFechaAcceso(username, fechaActual)
+                            QMessageBox.information(self, "Login", "Ingresa Master Teacher")
+                        else:
+                            QMessageBox.information(self, "Login", "Su ultimo acceso al sistema fue hace mas de 180 dias\n"
+                                                                   "por lo tanto su cuenta fue inhabilitada, por favor\n "
+                                                                   "contacte al administrador para reactivarla")
                 elif tipoUsuario=='digitador':
-                    QMessageBox.information(self, "Login", "Ingresa Digitador")
+                    if fechaAcceso is None:
+                        self.control.modificarFechaAcceso(username, fechaActual)
+                        QMessageBox.information(self, "Login", "Ingresa Digitador")
+                    else:
+                        if fechaAcceso>=fechaActual-delta:
+                            self.control.modificarFechaAcceso(username, fechaActual)
+                            QMessageBox.information(self, "Login", "Ingresa Digitador")
+                        else:
+                            QMessageBox.information(self, "Login", "Su ultimo acceso al sistema fue hace mas de 180 dias\n"
+                                                                   "por lo tanto su cuenta fue inhabilitada, por favor\n "
+                                                                   "contacte al administrador para reactivarla")
                 else:
                     QMessageBox.information(self, "Login", "Perfil de usuario desconocido")
             else:
