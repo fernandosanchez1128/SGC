@@ -1,25 +1,30 @@
-__author__ = 'cenesis'
+__author__ = 'nelson'
 
+from sqlalchemy import (create_engine, Column, Date, Integer, ForeignKey,ForeignKeyConstraint, String, Table,Sequence, Boolean)
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship
 from Usuario import Usuario
-
+from sqlalchemy import Boolean
 
 from basetest import *
-class LeaderTeacher(Usuario, Base):
+class LeaderTeacher(Base):
     __tablename__ = 'leaderteacher'
 
     cedula = Column(String(20), ForeignKey('usuario.cedula'), primary_key=True)
+
     municipio = Column(String(40))
     genero = Column(String(10))
     institucion = Column(String(50))
-    escalafon = Column(Integer)
+    escalafon = Column(String(40)   )
     sede = Column(String(40))
     codigo_dane = Column(String(20))
     dpto_secretaria  = Column(String(20))
-    tutor = Column(Boolean) #no estoy seguro del tipo
-    usuario_col_aprende = Column(String(50))
-    dpto_secretaria  = Column(String(20))
+    tutor = Column(Boolean)
+    usuario_col_aprende = Column(Boolean)
+
+    #Academica o Tecnica
     tipo_institucion = Column(String(20))
-    
+    #Relacionado a Experiencia
     exp_preescolar = Column(Integer)
     exp_primaria = Column(Integer)
     exp_secundaria= Column(Integer)
@@ -38,10 +43,10 @@ class LeaderTeacher(Usuario, Base):
     grados_desempenados = relationship("GradosDesempenados", backref='leaderteacher',cascade="all, delete, delete-orphan")
     etnoeducacion = relationship("Etnoeducacion", backref='leaderteacher',cascade="all, delete, delete-orphan")
     niveles_desempenados = relationship("Niveles", backref='leaderteacher',cascade="all, delete, delete-orphan")
-    
-    grado = Column(Integer)
-    departamento_secretaria= Column (String (20))
-    municipio_secretaria = Column(String(40))
+
+    #Nivel maximo de educacion
+    grado = Column(String(50))
+
     __mapper_args__ = {
         'polymorphic_identity':'leaderteacher',
     }
@@ -55,7 +60,7 @@ from NivelesDesempenados import *
 
 
 Base.metadata.create_all(engine)
-    
+
 
 
 
@@ -65,3 +70,6 @@ Base.metadata.create_all(engine)
 #
 # session.add(user)
 # session.commit()
+    
+
+
