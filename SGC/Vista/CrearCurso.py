@@ -42,6 +42,7 @@ class CrearCurso(QDialog):
             self.ui.leNombre.setEnabled(True)
             self.ui.teDescripcion.setEnabled(True)
             self.ui.label.setText(QString.fromUtf8("<P><b><FONT SIZE = 4> Edición de cursos </b></P></br>"))
+            self.ui.btVer.setText(QString.fromUtf8("Ver Estudiantes"))
             self.ui.btVer.setVisible(True)
         elif tipo == 3:  # modificar
             self.ui.btBuscar.setVisible(True)
@@ -49,7 +50,8 @@ class CrearCurso(QDialog):
             self.ui.leNombre.setEnabled(True)
             self.ui.teDescripcion.setEnabled(True)
             self.ui.label.setText(QString.fromUtf8("<P><b><FONT SIZE = 4> Edición de cursos </b></P></br>"))
-            self.ui.btVer.setVisible(False)
+            self.ui.btVer.setText(QString.fromUtf8("Anular Matrícula a LT"))
+            self.ui.btVer.setVisible(True)
         elif tipo == 4:  # Eliminar
             self.ui.btBuscar.setVisible(True)
             self.ui.btCrear.setText("Eliminar Curso")
@@ -144,10 +146,17 @@ class CrearCurso(QDialog):
                 i += 1
 
     def ver_clicked(self):
-        if self.id_curso!=None:
-            v = VerEstudiantes(None, self.id_curso).exec_()
-        else:
-            QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
+        if self.tipo == 2: #ver estudiantes
+            if self.id_curso!=None:
+                v = VerEstudiantes(None, self.id_curso).exec_()
+            else:
+                QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
                                           QString.fromUtf8("Debe buscar un curso para ver sus estudiantes."))
-
+        elif self.tipo == 3: #anular matricula
+            pass
+            # if self.id_curso!=None:
+            #     v = AnularMatricula(None, self.id_curso).exec_()
+            # else:
+            #     QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
+            #                               QString.fromUtf8("Debe buscar un curso para ver sus estudiantes."))
 

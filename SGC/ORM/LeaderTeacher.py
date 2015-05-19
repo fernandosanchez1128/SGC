@@ -59,9 +59,9 @@ Base.metadata.create_all(engine)
 
 
 
-# Session = sessionmaker(bind=engine)
-# session = Session()
-# user = LeaderTeacher(cedula  = 1421, correo_electronico='c@ah.com', contrasena= 'c')
-#
-# session.add(user)
-# session.commit()
+Session = sessionmaker(bind=engine)
+session = Session()
+user = LeaderTeacher(cedula  = 1144, correo_electronico='b@ah.com', contrasena= 'b')
+
+session.add(user)
+session.commit()
