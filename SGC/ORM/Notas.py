@@ -1,19 +1,17 @@
-from LeaderTeacher import *
-from sqlalchemy import (create_engine, Column, Boolean, Date, Integer, ForeignKey, ForeignKeyConstraint, String, Table)
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from Actividades import *
-
+from sqlalchemy import (Boolean, Float, ForeignKeyConstraint)
 from basetest import *
 
-class Notas (Base):
-	__tablename__ = 'notas'
-	cedula_lt = Column(String(40), ForeignKey('leaderteacher.cedula'), primary_key=True)
-	id_actividades = Column(Integer, ForeignKey('actividades.id_actividades'), primary_key=True)
-	ForeignKeyConstraint(['cedula_lt', 'id_actividades'],['leaderteacher.cedula','actividades.id_actividades'])
-	nota = Column(Float)
-	asistencia = Column(Boolean)
+class Notas(Base):
+    __tablename__ = 'notas'
+    cedula_lt = Column(String(40),ForeignKey ('leaderteacher.cedula'), primary_key=True)
+    id_actividad = Column(Integer, primary_key=True)
+    id_curso = Column(Integer,primary_key= True)
+    id_cohorte = Column(Integer, primary_key=True)
+    nota = Column(Float)
+    asistencia = Column(Boolean)
+    __table_args__ = (ForeignKeyConstraint([id_curso, id_cohorte],['cohorte.id_curso','cohorte.id_cohorte']),{})
+    __table_args__ = (ForeignKeyConstraint([id_actividad, id_curso],['actividades.id_actividad','actividades.id_curso']),{})
+
+
 
 Base.metadata.create_all(engine)

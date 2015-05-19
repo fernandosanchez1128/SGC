@@ -3,12 +3,6 @@ __author__ = 'cenesis'
 from Usuario import Usuario
 
 
-#engine = create_engine('postgresql://brayanrod:bryan1112@localhost:5432/sgc', echo=True)
-#engine = create_engine('postgresql://braymrr:braymrr@pgsql/braymrr', echo=True)
-#engine = create_engine('sqlite:///leaderteacher.db', echo=True)
-#Base = declarative_base()
-
-
 from basetest import *
 class LeaderTeacher(Usuario, Base):
     __tablename__ = 'leaderteacher'
@@ -38,22 +32,36 @@ class LeaderTeacher(Usuario, Base):
     exp_total= Column(Integer)
     
     #multivaluados
-    #areas_desempenadas = relationship("AreasDesempenadas", backref='leaderteacher',cascade="all, delete, delete-orphan")
-    #zona = relationship("Zona", backref='leaderteacher',cascade="all, delete, delete-orphan")
-    #modalidad = relationship("Modalidad", backref='leaderteacher',cascade="all, delete, delete-orphan")
-    #grados_desempenados = relationship("GradosDesempenados", backref='leaderteacher',cascade="all, delete, delete-orphan")
-    #etnoeducacion = relationship("Etnoeducacion", backref='leaderteacher',cascade="all, delete, delete-orphan")
-    #niveles_desempenados = relationship("NivelesDesempenados", backref='leaderteacher',cascade="all, delete, delete-orphan")
+    areas_desempenadas = relationship("AreasDesempenadas", backref='leaderteacher',cascade="all, delete, delete-orphan")
+    zona = relationship("Zona", backref='leaderteacher',cascade="all, delete, delete-orphan")
+    modalidad = relationship("Modalidad", backref='leaderteacher',cascade="all, delete, delete-orphan")
+    grados_desempenados = relationship("GradosDesempenados", backref='leaderteacher',cascade="all, delete, delete-orphan")
+    etnoeducacion = relationship("Etnoeducacion", backref='leaderteacher',cascade="all, delete, delete-orphan")
+    niveles_desempenados = relationship("Niveles", backref='leaderteacher',cascade="all, delete, delete-orphan")
     
     grado = Column(Integer)
-    departamentoSecretaria= Column (String (20))
-    municipioSecretaria = Column(String(40))
+    departamento_secretaria= Column (String (20))
+    municipio_secretaria = Column(String(40))
     __mapper_args__ = {
         'polymorphic_identity':'leaderteacher',
     }
+
+from AreasDesempenadas import *
+from Zona import *
+from Modalidad import *
+from GradosDesempenados import *
+from Etnoeducacion import *
+from NivelesDesempenados import *
 
 
 Base.metadata.create_all(engine)
     
 
 
+
+# Session = sessionmaker(bind=engine)
+# session = Session()
+# user = LeaderTeacher(cedula  = 1421, correo_electronico='c@ah.com', contrasena= 'c')
+#
+# session.add(user)
+# session.commit()

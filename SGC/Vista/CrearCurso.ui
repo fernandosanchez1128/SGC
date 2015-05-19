@@ -141,9 +141,29 @@
         </column>
         <column>
          <property name="text">
-          <string>Ponderado</string>
+          <string>Ponderado (%)</string>
          </property>
         </column>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btVer">
+        <property name="text">
+         <string>Ver Estudiantes</string>
+        </property>
        </widget>
       </item>
      </layout>
@@ -189,12 +209,6 @@
     <string>Crear Curso</string>
    </property>
   </widget>
-  <zorder>centralwidget</zorder>
-  <zorder>verticalLayoutWidget</zorder>
-  <zorder>label</zorder>
-  <zorder>btCancelar</zorder>
-  <zorder>btCrear</zorder>
-  <zorder>leNombre</zorder>
  </widget>
  <resources/>
  <connections/>
