@@ -4,6 +4,7 @@ from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from Control.ControlLogin import ControlLogin
 from datetime import*
+from vistacoordinador import *
 
 ( Ui_VistaLogin, QDialog ) = uic.loadUiType( 'VistaLogin.ui' )
 
@@ -34,11 +35,15 @@ class VistaLogin ( QDialog ):
                 if tipoUsuario=='coordinador':
                     if fechaAcceso is None:
                         self.control.modificarFechaAcceso(username, fechaActual)
-                        QMessageBox.information(self, "Login", "Ingresa Coordinador")
+                        w = VistaCoordinador.Instance()
+                        w.setWindowTitle( 'Coordinador' )
+                        w.show()
                     else:
                         if fechaAcceso>=fechaActual-delta:
                             self.control.modificarFechaAcceso(username, fechaActual)
-                            QMessageBox.information(self, "Login", "Ingresa Coordinador")
+                            w = VistaCoordinador.Instance()
+                            w.setWindowTitle( 'Coordinador' )
+                            w.show()
                         else:
                             QMessageBox.information(self, "Login", "Su ultimo acceso al sistema fue hace mas de 180 dias\n"
                                                                    "por lo tanto su cuenta fue inhabilitada, por favor\n"
