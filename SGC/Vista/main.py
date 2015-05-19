@@ -15,11 +15,7 @@ if __name__ == '__main__':
     # create application
     app = QApplication( sys.argv )
     app.setApplicationName( 'My PyQt4 QtGui Project')
-    '''
     venCrear =  VistaLogin()
-    venCrear.show()
-    '''
-    venCrear=VistaDescargarCertificado()
     venCrear.show()
 
     # connection
