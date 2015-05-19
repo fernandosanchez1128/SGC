@@ -22,6 +22,7 @@ class CrearCurso(QDialog):
         QDialog.__init__(self, parent)
         self.ui = Ui_CrearCurso()
         self.ui.setupUi(self)
+        self.id_curso = None
         self.ui.twActividades.setRowCount(self.ui.sbNumActividades.value())
         self.connect(self.ui.sbNumActividades, SIGNAL("valueChanged(int)"), self.change_actividades)
         self.connect(self.ui.btCancelar, SIGNAL("clicked()"), self.cancelar_clicked)
@@ -95,15 +96,16 @@ class CrearCurso(QDialog):
                         self.control.crearCurso(nombre_c, descripcion_c, actividades)
                         self.close()
                         self.control.cerrarSesion()
-                except SQLAlchemyError:
-                    QtGui.QMessageBox.warning(self, self.tr("Error en Base de Datos"),
-                                              QString.fromUtf8("Error en Base de Datos. \n"
-                                                               "Recuerde que los nombres de los cursos son únicos \n"
-                                                               "y que no debe haber dos actividades con el mismo nombre en el mismo curso."))
+                except SQLAlchemyError, e:
+                   QtGui.QMessageBox.warning(self, self.tr("Error en Base de Datos"),
+                                             QString.fromUtf8("Error en Base de Datos. \n"
+                                                              "Recuerde que los nombres de los cursos son únicos \n"
+                                                              "y que no debe haber dos actividades con el mismo nombre en el mismo curso."))
+                   print e
                 except:
-                    QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
-                                              QString.fromUtf8(
-                                                  "Recuerde que los ponderados de las actividades deben ser numeros entre 0 y 100."))
+                   QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
+                                             QString.fromUtf8(
+                                                 "Recuerde que los ponderados de las actividades deben ser numeros entre 0 y 100."))
             else:
                 QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
                                           QString.fromUtf8("Recuerde llenar todos los campos."))
@@ -124,10 +126,10 @@ class CrearCurso(QDialog):
             nombre_c = str(self.ui.leNombre.text())
             self.control.eliminarCurso(nombre_c)
             self.close()
-            self.control.cerrarSesion()
 
     def buscar_clicked(self):
         curso = self.control.buscarCurso(str(self.ui.leNombre.text()))
+        self.id_curso = curso.id
         self.ui.teDescripcion.setText(curso.descripcion)
         self.ui.leNombre.setEnabled(False)
         if (self.tipo == 2) | (self.tipo == 3):
@@ -142,7 +144,10 @@ class CrearCurso(QDialog):
                 i += 1
 
     def ver_clicked(self):
-        v = VerEstudiantes()
-        v.show(None, )
+        if self.id_curso!=None:
+            v = VerEstudiantes(None, self.id_curso).exec_()
+        else:
+            QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
+                                          QString.fromUtf8("Debe buscar un curso para ver sus estudiantes."))
 
 

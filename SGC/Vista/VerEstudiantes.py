@@ -15,6 +15,7 @@ class VerEstudiantes ( QDialog ):
         cohortes = self.control.numeroCohortes(id_curso)
         self.ui.sbCohortes.setMinimum(1)
         self.ui.sbCohortes.setMaximum(cohortes)
+        self.ui.tableWidget.setRowCount(cohortes)
 
     def __del__ ( self ):
         self.ui = None
