@@ -17,4 +17,6 @@ class Reporte:
         #filtro de estudiante si tiene cohortes este semestre y
         #filtrar si la nota definitiva en todas las matriculas es >3.0
         #comparar con el número de LT matriculados
+	
+	
 
