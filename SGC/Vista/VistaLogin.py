@@ -54,6 +54,13 @@ class VistaLogin ( QDialog ):
 			print "paso en false"
 			return False
 
+    def buscaCaracter(self, caracter, cadena):
+        booleano=False
+        for letra in cadena:
+            if letra==caracter:
+                booleano=True
+        return booleano
+
     def inicio_clicked(self):
         username=str(self.ui.txtUsuario.text())
         objUsuario=self.control.buscarUsuarioUsername(username)
@@ -61,9 +68,12 @@ class VistaLogin ( QDialog ):
         if (username==""):
             QMessageBox.information(self, "Login", "El campo usuario no puede estar vacio")
         elif (self.validacion()!=1):
-            QMessageBox.information(self, "Login", "Usuario debe contener un @ y luego un punto")
-        elif (self.validacion()!=1):
-            QMessageBox.information(self, "Login", "Usuario debe contener un @ y luego un punto")
+            if (self.buscaCaracter("@", username)==True):
+                QMessageBox.information(self, "Login", "Usuario debe contener un punto despues del arroba")
+            elif (self.buscaCaracter(".", username)==True):
+                QMessageBox.information(self, "Login", "Usuario debe contener un arroba antes del punto")
+            else:
+                QMessageBox.information(self, "Login", "Usuario debe contener un @ y luego un punto")
         elif objUsuario is None:
             QMessageBox.information(self, "Login", "Usuario o contrasena invalidos")
         else:
