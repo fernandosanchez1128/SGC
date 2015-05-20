@@ -13,7 +13,6 @@ class LogicaAsignacion():
 
     def agregar_asignacion(self,asignacion):
         exito = 1
-        paso_integrity_error = False;
         # self.session.add(asignacion)
         # self.session.commit()
         # self.session.close()
@@ -22,19 +21,19 @@ class LogicaAsignacion():
             self.session.commit()
             self.session.close()
         except IntegrityError:
-            paso_integrity_error = True
             print "violacion de integridad en la llave primaria"
             self.session.close()
             return 0
 
         except DataError:
-            print "exception1"
+            print "exception dato"
+            self.session.close()
             return 2
-            self.session.close()
 
-        except :
-            return 3
+        except Exception :
+            print "exception logica"
             self.session.close()
+            return 3
         return exito
 
 

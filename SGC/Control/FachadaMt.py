@@ -104,10 +104,4 @@ class FachadaMt():
             return 1
 
 
-op = FachadaMt().agregar_entrega('a',2,1,'2015/09/15:12:30')
-print op
-
-
-
-
 
