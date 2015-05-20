@@ -11,6 +11,7 @@ if __name__ == '__main__':
     app = QApplication( sys.argv )
     app.setApplicationName( 'My PyQt4 QtGui Project')
     # create widget
+    print "hola"
     w = MainWindow()
     w.setWindowTitle( 'My PyQt4 QtGui Project' )
     w.show()
