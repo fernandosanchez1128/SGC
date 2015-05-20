@@ -58,7 +58,11 @@ class VistaLogin ( QDialog ):
         username=str(self.ui.txtUsuario.text())
         objUsuario=self.control.buscarUsuarioUsername(username)
 
-        if (self.validacion()!=1):
+        if (username==""):
+            QMessageBox.information(self, "Login", "El campo usuario no puede estar vacio")
+        elif (self.validacion()!=1):
+            QMessageBox.information(self, "Login", "Usuario debe contener un @ y luego un punto")
+        elif (self.validacion()!=1):
             QMessageBox.information(self, "Login", "Usuario debe contener un @ y luego un punto")
         elif objUsuario is None:
             QMessageBox.information(self, "Login", "Usuario o contrasena invalidos")
