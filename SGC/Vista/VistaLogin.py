@@ -18,13 +18,50 @@ class VistaLogin ( QDialog ):
         self.ui.setupUi( self )
         self.ui.txtPassword.setEchoMode(QLineEdit.Password)
         self.connect(self.ui.btnInicio, SIGNAL("clicked()"), self.inicio_clicked)
+        self.validaciones()
+        self.ui.txtUsuario.textChanged.connect(self.check_state)
+        self.validacion()
+
+    def validaciones (self) :
+		validador = QIntValidator()
+		exp_correo = QRegExp('^.*[@].*[.].*')
+		exp_cadena =QRegExp('.+')
+		val_correo = QRegExpValidator(exp_correo)
+		val_vacio = QRegExpValidator(exp_cadena)
+		self.ui.txtUsuario.setValidator(val_correo)
+
+    def check_state (self)	:
+		print "cambio", (1 and 2)
+		sender = self.sender()
+		validator = sender.validator()
+		state = validator.validate(sender.text(), 0)[0]
+		print state;
+		if state == QValidator.Acceptable:
+			color = '#c4df9b' # green
+		elif state == QValidator.Intermediate:
+			color = '#fff79a' # yellow
+		else:
+			color = '#f6989d' # red
+		sender.setStyleSheet('QLineEdit { background-color: %s }' % color)
+
+    def validacion (self)	:
+		usuario = self.ui.txtUsuario.validator().validate (self.ui.txtUsuario.text(),0)[0]
+		print "validacion ", usuario
+		if (usuario) == 2:
+			print "paso en true"
+			return True
+		else :
+			print "paso en false"
+			return False
 
     def inicio_clicked(self):
         username=str(self.ui.txtUsuario.text())
         objUsuario=self.control.buscarUsuarioUsername(username)
 
-        if objUsuario is None:
-            QMessageBox.information(self, "Login", "Usuario o Contrasena Invalidos")
+        if (self.validacion()!=1):
+            QMessageBox.information(self, "Login", "Usuario debe contener un @ y luego un punto")
+        elif objUsuario is None:
+            QMessageBox.information(self, "Login", "Usuario o contrasena invalidos")
         else:
             tipoUsuario=str(objUsuario.type)
             fechaAcceso=objUsuario.fecha_ultimo_acceso
