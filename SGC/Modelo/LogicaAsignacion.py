@@ -1,7 +1,8 @@
+from sqlalchemy.exc import *
 from ORM.Asignacion import Asignacion
 from sqlalchemy.orm import sessionmaker
 from ORM.basetest import *
-from psycopg2 import IntegrityError,Error,NotSupportedError,extensions,Warning
+from sqlalchemy import exceptions
 
 class LogicaAsignacion():
     Session = sessionmaker(bind=engine)
@@ -12,21 +13,27 @@ class LogicaAsignacion():
 
     def agregar_asignacion(self,asignacion):
         exito = 1
-        paso_integrity_error = False;
-        try:
+        # self.session.add(asignacion)
+        # self.session.commit()
+        # self.session.close()
+        try :
             self.session.add(asignacion)
             self.session.commit()
             self.session.close()
-        # except psycopg2.IntegrityError:
-        #     paso_integrity_error = True
-        #     print "integridad"
-        #     exito = 0
-        #     self.session.close()
-        except Exception:
-            print "excepcion"
-            if (paso_integrity_error == False):
-                exito = 0
+        except IntegrityError:
+            print "violacion de integridad en la llave primaria"
             self.session.close()
+            return 0
+
+        except DataError:
+            print "exception dato"
+            self.session.close()
+            return 2
+
+        except Exception :
+            print "exception logica"
+            self.session.close()
+            return 3
         return exito
 
 
@@ -38,7 +45,15 @@ class LogicaAsignacion():
         return asignacion
 
     def editar_asignacion(self, id_curso,id_cohorte,id_actividad, new_fecha):
-        asignacionEditada = self.session.query(Asignacion).filter_by(id_actividad=id_actividad,id_curso = id_curso,id_cohorte = id_cohorte).first()
-        asignacionEditada.fecha_hora = new_fecha
-        self.session.commit()
-        self.session.close()
+        exito =1
+        try:
+            asignacionEditada = self.session.query(Asignacion).filter_by(id_actividad=id_actividad,id_curso = id_curso,id_cohorte = id_cohorte).first()
+            asignacionEditada.fecha_hora = new_fecha
+            self.session.commit()
+            self.session.close()
+        except Exception :
+            return 0
+            self.session.close()
+
+        return exito
+
