@@ -4,19 +4,12 @@ from ORM.Curso import Curso
 from ORM.Actividades import Actividades
 from Modelo.LogicaCursos import LogicaCursos
 from Modelo.LogicaCohorte import LogicaCohorte
-from Modelo.LogicaMatricula import LogicaMatricula
-from Modelo.Certificado import Certificado
-from Modelo.LogicaUsuario import LogicaUsuario
-
 
 class ControlCoordinador:
 
     def __init__(self):
         #self.logCurso = LogicaCurso()
         self.logicaCursos = LogicaCursos()
-        self.logicaMatricula = LogicaMatricula()
-        self.logicaUsuario=LogicaUsuario()
-        self.certificado=Certificado()
 
     def crearCurso(self, nombre, descripcion, actividades):
         obj_actividades = []
@@ -44,27 +37,12 @@ class ControlCoordinador:
     def buscarCurso(self, nombre):
         return self.logicaCursos.consultarCurso(nombre)
 
-    def buscarCursoId(self, id_curso):
-        return self.logicaCursos.consultarCurso_id(id_curso)
-
     def numeroCohortes(self,id_curso):
         num = len(self.logicaCursos.consultarCurso_id(id_curso).cohortes)
         return num
 
-    def cursosEstudiantes(self, cedula):
-        cursos=self.logicaMatricula.consultar_cursos_estudiantes(cedula)
-        return cursos
-
     def cerrarSesion(self):
         self.logicaCursos.cerrarSesion()
-
-    def descargaCertificado(self, ruta, nombre, cedula, nota, nombreCurso):
-        self.certificado.generaCertificado(ruta, nombre, cedula, nota, nombreCurso)
-
-    def buscarPersona(self, cedula):
-        persona=self.logicaUsuario.buscarUsuario(cedula)
-        return persona
-
 
 
 '''

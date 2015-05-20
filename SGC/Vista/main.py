@@ -3,20 +3,18 @@ import sys
 # import PyQt4 QtCore and QtGui modules
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-from VistaLogin import *
-from VistaDescargarCertificado import *
 
-
-from CrearAspirante import CrearAspirante
-from RegistrarLT import RegistrarLT
-from CrearPreinscripcion import CrearPreinscripcion
+from VistaMt import MainWindow
 
 if __name__ == '__main__':
     # create application
     app = QApplication( sys.argv )
     app.setApplicationName( 'My PyQt4 QtGui Project')
-    venCrear =  VistaLogin()
-    venCrear.show()
+    # create widget
+    print "hola"
+    w = MainWindow()
+    w.setWindowTitle( 'My PyQt4 QtGui Project' )
+    w.show()
 
     # connection
     QObject.connect( app, SIGNAL( 'lastWindowClosed()' ), app, SLOT( 'quit()' ) )

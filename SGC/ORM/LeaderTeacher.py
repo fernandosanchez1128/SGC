@@ -5,6 +5,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from Usuario import Usuario
 from sqlalchemy import Boolean
+
 from basetest import *
 class LeaderTeacher(Base):
     __tablename__ = 'leaderteacher'
@@ -72,10 +73,3 @@ Base.metadata.create_all(engine)
     
 
 
-
-# Session = sessionmaker(bind=engine)
-# session = Session()
-# user = LeaderTeacher(cedula  = 1421, correo_electronico='c@ah.com', contrasena= 'c')
-#
-# session.add(user)
-# session.commit()

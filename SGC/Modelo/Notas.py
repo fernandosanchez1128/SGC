@@ -28,12 +28,9 @@ class Notas(object, Observable):
 
 
     def agregar(self, obj_nota)
-    # agregar nota de la actividad
+        # agregar nota de la actividad
         notifyObservers(self)
 
 
     def getNnota(self):
         return self.nota
-		
-		
-		

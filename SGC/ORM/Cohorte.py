@@ -1,6 +1,6 @@
 __author__ = 'family'
 
-from sqlalchemy import (Sequence, UniqueConstraint, Index, Date)
+from sqlalchemy import (Sequence, UniqueConstraint, Index,Date)
 
 from basetest import *
 
@@ -18,12 +18,10 @@ class Cohorte(Base):
     fecha_inicio = Column(Date,nullable=False)
     fecha_fin = Column(Date,nullable=False)
     __table_args__ = (UniqueConstraint('id_curso', 'id_cohorte', name='unique'),)
-
     def __repr__(self):
         codigo = str(self.id_cohorte)
         return codigo
 
-#Index('myindex', Cohorte.id_curso, Cohorte.id_cohorte, Cohorte.ano, Cohorte.semestre, unique=True)
 Base.metadata.create_all(engine)
 
 
