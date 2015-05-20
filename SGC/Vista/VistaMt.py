@@ -4,8 +4,8 @@ from PyQt4 import QtGui
 from PyQt4.QtCore import *
 
 from Control.FachadaMt import FachadaMt
+from VistaLogin import *
 from Asignacion import Asignacion
-
 
 (Ui_MainWindow, QMainWindow) = uic.loadUiType('mainwindow.ui')
 
@@ -25,7 +25,8 @@ class MainWindow(QMainWindow):
         self.connect(self.ui.boton, SIGNAL("clicked()"), self.asignacion)
         self.connect(self.ui.lista_cursos, SIGNAL("itemDoubleClicked(QListWidgetItem*)"), self.cargarNotas)
         self.connect(self.ui.tableWidget, SIGNAL(("cellChanged(int,int)")), self.guardarNota)
-        self.empezar()
+        venCrear =  VistaLogin().exec_()
+        #self.empezar()
 
 
     def __del__(self):

@@ -4,8 +4,6 @@ from ORM.MasterTeacher import *
 
 
 class LogicaUsuario():
-
-
     # def __init__ (self)
     Session = sessionmaker(bind=engine)
     session = Session()
@@ -25,6 +23,12 @@ class LogicaUsuario():
         self.session.close()
         return usuario
 
+    def buscarUsuarioUsername(self, username):
+        usuario = self.session.query(Usuario).filter_by(correo_electronico=username).first()
+        self.session.close()
+        return usuario
+
+
     def modificarUsuario(self, cedula_user, usuario_mod):
         usuario = self.session.query(Usuario).filter_by(cedula=cedula_user).first()
         usuario.nombres = usuario_mod.nombres
@@ -36,11 +40,18 @@ class LogicaUsuario():
         self.session.commit()
         self.session.close()
 
+    def modificarUsuarioFechaAcceso(self, username, fecha):
+        usuario = self.session.query(Usuario).filter_by(correo_electronico=username).first()
+        usuario.fecha_ultimo_acceso = fecha
+        self.session.commit()
+        self.session.close()
+
     def eliminarUsuario(self, cedula_user):
         usuario = self.session.query(Usuario).filter_by(cedula=cedula_user).first()
         self.session.delete(usuario)
         self.session.commit()
         self.session.close()
+
 
     def cerrarSesion(self):
         self.session.close()
