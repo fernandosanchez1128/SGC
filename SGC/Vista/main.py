@@ -4,7 +4,7 @@ import sys
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-from mainwindow import MainWindow
+from VistaMt import MainWindow
 
 if __name__ == '__main__':
     # create application

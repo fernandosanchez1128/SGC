@@ -167,6 +167,7 @@ class MainWindow(QMainWindow):
                         self.fachadaMt.guardar_nota(id_actividad, self.id_curso, self.id_cohorte, cedula, nota,True)
                     else:
                         QtGui.QMessageBox.warning(self, 'Error', "ingrese un numero entre 0.0 y 5.0", QtGui.QMessageBox.Ok)
+                        item.setText("")
             elif (columna % 2 != 0):
                 estado = item.checkState()
                 nombre_actividad = str(self.ui.tableWidget.horizontalHeaderItem(columna - 1).text())
