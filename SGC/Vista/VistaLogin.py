@@ -75,7 +75,7 @@ class VistaLogin ( QDialog ):
             else:
                 QMessageBox.information(self, "Login", "Usuario debe contener un @ y luego un punto")
         elif objUsuario is None:
-            QMessageBox.information(self, "Login", "Usuario o contrasena invalidos")
+            QMessageBox.information(self, "Login", "Usuario o contrasena erroneos")
         else:
             tipoUsuario=str(objUsuario.type)
             fechaAcceso=objUsuario.fecha_ultimo_acceso
@@ -138,7 +138,7 @@ class VistaLogin ( QDialog ):
                 else:
                     QMessageBox.information(self, "Login", "Perfil de usuario desconocido")
             else:
-                QMessageBox.information(self, "Login", "Usuario o Contrasena Invalidos")
+                QMessageBox.information(self, "Login", "Usuario o contrasena erroneos")
 
 
 
