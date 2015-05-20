@@ -25,7 +25,7 @@ class MainWindow(QMainWindow):
         self.connect(self.ui.boton, SIGNAL("clicked()"), self.asignacion)
         self.connect(self.ui.lista_cursos, SIGNAL("itemDoubleClicked(QListWidgetItem*)"), self.cargarNotas)
         self.connect(self.ui.tableWidget, SIGNAL(("cellChanged(int,int)")), self.guardarNota)
-        #self.empezar()
+        self.empezar()
 
 
     def __del__(self):
