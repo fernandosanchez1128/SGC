@@ -2,7 +2,7 @@ from sqlalchemy.orm import sessionmaker
 
 from ORM.basetest import *
 from ORM.Notas import Notas
-
+from sqlalchemy import  exceptions
 
 class LogicaNotas():
     Session = sessionmaker(bind=engine)
