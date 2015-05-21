@@ -7,7 +7,7 @@ from Usuario import Usuario
 from sqlalchemy import Boolean
 
 from basetest import *
-class LeaderTeacher(Base):
+class LeaderTeacher(Usuario, Base):
     __tablename__ = 'leaderteacher'
 
     cedula = Column(String(20), ForeignKey('usuario.cedula'), primary_key=True)
@@ -49,6 +49,7 @@ class LeaderTeacher(Base):
 
     __mapper_args__ = {
         'polymorphic_identity':'leaderteacher',
+        #'polymorphic_on':type
     }
 
 from AreasDesempenadas import *

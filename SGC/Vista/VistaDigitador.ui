@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>362</width>
+    <width>361</width>
     <height>362</height>
    </rect>
   </property>
@@ -141,6 +141,13 @@
    </property>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>btAspirante</tabstop>
+  <tabstop>btPreinscribir</tabstop>
+  <tabstop>btRegistrarLT</tabstop>
+  <tabstop>btConsultarLT</tabstop>
+  <tabstop>btModificarLT</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
