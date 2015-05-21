@@ -2,7 +2,6 @@ from sqlalchemy.exc import *
 from ORM.Asignacion import Asignacion
 from sqlalchemy.orm import sessionmaker
 from ORM.basetest import *
-from sqlalchemy import exceptions
 
 class LogicaAsignacion():
     Session = sessionmaker(bind=engine)
@@ -13,9 +12,6 @@ class LogicaAsignacion():
 
     def agregar_asignacion(self,asignacion):
         exito = 1
-        # self.session.add(asignacion)
-        # self.session.commit()
-        # self.session.close()
         try :
             self.session.add(asignacion)
             self.session.commit()
