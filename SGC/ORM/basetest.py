@@ -8,3 +8,4 @@ from sqlalchemy import Table, Text
 #engine = create_engine('postgresql://fernando:fernando1128@localhost/SGC', echo=True)
 engine = create_engine('postgresql://nelson:nelsonalejo@localhost/sgc', echo=True)
 Base = declarative_base()
+conn = engine.connect()

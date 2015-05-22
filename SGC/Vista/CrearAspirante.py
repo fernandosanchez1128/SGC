@@ -35,6 +35,7 @@ class CrearAspirante ( QDialog ):
         correo=str(self.ui.txtCorreo.text())
         celular=str(self.ui.txtCelular.text())
         direccion=str(self.ui.txtDireccion.text())
+        genero=""
         if(self.ui.femenino.isChecked()):
             genero="Femenino"
         if(self.ui.masculino.isChecked()):
