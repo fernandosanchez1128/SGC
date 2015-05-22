@@ -4,7 +4,7 @@ import sys
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-from VistaMt import MainWindow
+from VistaLogin import VistaLogin
 
 if __name__ == '__main__':
     # create application
@@ -12,8 +12,7 @@ if __name__ == '__main__':
     app.setApplicationName( 'My PyQt4 QtGui Project')
     # create widget
     print "hola"
-    w = MainWindow()
-    w.setWindowTitle( 'My PyQt4 QtGui Project' )
+    w = VistaLogin()
     w.show()
 
     # connection
