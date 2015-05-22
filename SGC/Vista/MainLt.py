@@ -4,14 +4,14 @@ import sys
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-from VistaMt import MainWindow
+from VistaLt import VistaLt
 
 if __name__ == '__main__':
     # create application
     app = QApplication( sys.argv )
     app.setApplicationName( 'My PyQt4 QtGui Project')
     # create widget
-    w = MainWindow()
+    w = VistaLt()
     w.setWindowTitle( 'My PyQt4 QtGui Project' )
     w.show()
 
