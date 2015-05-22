@@ -10,7 +10,6 @@ if __name__ == '__main__':
     # create application
     app = QApplication( sys.argv )
     app.setApplicationName( 'My PyQt4 QtGui Project')
-    # create widget
     print "hola"
     w = VistaLogin()
     w.show()
