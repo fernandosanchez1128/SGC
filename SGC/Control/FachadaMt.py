@@ -1,6 +1,6 @@
 from sqlalchemy.exc import *
 from Modelo.LogicaCursos import LogicaCursos
-#from Modelo.LogicaDicta import LogicaDicta
+from Modelo.LogicaDicta import LogicaDicta
 from Modelo.LogicaActividades import LogicaActividades
 from Modelo.LogicaMatricula import LogicaMatricula
 from Modelo.LogicaUsuario import LogicaUsuario
@@ -15,7 +15,7 @@ import time
 
 class FachadaMt():
     logCursos = LogicaCursos()
-    #logDicta = LogicaDicta()
+    logDicta = LogicaDicta()
     logActividades = LogicaActividades()
     logMatricula = LogicaMatricula()
     logUsuario = LogicaUsuario()

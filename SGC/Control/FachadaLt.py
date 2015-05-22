@@ -23,11 +23,7 @@ class FachadaLt():
     def consulta_cursos_estudiante(self, cedula_lt):
         # reemplazar por cedula LT
         registros = self.logMatricula.consultar_cursos_estudiantes(cedula_lt)
-        cursos = []
-        for registro in registros :
-            curso = self.logCursos.consultarCurso_id(registro.id_curso)
-            cursos.append (curso)
-        return cursos
+        return registros
 
 
     def consulta_curso(self, id_curso):

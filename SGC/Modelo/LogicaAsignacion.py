@@ -13,9 +13,6 @@ class LogicaAsignacion():
 
     def agregar_asignacion(self,asignacion):
         exito = 1
-        # self.session.add(asignacion)
-        # self.session.commit()
-        # self.session.close()
         try :
             self.session.add(asignacion)
             self.session.commit()

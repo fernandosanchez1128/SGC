@@ -11,8 +11,6 @@ from sqlalchemy import DateTime
 #engine = create_engine('postgresql://braymrr:braymrr@pgsql/braymrr', echo=True)
 #engine = create_engine('sqlite:///usuario.db', echo=True)
 #Base = declarative_base()
-from Curso import Curso
-from Actividades import Actividades
 from basetest import *
 
 
