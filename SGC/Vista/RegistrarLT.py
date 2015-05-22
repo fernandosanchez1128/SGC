@@ -220,24 +220,21 @@ class RegistrarLT ( QDialog ):
         exp_total=int(self.ui.exptotal.value())
         #print(exp_total)
 
+        password=str(self.ui.txtpassword.text())
+
         #Consultamos aspirante para almacenar los datos
 
         asp=self.controldigi.consultarAspirante(id)
 
-        #DATOS PARA USUARIO
-        paramUser= []
-        paramUser.append(id)
-        paramUser.append(asp.nombres)
-        paramUser.append(asp.apellidos)
-        paramUser.append(asp.direccion)
-        paramUser.append(asp.telefono)
-        paramUser.append(asp.correo_electronico)
-        paramUser.append(asp.fecha_nacimiento)
-
-
-        #DATOS PARA LT
         parametros.append(id)
-
+        parametros.append(asp.nombres)
+        parametros.append(asp.apellidos)
+        parametros.append(asp.direccion)
+        parametros.append(asp.telefono)
+        parametros.append(asp.correo_electronico)
+        parametros.append(asp.fecha_nacimiento)
+        parametros.append(password)
+        #DATOS PARA LT
         parametros.append(asp.municipio)
         parametros.append(asp.genero)
         parametros.append(asp.institucion)
@@ -267,8 +264,8 @@ class RegistrarLT ( QDialog ):
         parametros.append(niveles)
         parametros.append(nivel_educacion)
 
-        #Primero creamos el usuario
-        self.controldigi.agregarUsuarioLT(1,paramUser)
-        self.controldigi.cerrarSesion()
+
+
+
         #Segundo creamos el LT
         self.controldigi.agregarLT(3,parametros)
