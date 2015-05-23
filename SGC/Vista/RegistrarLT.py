@@ -29,16 +29,26 @@ class RegistrarLT ( QDialog ):
         if(self.tipo==3):
             self.ui.lbModo.setText("CONSULTA")
             self.ui.btRegistrar.setVisible(False)
+        if(self.tipo==4):
+            self.ui.lbModo.setText("ELIMINACION")
+            self.ui.btRegistrar.setVisible(False)
+            self.ui.btSalir.setText("Eliminar")
+
         self.connect(self.ui.btSalir, SIGNAL("clicked()"), self.cancelar_clicked)
         self.connect(self.ui.btRegistrar, SIGNAL("clicked()"), self.inscribir_clicked)
         self.connect(self.ui.btBuscar, SIGNAL("clicked()"), self.buscar_clicked)
+
 
 
     def __del__ ( self ):
         self.ui = None
 
     def cancelar_clicked(self):
-        self.close()
+        if(self.tipo==4):
+            cedula=str(self.ui.txtid.text())
+            self.controldigi.eliminarLT(cedula)
+        else:
+            self.close()
     
     def buscar_clicked(self):
         print("Buscando...")
@@ -52,12 +62,6 @@ class RegistrarLT ( QDialog ):
             #RECUPERANDO INFORMACION
             lt=self.controldigi.consultarLT(ced)
             user=self.controldigi.consultarUsuario(ced)
-            zonas=self.controldigi.consultarZonas(ced)
-            modalidades=self.controldigi.consultarModalidad(ced)
-            grados=self.controldigi.consultarGrados(ced)
-            niveles=self.controldigi.consultarNiveles(ced)
-            areasdesempenadas=self.controldigi.consultarAreasDesempenadas(ced)
-            etno=self.controldigi.consultarEtnoeducacion(ced)
 
             #DATOS DE USUARIO
             self.ui.txtnombre.setText(user.nombres)
@@ -125,7 +129,7 @@ class RegistrarLT ( QDialog ):
             self.ui.exptotal.setValue(lt.exp_total)
 
             #Caso Multivaluados
-            for z in zonas:
+            for z in lt.zona:
                 if(z.zona=="Zona urbana"):
                     self.ui.zonaurbana.setChecked(True)
                 if (z.zona=="Zona urbana marginada"):
@@ -135,7 +139,7 @@ class RegistrarLT ( QDialog ):
                 if (z.zona=="Zona rural dificil acceso"):
                     self.ui.zonaruraldificil.setChecked(True)
 
-            for m in modalidades:
+            for m in lt.modalidad:
                 if (m.modalidad==("Agropecuario")):
                     self.ui.agro.setChecked(True)
                 if (m.modalidad==("Comercial")):
@@ -168,7 +172,7 @@ class RegistrarLT ( QDialog ):
                     self.ui.txtotromodalidad.setText(m.modalidad)
 
                 #3 de 9
-            for et in etno:
+            for et in lt.etnoeducacion:
                 if (et.etnoeducacion==("Etnia Afrocolombiana")):
                     self.ui.afro.setChecked(True)
                 if (et.etnoeducacion==("Etnia Indigena")):
@@ -178,7 +182,7 @@ class RegistrarLT ( QDialog ):
                 if (et.etnoeducacion=="Ninguna Etnia"):
                     self.ui.ningunaetnia.setChecked(True)
 
-            for niv in niveles:
+            for niv in lt.niveles_desempenados:
                 if (niv.niveles==("Transicion")):
                     self.ui.transicion.setChecked(True)
                 if (niv.niveles==("Educacion Inicial")):
@@ -196,7 +200,7 @@ class RegistrarLT ( QDialog ):
                     self.ui.txtotronivel.setText(niv.niveles)
 
             #4 de 9
-            for gr in grados:
+            for gr in lt.grados_desempenados:
                 if (gr.grados==("Grado Transicion")):
                     self.ui.gtransicion.setChecked(True)
                 if (gr.grados=="Grado Inicial"):
@@ -227,7 +231,7 @@ class RegistrarLT ( QDialog ):
                     self.ui.gotro.setChecked(True)
                     self.ui.txtotrogrado.setText(gr.grados)
 
-            for ar in areasdesempenadas:
+            for ar in lt.areas_desempenadas:
                 if (ar.area==("Ciencias Naturales y Educacion Ambiental")):
                     self.ui.naturales.setChecked(True)
                 if (ar.area==("Ciencias Sociales")):

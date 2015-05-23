@@ -27,42 +27,10 @@ class LogicaLeaderTeacher():
         lt=self.session.query(LeaderTeacher).filter_by(cedula=id_lt).first()
         return lt
 
-    #Caso Multivaluados
-
-    def consultarZona(self, cedula):
-        zonas=self.session.query(Zona).filter_by(cedula_lt=cedula).all()
-        self.session.close()
-        return zonas
-
-    def consultarAreasDesempenadas(self, cedula):
-        areasdes=self.session.query(AreasDesempenadas).filter_by(cedula_lt=cedula).all()
-        self.session.close()
-        return areasdes
-
-    def consultarModalidad(self, cedula):
-        modalidad=self.session.query(Modalidad).filter_by(cedula_lt=cedula).all()
-        self.session.close()
-        return modalidad
-
-    def consultarGrados(self, cedula):
-        grados=self.session.query(GradosDesempenados).filter_by(cedula_lt=cedula).all()
-        self.session.close()
-        return grados
-
-    def consultarNiveles(self, cedula):
-        nivel=self.session.query(Niveles).filter_by(cedula_lt=cedula).all()
-        self.session.close()
-        return nivel
-
-    def consultarEtnoeducacion(self, cedula):
-        etno=self.session.query(Etnoeducacion).filter_by(cedula_lt=cedula).all()
-        self.session.close()
-        return etno
     ##-------------------------------------------------------------------------------
     #EDICION
     def editarLT(self, cedula, newlt):
         lt=self.session.query(LeaderTeacher).filter_by(cedula=cedula).first()
-
         lt.nombres=newlt.nombres
         lt.apellidos=newlt.apellidos
         lt.direccion =newlt.direccion
@@ -95,9 +63,70 @@ class LogicaLeaderTeacher():
         lt.exp_privado = newlt.exp_privado
         lt.exp_total = newlt.exp_total
         lt.grado = newlt.grado
+
+        obj_areas = []
+        obj_zonas = []
+        obj_modalidades = []
+        obj_grados = []
+        obj_etnos = []
+        obj_niveles = []
+        i=0
+        for zona in newlt.zona:
+            obj_zona = Zona(zona=newlt.zona[i].zona)
+            obj_zonas.append(obj_zona)
+            i+=1
+
+        lt.zona=obj_zonas
+        i=0
+
+        for area in newlt.areas_desempenadas:
+            obj_area = AreasDesempenadas(area=newlt.areas_desempenadas[i].area)
+            obj_areas.append(obj_area)
+            i+=1
+
+        lt.areas_desempenadas=obj_areas
+        i=0
+
+        for modalidad in newlt.modalidad:
+            obj_modalidad = Modalidad(modalidad=newlt.modalidad[i].modalidad)
+            obj_modalidades.append(obj_modalidad)
+            i+=1
+
+        lt.modalidad=obj_modalidades
+        i=0
+
+        for grado in newlt.grados_desempenados:
+            obj_grado = GradosDesempenados(grados=newlt.grados_desempenados[i].grados)
+            obj_grados.append(obj_grado)
+            i+=1
+
+        lt.grados_desempenados=obj_grados
+        i=0
+
+        for etno in newlt.etnoeducacion:
+            obj_etno = Etnoeducacion(etnoeducacion=newlt.etnoeducacion[i].etnoeducacion)
+            obj_etnos.append(obj_etno)
+            i+=1
+
+        lt.etnoeducacion=obj_etnos
+        i=0
+
+        for nivel in newlt.niveles_desempenados:
+            obj_nivel = Niveles(niveles=newlt.niveles_desempenados[i].niveles)
+            obj_niveles.append(obj_nivel)
+            i+=1
+
+        lt.niveles_desempenados=obj_niveles
+        i=0
+
         self.session.commit()
         self.session.close()
 
+    def eliminarLT(self,cedula):
+        lt=self.session.query(LeaderTeacher).filter_by(cedula=cedula).first()
+        self.session.delete(lt)
+        self.session.commit()
+        self.session.close()
 
 
     def cerrarSesion(self):
@@ -105,5 +134,5 @@ class LogicaLeaderTeacher():
 
 '''
 log=LogicaLeaderTeacher()
-log.consultarAreasDesempenadas('1144')
+log.eliminarLT('1144')
 '''

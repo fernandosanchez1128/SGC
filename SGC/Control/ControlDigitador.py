@@ -45,32 +45,6 @@ class ControlDigitador:
         user=self.LogicaUsuarios.buscarUsuario(cedula)
         return user
 
-    #CASO MULTIVALUADOS:
-    def consultarZonas(self, cedula):
-        zonas=self.LogicaLT.consultarZona(cedula)
-        return zonas
-
-    def consultarAreasDesempenadas(self, cedula):
-        areasdes=self.LogicaLT.consultarAreasDesempenadas(cedula)
-        return areasdes
-
-
-    def consultarModalidad(self, cedula):
-        modalidad=self.LogicaLT.consultarModalidad(cedula)
-        return modalidad
-
-    def consultarGrados(self, cedula):
-        grados=self.LogicaLT.consultarGrados(cedula)
-        return grados
-
-    def consultarNiveles(self, cedula):
-        nivel=self.LogicaLT.consultarNiveles(cedula)
-        return nivel
-
-    def consultarEtnoeducacion(self, cedula):
-        etno=self.LogicaLT.consultarEtnoeducacion(cedula)
-        return etno
-
 
 
 
@@ -95,6 +69,9 @@ class ControlDigitador:
     def editarLT(self, ced, params):
         lt=self.Fabrica.getUsuario(3,params)
         self.LogicaLT.editarLT(ced,lt)
+
+    def eliminarLT(self, ced):
+        self.LogicaLT.eliminarLT(ced)
 
     def cerrarSesion(self):
         self.LogicaUsuarios.cerrarSesion()

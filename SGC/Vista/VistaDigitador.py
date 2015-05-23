@@ -19,6 +19,7 @@ class VistaDigitador ( QDialog ):
         self.registrarlt=RegistrarLT(None,1)
         self.editarlt=RegistrarLT(None,2)
         self.consultarlt=RegistrarLT(None,3)
+        self.eliminarlt=RegistrarLT(None,4)
 
         QDialog.__init__( self, parent )
         self.ui = Ui_VistaDigitador()
@@ -29,6 +30,7 @@ class VistaDigitador ( QDialog ):
         self.connect(self.ui.btRegistrarLT, SIGNAL("clicked()"), self.registrarlt_clicked)
         self.connect(self.ui.btModificarLT, SIGNAL("clicked()"), self.editarlt_clicked)
         self.connect(self.ui.btConsultarLT, SIGNAL("clicked()"), self.consultarlt_clicked)
+        self.connect(self.ui.btEliminarLT, SIGNAL("clicked()"), self.eliminarlt_clicked)
 
 
     def __del__ ( self ):
@@ -51,3 +53,6 @@ class VistaDigitador ( QDialog ):
 
     def consultarlt_clicked(self):
         self.consultarlt.show()
+
+    def eliminarlt_clicked(self):
+        self.eliminarlt.show()
