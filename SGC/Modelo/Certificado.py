@@ -12,7 +12,7 @@ class Certificado:
         print "Constructor certificado"
         pass
 
-    def generaCertificado(ruta, nombre, cedula, nota, nombreCurso):
+    def generaCertificado(self, ruta, nombre, cedula, nota, nombreCurso):
         if nota <= 2.5:
             tipoCertificado = "asistencia"
         elif nota > 2.5 and nota <= 3.5:
