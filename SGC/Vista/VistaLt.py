@@ -3,13 +3,13 @@ from PyQt4 import QtGui
 from datetime import datetime,date
 from PyQt4.QtCore import *
 import calendar
-
 from Control.FachadaLt import FachadaLt
 from VistaDescargarCertificado import VistaDescargarCertificado
+from Singleton import Singleton
 import time
 (Ui_MainWindow, QMainWindow) = uic.loadUiType('VistaLt.ui')
 
-
+@Singleton
 class VistaLt(QMainWindow):
     codigo_profesor = ""
     """MainWindow inherits QMainWindow"""
@@ -18,16 +18,17 @@ class VistaLt(QMainWindow):
     id_cohorte = 0
     name = "fernando"
     cedula = "2"
+    usuario =""
 
-
-    def __init__(self, parent=None):
+    def __init__(self,usuario, parent=None):
         QMainWindow.__init__(self, parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.connect(self.ui.certificado, SIGNAL("clicked()"), self.vista_certificado)
         self.connect(self.ui.lista_cursos, SIGNAL("itemDoubleClicked(QListWidgetItem*)"), self.cargarNotas)
         self.cargar_cursos()
-
+        self.usuario = usuario
+        print usuario.nombres
 
     def __del__(self):
         self.ui = None

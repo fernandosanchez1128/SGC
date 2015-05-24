@@ -5,19 +5,20 @@ from PyQt4.QtCore import *
 
 from Control.FachadaMt import FachadaMt
 from Asignacion import Asignacion
+from Singleton import Singleton
 
 (Ui_MainWindow, QMainWindow) = uic.loadUiType('mainwindow.ui')
 
-
+@Singleton
 class MainWindow(QMainWindow):
     """MainWindow inherits QMainWindow"""
     codigo_profesor = ""
     fachadaMt = FachadaMt()
     id_curso = 0
     id_cohorte = 0
+    usuario = ""
 
-
-    def __init__(self, parent=None):
+    def __init__(self,usuario, parent=None):
         QMainWindow.__init__(self, parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
@@ -25,6 +26,8 @@ class MainWindow(QMainWindow):
         self.connect(self.ui.lista_cursos, SIGNAL("itemDoubleClicked(QListWidgetItem*)"), self.cargarNotas)
         self.connect(self.ui.tableWidget, SIGNAL(("cellChanged(int,int)")), self.guardarNota)
         self.empezar()
+        self.usuario = usuario
+        print usuario.nombres
 
 
     def __del__(self):
