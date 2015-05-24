@@ -9,7 +9,7 @@ class ControladorLt():
     logCursos = LogicaCursos()
 
     def __init__(self):
-        print "constructor"
+        print "constructor Controlador LT"
 
 
     def agregarCurso(self):

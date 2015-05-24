@@ -11,7 +11,7 @@ class LogicaCursos():
 
     def __init__(self):
         # llamado para prueba del iterador
-        print ("contructor2")
+        print ("contructor Logica Cursos")
 
     def agregarCurso(self, curso):
         self.session.add(curso)

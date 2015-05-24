@@ -4,7 +4,8 @@ from PyQt4 import QtGui
 from PyQt4.QtCore import *
 
 from Control.FachadaMt import FachadaMt
-
+from VistaLogin import *
+from Asignacion import Asignacion
 
 (Ui_MainWindow, QMainWindow) = uic.loadUiType('mainwindow.ui')
 
@@ -24,6 +25,7 @@ class MainWindow(QMainWindow):
         self.connect(self.ui.boton, SIGNAL("clicked()"), self.asignacion)
         self.connect(self.ui.lista_cursos, SIGNAL("itemDoubleClicked(QListWidgetItem*)"), self.cargarNotas)
         self.connect(self.ui.tableWidget, SIGNAL(("cellChanged(int,int)")), self.guardarNota)
+        #venCrear =  VistaLogin().exec_()
         self.empezar()
 
 
@@ -34,10 +36,19 @@ class MainWindow(QMainWindow):
     def empezar(self):
         # cambiar por el codigo del profesor
         registros = self.fachadaMt.consulta_cursos_prof("1")
+        id_curso_ant = 0
+        num_curso =0
         for reg_mat in registros:
             curso = self.fachadaMt.consulta_curso(reg_mat.id_curso)
             item = QtGui.QListWidgetItem()
-            item.setText(QString(curso.nombre + "-" + str(reg_mat.id_cohorte)))
+            item.setWhatsThis(QString (str (reg_mat.id_cohorte)))
+            if (curso.id == id_curso_ant):
+                num_curso +=1
+                item.setText(QString(curso.nombre + QString("-") +QString(str(num_curso))))
+            else:
+                num_curso =0
+                item.setText(QString(curso.nombre))
+            id_curso_ant = curso.id
             font = QtGui.QFont()
             font.setBold(True)
             font.setWeight(75)
@@ -46,13 +57,17 @@ class MainWindow(QMainWindow):
 
 
     def cargarNotas(self):
-        item_seleccionado = str(self.ui.lista_cursos.currentItem().text())
+        item_seleccionado = self.ui.lista_cursos.currentItem()
         # extraccion del codigo y del cohorte
-        index = item_seleccionado.find('-')
-        nombre_curso = item_seleccionado[:index]
-        codigo_cohorte = item_seleccionado[index + 1:len(item_seleccionado)]
-
-
+        nombre_curso_com = str(item_seleccionado.text())
+        codigo_cohorte = str (item_seleccionado.whatsThis())
+        index = nombre_curso_com.find('-')
+        nombre_curso = ""
+        if (index != -1):
+            nombre_curso = nombre_curso_com[:index]
+        else :
+            nombre_curso = nombre_curso_com
+        print "nombre" ,nombre_curso
         # busqueda de las actividades
         curso = self.fachadaMt.consulta_curso_by_name(nombre_curso)
         # print "actividades",curso.actividades
@@ -85,7 +100,6 @@ class MainWindow(QMainWindow):
         font.setBold(True)
         font.setWeight(75)
         for estudiante in estudiantes:
-            #print estudiante.nombres
             item = QtGui.QTableWidgetItem(str(estudiante.cedula))
             item.setFont(font)
             self.ui.tableWidget.setVerticalHeaderItem(indice, item)
@@ -144,6 +158,7 @@ class MainWindow(QMainWindow):
                     validacion = True
                 except ValueError:
                     validacion = False
+                    item.setText("")
                     msj = "ingrese un numero"+str(columna)
                     QtGui.QMessageBox.warning(self, 'Error',msj , QtGui.QMessageBox.Ok)
                 if (validacion):
@@ -153,6 +168,7 @@ class MainWindow(QMainWindow):
                         self.fachadaMt.guardar_nota(id_actividad, self.id_curso, self.id_cohorte, cedula, nota,True)
                     else:
                         QtGui.QMessageBox.warning(self, 'Error', "ingrese un numero entre 0.0 y 5.0", QtGui.QMessageBox.Ok)
+                        item.setText("")
             elif (columna % 2 != 0):
                 estado = item.checkState()
                 nombre_actividad = str(self.ui.tableWidget.horizontalHeaderItem(columna - 1).text())
@@ -170,4 +186,7 @@ class MainWindow(QMainWindow):
 
 
     def asignacion (self):
-        ventana = asignacion
+        if (self.id_curso == 0 or self.id_cohorte ==0):
+            QtGui.QMessageBox.warning(self, 'Error', "Por favor escoga un curso", QtGui.QMessageBox.Ok)
+        else:
+            ventana = Asignacion(self.id_curso,self.id_cohorte).exec_()

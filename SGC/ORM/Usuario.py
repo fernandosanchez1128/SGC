@@ -14,13 +14,10 @@ class Usuario (Base):
     correo_electronico = Column(String(40), index=True, nullable=False, unique=True)
     contrasena = Column(String(40), index=True, nullable=False)
     fecha_nacimiento = Column(Date, index=True)
+    fecha_ultimo_acceso = Column(Date, index=True)
     
     type = Column(String(50))
 
-    __mapper_args__ = {
-        'polymorphic_identity':'usuario',
-        'polymorphic_on':type
-    }
 
 Base.metadata.create_all(engine)
 
