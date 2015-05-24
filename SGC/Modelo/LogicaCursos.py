@@ -41,11 +41,10 @@ class LogicaCursos():
         curso.cohortes = curso_mod.cohortes
         self.session.commit()
 
-    def eliminarCurso(self, id_curso_el):
-        curso = self.session.query(Curso).filter_by(id=id_curso_el).first()
+    def eliminarCurso(self, nombre_c):
+        curso = self.session.query(Curso).filter_by(nombre=nombre_c).first()
         self.session.delete(curso)
         self.session.commit()
-        self.session.close()
 
     def cerrarSesion(self):
         self.session.close()

@@ -167,7 +167,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="btCohortes">
         <property name="text">
          <string>Editar Cohortes</string>
         </property>

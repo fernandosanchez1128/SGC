@@ -56,12 +56,13 @@ from NivelesDesempenados import *
 
 Base.metadata.create_all(engine)
     
-
+'''
 
 
 Session = sessionmaker(bind=engine)
 session = Session()
-user = LeaderTeacher(cedula  = 1144, correo_electronico='b@ah.com', contrasena= 'b')
+user = LeaderTeacher(cedula  = 1145, correo_electronico='b@ah.com', contrasena= 'b')
 
 session.add(user)
 session.commit()
+'''

@@ -4,6 +4,7 @@ from ORM.Curso import Curso
 from ORM.Actividades import Actividades
 from Modelo.LogicaCursos import LogicaCursos
 from Modelo.LogicaCohorte import LogicaCohorte
+from Modelo.LogicaMatricula import LogicaMatricula
 
 class ControlCoordinador:
 
@@ -40,6 +41,21 @@ class ControlCoordinador:
     def numeroCohortes(self,id_curso):
         num = len(self.logicaCursos.consultarCurso_id(id_curso).cohortes)
         return num
+
+    def procesarMatriculados(self, ruta_ar, ano, semestre):
+        with open(ruta_ar) as f:
+            content = f.readlines()
+        print content[0][7:-1]
+        curso = content[0][7:-1]
+        id_curso = self.logicaCursos.consultarCurso(curso).id
+        for cont in content:
+            print "CUROSOO", cont[:7]
+            if cont[:7]=="Curso: ":
+                curso = cont[7:-1]
+                id_curso = self.logicaCursos.consultarCurso(curso).id
+            else:
+                logMat  = LogicaMatricula()
+                logMat.agregarMatricula(cont[:-1],id_curso,ano,semestre)
 
     def cerrarSesion(self):
         self.logicaCursos.cerrarSesion()

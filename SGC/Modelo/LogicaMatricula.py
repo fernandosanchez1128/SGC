@@ -1,5 +1,6 @@
 from sqlalchemy.orm import sessionmaker
 
+from LogicaCohorte import LogicaCohorte
 from ORM.Matricula import Matricula
 from ORM.basetest import *
 
@@ -12,8 +13,19 @@ class LogicaMatricula():
         # llamado para prueba del iterador
         print ("contructorAct")
 
-    def agregarMatricula(self, matricula):
-        self.session.add(matricula)
+    def agregarMatricula(self, cedula_lt, id_curso, ano, semestre):
+        lc = LogicaCohorte()
+        ult_coh = lc.ultimoCohorte(id_curso,ano,semestre)
+        if ult_coh==None:
+            lc.agregarCohorte(id_curso, ano, semestre)
+            ult_coh = lc.ultimoCohorte(id_curso,ano,semestre)
+        else:
+            num_e = self.consultarNestudiantes(id_curso,ult_coh.id_cohorte)
+            if num_e==30:
+                lc.agregarCohorte(id_curso, ano, semestre)
+                ult_coh = lc.ultimoCohorte(id_curso,ano,semestre)
+        mat = Matricula(cedula_lt= cedula_lt, id_curso= id_curso, id_cohorte = ult_coh.id_cohorte, nota_definitiva =0)
+        self.session.add(mat)
         self.session.commit()
         self.session.close()
 
@@ -51,11 +63,12 @@ class LogicaMatricula():
         
        
 
-
-
 '''
+
+
 log = LogicaMatricula()
 #Matricula = Matricula(cedula_lt="t", id_cohorte=1, id_curso=123, nota_definitiva=4.8)
-print log.consultarNestudiantes(123,1)
-#log.agregarMatricula(Matricula)
+
+log.agregarMatricula("1145", 4, 2015, 2)
+
 '''
