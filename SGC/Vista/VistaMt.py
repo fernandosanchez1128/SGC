@@ -27,7 +27,7 @@ class MainWindow(QMainWindow):
         self.connect(self.ui.tableWidget, SIGNAL(("cellChanged(int,int)")), self.guardarNota)
         self.empezar()
         self.usuario = usuario
-        print usuario.nombres
+        #print usuario.nombres
 
 
     def __del__(self):

@@ -11,9 +11,12 @@ from Modelo.LogicaDicta import LogicaDicta
 from Modelo.LogicaUsuario import LogicaUsuario
 from Modelo.Certificado import Certificado
 from Modelo.LogicaCohorte import LogicaCohorte
+from Modelo.Reporte import Reporte
+
 
 class ControlCoordinador:
     logCohorte = LogicaCohorte()
+    reporte = Reporte()
 
     def __init__(self):
         #self.logCurso = LogicaCurso()
@@ -111,7 +114,27 @@ class ControlCoordinador:
     def cerrarSesion(self):
         self.logicaCursos.cerrarSesion()
 
+    def estudiantes_aprobados_curso (self,fecha_ini,fecha_fin,id_curso,nombre_curso,mes,anio):
+        reporte = self.logicaMatricula.estudiantes_aprobados_curso(fecha_ini,fecha_fin,id_curso)
+        if reporte !=None :
+            self.reporte.estudiants_aprob_curso(reporte,"/home/fernando/report2.pdf",nombre_curso,mes,anio)
 
+    def estudiantes_departamento_unique (self,fecha_ini,fecha_fin,id_curso,dpto,nombre_curso,mes,anio):
+        reporte =self.logicaMatricula.estudianes_departamento_unique(fecha_ini,fecha_fin,id_curso,dpto)
+        print reporte
+        if reporte != None:
+            self.reporte.detalle_estudiantes_por_dpto(reporte, "/home/fernando/report.pdf",nombre_curso,mes,anio)
+
+    def estudiantes_departamento (self,fecha_ini,fecha_fin,id_curso,nombre_curso,mes,anio):
+        reporte =self.logicaMatricula.estudiantes_departamento(fecha_ini,fecha_fin,id_curso)
+        print reporte
+        if reporte != None:
+            self.reporte.detalle_estudiantes_por_dpto(reporte, "/home/fernando/report.pdf",nombre_curso,mes,anio)
+
+
+#ControlCoordinador().estudiantes_departamento("2015/05/01","2015/05/30",1,"curso1","Mayo", "2015")
+#ControlCoordinador().estudiantes_departamento_unique("2015/05/01","2015/05/30",1,"antioquia","curso1","Mayo", "2015")
+#ControlCoordinador().estudiantes_aprobados_curso("2015/05/01","2015/05/30",1,"curso1","Mayo", "2015")
 '''
 con =  ControlCoordinador()
 #actividades = [["act1", 0.2], ["act2", 0.5], ["act3", 0.3]]

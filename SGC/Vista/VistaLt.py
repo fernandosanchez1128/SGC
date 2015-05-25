@@ -131,9 +131,13 @@ class VistaLt(QMainWindow):
             apellido=persona.apellidos
             nombreCompleto=str(nombre)+" "+str(apellido)
             nota=self.fachadaLt.registro_matricula(self.cedula,self.id_cohorte,self.id_curso).nota_definitiva
-            nota=float(nota)
             nomCurso=self.nombre_curso
-            self.fachadaLt.descargaCertificado(ruta, nombreCompleto, self.cedula, nota, nomCurso)
+            if (nota != None):
+                nota=float(nota)
+                self.fachadaLt.descargaCertificado(ruta, nombreCompleto, self.cedula, nota, nomCurso)
+            else :
+                QtGui.QMessageBox.warning(self, 'Error', "La nota no ha sido subida al sistema \n "
+                                                         "por favor espere o comuniquese con el coordinador", QtGui.QMessageBox.Ok)
         else:
             print "No se proporciono nombre de archivo"
 

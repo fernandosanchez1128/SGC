@@ -1,8 +1,13 @@
+from sqlalchemy import func
 from sqlalchemy.orm import sessionmaker
 
 from LogicaCohorte import LogicaCohorte
 from ORM.Matricula import Matricula
 from ORM.basetest import *
+from ORM.Curso import Curso
+from ORM.Cohorte import Cohorte
+from ORM.Usuario import Usuario
+from ORM.LeaderTeacher import LeaderTeacher
 
 
 class LogicaMatricula():
@@ -63,6 +68,40 @@ class LogicaMatricula():
         registros = self.session.query(Matricula).filter_by(cedula_lt = cedula_lt).all()
         self.session.close()
         return registros
+
+    def estudiantes_aprobados_curso (self,fecha_ini,fecha_fin,id_curso):
+        reporte=self.session.query(LeaderTeacher.cedula,Usuario.nombres,Usuario.apellidos,
+                                   Matricula.nota_definitiva).\
+            filter(Matricula.id_curso == id_curso,Matricula.cedula_lt == LeaderTeacher.cedula,
+                   LeaderTeacher.cedula == Usuario.cedula, Matricula.id_curso ==Cohorte.id_curso,
+                   Cohorte.fecha_inicio>=fecha_ini, Cohorte.fecha_inicio <= fecha_fin,
+                   Matricula.nota_definitiva >= 3.0).order_by(LeaderTeacher.departamento_secretaria).all()
+        return reporte
+
+    def estudianes_departamento_unique (self, fecha_ini,fecha_fin,id_curso,dpto):
+        reporte=self.session.query(LeaderTeacher.cedula,Usuario.nombres,Usuario.apellidos,
+                                   LeaderTeacher.departamento_secretaria,Matricula.nota_definitiva).\
+            filter(Matricula.id_curso == id_curso,Matricula.cedula_lt == LeaderTeacher.cedula,
+                   LeaderTeacher.cedula == Usuario.cedula, Matricula.id_curso ==Cohorte.id_curso,
+                   Cohorte.fecha_inicio>=fecha_ini, Cohorte.fecha_inicio <= fecha_fin,
+                   LeaderTeacher.departamento_secretaria == dpto).order_by(LeaderTeacher.departamento_secretaria).all()
+        return reporte
+
+
+    def estudiantes_departamento (self,fecha_ini,fecha_fin,id_curso):
+        reporte=self.session.query(LeaderTeacher.cedula,Usuario.nombres,Usuario.apellidos,
+                                   LeaderTeacher.departamento_secretaria,Matricula.nota_definitiva).\
+            filter(Matricula.id_curso == id_curso,Matricula.cedula_lt == LeaderTeacher.cedula,
+                   LeaderTeacher.cedula == Usuario.cedula, Matricula.id_curso ==Cohorte.id_curso,
+                   Cohorte.fecha_inicio>=fecha_ini, Cohorte.fecha_inicio <= fecha_fin).order_by(LeaderTeacher.departamento_secretaria).all()
+        return reporte
+        #sql de la consulta
+        ''''select us.cedula, nombres,apellidos, nota_definitiva, municipio,departamento_secretaria from matricula as mat, leaderteacher as lead,
+usuario as us, cohorte as coh where mat.id_curso = 1  and mat.cedula_lt = lead.cedula and
+mat.id_curso = coh.id_curso  and coh.fecha_inicio between '2015/05/01' and '2015/05/30'
+and lead.cedula = us.cedula order by lead.departamento_secretaria'''''
+
+
     
         
        
