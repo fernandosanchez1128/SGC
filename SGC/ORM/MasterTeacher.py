@@ -18,4 +18,11 @@ class MasterTeacher(Usuario, Base):
 
 Base.metadata.create_all(engine)
 
+'''
+Session = sessionmaker(bind=engine)
+session = Session()
+user = MasterTeacher(cedula  = 2246, nombres = 'Da',correo_electronico='d@ah.com', contrasena= 'd')
 
+session.add(user)
+session.commit()
+'''
