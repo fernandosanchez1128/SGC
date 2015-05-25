@@ -3,6 +3,7 @@ from PyQt4 import QtGui
 from datetime import datetime,date
 from PyQt4.QtCore import *
 import calendar
+from PyQt4.QtGui import QFileDialog
 from Control.FachadaLt import FachadaLt
 from VistaDescargarCertificado import VistaDescargarCertificado
 from Singleton import Singleton
@@ -17,6 +18,7 @@ class VistaLt(QMainWindow):
     id_curso = 0
     id_cohorte = 0
     name = "fernando"
+    nombre_curso=""
     cedula = "2"
     usuario =""
 
@@ -28,7 +30,7 @@ class VistaLt(QMainWindow):
         self.connect(self.ui.lista_cursos, SIGNAL("itemDoubleClicked(QListWidgetItem*)"), self.cargarNotas)
         self.cargar_cursos()
         self.usuario = usuario
-        print usuario.nombres
+        #print usuario.nombres
 
     def __del__(self):
         self.ui = None
@@ -104,6 +106,7 @@ class VistaLt(QMainWindow):
         self.ui.tableWidget.setVerticalHeaderItem(indice, item)
         self.id_curso = int(curso.id)
         self.id_cohorte = int(codigo_cohorte)
+        self.nombre_curso=nombre_curso_com
 
         for num_act in range(0, (num_actividades), 1):
             item = QtGui.QTableWidgetItem()
@@ -120,7 +123,18 @@ class VistaLt(QMainWindow):
 
 
     def vista_certificado (self):
-        if (self.id_curso == 0 or self.id_cohorte ==0):
-            QtGui.QMessageBox.warning(self, 'Error', "Por favor escoga un curso", QtGui.QMessageBox.Ok)
+        ruta = QFileDialog.getSaveFileName(self, 'Guardar Certficado', '', selectedFilter='*.pdf')
+        if ruta:
+            print ruta
+            persona=self.fachadaLt.buscarPersona(self.cedula)
+            nombre=persona.nombres
+            apellido=persona.apellidos
+            nombreCompleto=str(nombre)+" "+str(apellido)
+            nota=self.fachadaLt.registro_matricula(self.cedula,self.id_cohorte,self.id_curso).nota_definitiva
+            nota=float(nota)
+            nomCurso=self.nombre_curso
+            self.fachadaLt.descargaCertificado(ruta, nombreCompleto, self.cedula, nota, nomCurso)
         else:
-            ventana_certificado = VistaDescargarCertificado().exec_()
+            print "No se proporciono nombre de archivo"
+
+
