@@ -14,6 +14,27 @@ class LogicaCohorte():
         self.session.commit()
         self.session.close()
 
+<<<<<<< .merge_file_SGzaGm
+=======
+    def consulta_cohorte (self,id_curso,id_cohorte):
+        cohorte = self.session.query(Cohorte).filter_by(id_curso=id_curso,id_cohorte = id_cohorte).first()
+        self.session.close()
+        return cohorte
+
+    def modificar_cohorte(self, id_curso,id_cohorte,fecha_inicio,fecha_fin):
+        exito = 1
+        try:
+            cohorte= self.session.query(Cohorte).filter_by(id_curso=id_curso,id_cohorte=id_cohorte).first()
+            cohorte.fecha_inicio = fecha_inicio
+            cohorte.fecha_fin = fecha_fin
+            self.session.commit()
+            self.session.close()
+        except Exception:
+            exito = 0
+        return exito
+
+
+>>>>>>> .merge_file_iItRPm
     def ultimoCohorte(self, id_curso, ano, semestre):
         cohortes= self.session.query(Cohorte).filter_by(id_curso=id_curso, ano=ano, semestre=semestre).all()
         self.session.close()

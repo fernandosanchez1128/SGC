@@ -4,29 +4,30 @@ from PyQt4 import QtGui
 from PyQt4.QtCore import *
 
 from Control.FachadaMt import FachadaMt
-from VistaLogin import *
 from Asignacion import Asignacion
+from Singleton import Singleton
 
 (Ui_MainWindow, QMainWindow) = uic.loadUiType('mainwindow.ui')
 
-
+@Singleton
 class MainWindow(QMainWindow):
     """MainWindow inherits QMainWindow"""
     codigo_profesor = ""
     fachadaMt = FachadaMt()
     id_curso = 0
     id_cohorte = 0
+    usuario = ""
 
-
-    def __init__(self, parent=None):
+    def __init__(self,usuario, parent=None):
         QMainWindow.__init__(self, parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.connect(self.ui.boton, SIGNAL("clicked()"), self.asignacion)
         self.connect(self.ui.lista_cursos, SIGNAL("itemDoubleClicked(QListWidgetItem*)"), self.cargarNotas)
         self.connect(self.ui.tableWidget, SIGNAL(("cellChanged(int,int)")), self.guardarNota)
-        #venCrear =  VistaLogin().exec_()
         self.empezar()
+        self.usuario = usuario
+        print usuario.nombres
 
 
     def __del__(self):
@@ -67,11 +68,8 @@ class MainWindow(QMainWindow):
             nombre_curso = nombre_curso_com[:index]
         else :
             nombre_curso = nombre_curso_com
-        print "nombre" ,nombre_curso
         # busqueda de las actividades
         curso = self.fachadaMt.consulta_curso_by_name(nombre_curso)
-        # print "actividades",curso.actividades
-        # print curso.actividades
         actividades = curso.actividades
         num_actividades = len(actividades)
         self.ui.tableWidget.setColumnCount(num_actividades*2)
@@ -90,9 +88,7 @@ class MainWindow(QMainWindow):
             indice += 1
         self.fachadaMt.cerrar_session_curso()
         # consulta para estudiantes
-        #print curso.id, codigo_cohorte
         estudiantes = self.fachadaMt.estudiantes_curso(int(curso.id), int(codigo_cohorte))
-        #print "tamano", len(estudiantes)
         num_estudiantes = len(estudiantes)
         self.ui.tableWidget.setRowCount(num_estudiantes)
         indice = 0
@@ -116,15 +112,13 @@ class MainWindow(QMainWindow):
                 if (a % 2 == 0):
                     nombre_actividad =str (self.ui.tableWidget.horizontalHeaderItem(a).text())
                     actividad =self.fachadaMt.consultar_actividad(nombre_actividad,self.id_curso)
-                    # print self.id_curso, actividad.id_actividad, cod_estudiante, self.id_cohorte
                     nota = self.fachadaMt.consultar_nota(self.id_curso,actividad.id_actividad,cod_estudiante,self.id_cohorte)
-                    #print "nota", nota
                     if (nota != None):
                         item.setText(QString(str(nota.nota)))
                         if (nota.nota== 0):
                             item.setFlags(Qt.ItemIsUserCheckable)
 
-                else :
+                else:
                     if (nota != None):
                         if (nota.nota == 0):
                             item.setCheckState(False)

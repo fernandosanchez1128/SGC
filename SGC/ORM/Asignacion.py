@@ -11,8 +11,6 @@ from sqlalchemy import DateTime
 #engine = create_engine('postgresql://braymrr:braymrr@pgsql/braymrr', echo=True)
 #engine = create_engine('sqlite:///usuario.db', echo=True)
 #Base = declarative_base()
-
-
 from basetest import *
 
 
@@ -25,8 +23,9 @@ class Asignacion (Base):
     id_cohorte = Column(Integer, index=True, primary_key=True)
     id_actividad =  Column(Integer, index=True, primary_key=True)
     fecha_hora  = Column (DateTime)
-    __table_args__ = (ForeignKeyConstraint([id_curso, id_cohorte],['cohorte.id_curso','cohorte.id_cohorte']),{})
     __table_args__ = (ForeignKeyConstraint([id_actividad, id_curso],['actividades.id_actividad','actividades.id_curso']),{})
+    __table_args__ = (ForeignKeyConstraint([id_curso, id_cohorte],['cohorte.id_curso','cohorte.id_cohorte']),{})
+
     
     
 

@@ -1,27 +1,19 @@
+__author__ = 'fernando'
 import sys
 
 # import PyQt4 QtCore and QtGui modules
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-<<<<<<< .merge_file_hxBjsc
-from vistacoordinador import VistaCoordinador
-#from VistaMt import MainWindow
-=======
-from VistaLogin import VistaLogin
->>>>>>> .merge_file_Jk2KBc
+from VistaMt import MainWindow
 
 if __name__ == '__main__':
     # create application
     app = QApplication( sys.argv )
     app.setApplicationName( 'My PyQt4 QtGui Project')
-<<<<<<< .merge_file_hxBjsc
     # create widget
-    w = VistaCoordinador.Instance()
-=======
-    print "hola"
-    w = VistaLogin()
->>>>>>> .merge_file_Jk2KBc
+    w = MainWindow.Instance()
+    w.setWindowTitle( 'My PyQt4 QtGui Project' )
     w.show()
 
     # connection
@@ -29,3 +21,4 @@ if __name__ == '__main__':
 
     # execute application
     sys.exit( app.exec_() )
+

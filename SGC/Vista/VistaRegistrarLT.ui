@@ -92,6 +92,9 @@
      <height>17</height>
     </rect>
    </property>
+   <property name="text">
+    <string>No se encuentra el aspirante con esa Identificacion</string>
+   </property>
   </widget>
   <widget class="QLabel" name="label_5">
    <property name="geometry">
@@ -117,6 +120,9 @@
      <width>321</width>
      <height>17</height>
     </rect>
+   </property>
+   <property name="text">
+    <string>No se encuentra el aspirante con esa Identificacion</string>
    </property>
   </widget>
   <widget class="Line" name="line">
@@ -196,11 +202,11 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>6</number>
+       <number>8</number>
       </property>
       <widget class="QWidget" name="tabWidgetPage1">
        <attribute name="title">
-        <string>1 de 8</string>
+        <string>1 de 9</string>
        </attribute>
        <widget class="QLabel" name="label_7">
         <property name="geometry">
@@ -344,7 +350,7 @@
       </widget>
       <widget class="QWidget" name="tabWidgetPage2">
        <attribute name="title">
-        <string>2 de 8</string>
+        <string>2 de 9</string>
        </attribute>
        <widget class="QLabel" name="label_10">
         <property name="geometry">
@@ -609,7 +615,7 @@
       </widget>
       <widget class="QWidget" name="tabWidgetPage3">
        <attribute name="title">
-        <string>3 de 8</string>
+        <string>3 de 9</string>
        </attribute>
        <widget class="QLabel" name="label_12">
         <property name="geometry">
@@ -851,7 +857,7 @@
       </widget>
       <widget class="QWidget" name="tabWidgetPage4">
        <attribute name="title">
-        <string>4 de 8</string>
+        <string>4 de 9</string>
        </attribute>
        <widget class="QLabel" name="label_16">
         <property name="geometry">
@@ -1090,7 +1096,7 @@
       </widget>
       <widget class="QWidget" name="tabWidgetPage5">
        <attribute name="title">
-        <string>5 de 8</string>
+        <string>5 de 9</string>
        </attribute>
        <widget class="QLabel" name="label_18">
         <property name="geometry">
@@ -1254,7 +1260,7 @@
       </widget>
       <widget class="QWidget" name="tabWidgetPage6">
        <attribute name="title">
-        <string>6 de 8</string>
+        <string>6 de 9</string>
        </attribute>
        <widget class="QLabel" name="label_20">
         <property name="geometry">
@@ -1383,7 +1389,7 @@ Especializacion Tecnologica y Especializaciones Profesionales)</string>
       </widget>
       <widget class="QWidget" name="tabWidgetPage7">
        <attribute name="title">
-        <string>7 de 8</string>
+        <string>7 de 9</string>
        </attribute>
        <widget class="QLabel" name="label_21">
         <property name="geometry">
@@ -1580,7 +1586,7 @@ Especializacion Tecnologica y Especializaciones Profesionales)</string>
       </widget>
       <widget class="QWidget" name="tabWidgetPage8">
        <attribute name="title">
-        <string>8 de 8</string>
+        <string>8 de 9</string>
        </attribute>
        <widget class="QLabel" name="label_28">
         <property name="geometry">
@@ -1770,6 +1776,59 @@ Especializacion Tecnologica y Especializaciones Profesionales)</string>
           <x>21</x>
           <y>300</y>
           <width>61</width>
+          <height>28</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>9 de 9</string>
+       </attribute>
+       <widget class="QLabel" name="label_35">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>10</y>
+          <width>281</width>
+          <height>18</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <italic>true</italic>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Digite una contraseña para acceso al sistema:</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_36">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>50</y>
+          <width>61</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="text">
+         <string>Password</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="txtpassword">
+        <property name="geometry">
+         <rect>
+          <x>150</x>
+          <y>50</y>
+          <width>441</width>
           <height>28</height>
          </rect>
         </property>

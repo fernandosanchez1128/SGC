@@ -62,7 +62,7 @@ class LogicaMatricula():
     def consultar_cursos_estudiantes (self,cedula_lt):
         registros = self.session.query(Matricula).filter_by(cedula_lt = cedula_lt).all()
         self.session.close()
-        
+        return registros
     
         
        

@@ -1,3 +1,4 @@
+from sqlalchemy.exc import *
 from Modelo.LogicaCursos import LogicaCursos
 from Modelo.LogicaDicta import LogicaDicta
 from Modelo.LogicaActividades import LogicaActividades
@@ -88,16 +89,19 @@ class FachadaMt():
     def agregar_entrega (self,id_curso,id_cohorte,id_actividad,fecha):
         asignacion = Asignacion(id_curso = id_curso,id_cohorte=id_cohorte,id_actividad = id_actividad,fecha_hora = fecha)
         exito = self.logAsignacion.agregar_asignacion(asignacion)
-        if (exito == 0):
-            self.logAsignacion.editar_asignacion(id_curso,id_cohorte,id_actividad,fecha)
-        if (exito == 2):
-            QtGui.QMessageBox.warning(None, 'Error',"ha ocurrido un error inesperado" , QtGui.QMessageBox.Ok)
-
-
-
-
-
-
+        if (exito ==0) :
+            proc_exitoso = self.logAsignacion.editar_asignacion(id_curso,id_cohorte,id_actividad,fecha)
+            print proc_exitoso
+            if (proc_exitoso == 0 ):
+                return 3
+            else :
+                return 2
+        elif (exito == 2 ):
+            return 4
+        elif (exito == 3):
+            return 5
+        else:
+            return 1
 
 
 

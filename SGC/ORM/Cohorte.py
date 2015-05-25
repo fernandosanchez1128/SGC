@@ -15,9 +15,15 @@ class Cohorte(Base):
     id_cohorte = Column(Integer, Sequence('sec_cohorte'), primary_key=True, unique=True)
     ano = Column(Integer, primary_key=True)
     semestre = Column(Integer, primary_key=True)
+<<<<<<< .merge_file_YWEsMJ
     fecha_inicio = Column(Date)
     fecha_fin = Column(Date)
 
+=======
+    fecha_inicio = Column(Date,nullable=True)
+    fecha_fin = Column(Date,nullable=True)
+    __table_args__ = (UniqueConstraint('id_curso', 'id_cohorte', name='unique'),)
+>>>>>>> .merge_file_8WZOTJ
     def __repr__(self):
         codigo = str(self.id_cohorte)
         return codigo

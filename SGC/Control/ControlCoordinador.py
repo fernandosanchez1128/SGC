@@ -5,14 +5,25 @@ from ORM.Actividades import Actividades
 from Modelo.LogicaCursos import LogicaCursos
 from Modelo.LogicaCohorte import LogicaCohorte
 from Modelo.LogicaMatricula import LogicaMatricula
+<<<<<<< .merge_file_EpnN2d
 from Modelo.LogicaMasterTeacher import LogicaMasterTeacher
 from Modelo.LogicaDicta import LogicaDicta
 
+=======
+from Modelo.LogicaUsuario import LogicaUsuario
+from Modelo.Certificado import Certificado
+from Modelo.LogicaCohorte import LogicaCohorte
+>>>>>>> .merge_file_EdOYZd
 class ControlCoordinador:
+    logCohorte = LogicaCohorte()
 
     def __init__(self):
         #self.logCurso = LogicaCurso()
         self.logicaCursos = LogicaCursos()
+        self.logicaMatricula = LogicaMatricula()
+        self.logicaUsuario = LogicaUsuario()
+        self.certificado= Certificado()
+
 
     def crearCurso(self, nombre, descripcion, actividades):
         obj_actividades = []
@@ -34,16 +45,25 @@ class ControlCoordinador:
         curso = Curso(nombre= nombre_c, descripcion=descripcion_c, actividades = obj_actividades, cohortes = [])
         self.logicaCursos.modificarCursoActividades(nombre_c,curso)
 
+    def modificar_cohorte(self, id_curso,id_cohorte,fecha_inicio,fecha_fin):
+        exito = self.logCohorte.modificar_cohorte(id_curso,id_cohorte,fecha_inicio,fecha_fin)
+        return exito
+
+
     def eliminarCurso(self, nombre):
         self.logicaCursos.eliminarCurso(nombre)
 
     def buscarCurso(self, nombre):
         return self.logicaCursos.consultarCurso(nombre)
 
+    def buscarCursoId(self, id_curso):
+        return self.logicaCursos.consultarCurso_id(id_curso)
+
     def numeroCohortes(self,id_curso):
         num = len(self.logicaCursos.consultarCurso_id(id_curso).cohortes)
         return num
 
+<<<<<<< .merge_file_EpnN2d
     def procesarMatriculados(self, ruta_ar, ano, semestre):
         with open(ruta_ar) as f:
             content = f.readlines()
@@ -77,6 +97,21 @@ class ControlCoordinador:
         cohortes = lc.numCohortes(id_curso,ano, semestre)
         return cohortes
 
+=======
+    def cursosEstudiantes(self, cedula):
+        matriculas=self.logicaMatricula.consultar_cursos_estudiantes(cedula)
+        return matriculas
+
+    def descargaCertificado(self, ruta, nombre, cedula, nota, nomCurso):
+        self.certificado.generaCertificado(ruta, nombre, cedula, nota, nomCurso)
+
+    def buscarPersona(self, cedula):
+        return self.logicaUsuario.buscarUsuario(cedula)
+
+    def consultar_cursos (self):
+        cursos = self.logicaCursos.consultarCursos()
+        return cursos
+>>>>>>> .merge_file_EdOYZd
 
     def cerrarSesion(self):
         self.logicaCursos.cerrarSesion()
