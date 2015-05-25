@@ -5,15 +5,13 @@ from ORM.Actividades import Actividades
 from Modelo.LogicaCursos import LogicaCursos
 from Modelo.LogicaCohorte import LogicaCohorte
 from Modelo.LogicaMatricula import LogicaMatricula
-<<<<<<< .merge_file_EpnN2d
 from Modelo.LogicaMasterTeacher import LogicaMasterTeacher
 from Modelo.LogicaDicta import LogicaDicta
 
-=======
 from Modelo.LogicaUsuario import LogicaUsuario
 from Modelo.Certificado import Certificado
 from Modelo.LogicaCohorte import LogicaCohorte
->>>>>>> .merge_file_EdOYZd
+
 class ControlCoordinador:
     logCohorte = LogicaCohorte()
 
@@ -63,7 +61,6 @@ class ControlCoordinador:
         num = len(self.logicaCursos.consultarCurso_id(id_curso).cohortes)
         return num
 
-<<<<<<< .merge_file_EpnN2d
     def procesarMatriculados(self, ruta_ar, ano, semestre):
         with open(ruta_ar) as f:
             content = f.readlines()
@@ -97,7 +94,6 @@ class ControlCoordinador:
         cohortes = lc.numCohortes(id_curso,ano, semestre)
         return cohortes
 
-=======
     def cursosEstudiantes(self, cedula):
         matriculas=self.logicaMatricula.consultar_cursos_estudiantes(cedula)
         return matriculas
@@ -111,7 +107,6 @@ class ControlCoordinador:
     def consultar_cursos (self):
         cursos = self.logicaCursos.consultarCursos()
         return cursos
->>>>>>> .merge_file_EdOYZd
 
     def cerrarSesion(self):
         self.logicaCursos.cerrarSesion()
