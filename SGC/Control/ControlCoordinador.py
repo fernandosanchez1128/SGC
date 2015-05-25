@@ -7,8 +7,9 @@ from Modelo.LogicaCohorte import LogicaCohorte
 from Modelo.LogicaMatricula import LogicaMatricula
 from Modelo.LogicaUsuario import LogicaUsuario
 from Modelo.Certificado import Certificado
-
+from Modelo.LogicaCohorte import LogicaCohorte
 class ControlCoordinador:
+    logCohorte = LogicaCohorte()
 
     def __init__(self):
         #self.logCurso = LogicaCurso()
@@ -16,6 +17,7 @@ class ControlCoordinador:
         self.logicaMatricula = LogicaMatricula()
         self.logicaUsuario = LogicaUsuario()
         self.certificado= Certificado()
+
 
     def crearCurso(self, nombre, descripcion, actividades):
         obj_actividades = []
@@ -36,6 +38,11 @@ class ControlCoordinador:
             obj_actividades.append(obj_actividad)
         curso = Curso(nombre= nombre_c, descripcion=descripcion_c, actividades = obj_actividades, cohortes = [])
         self.logicaCursos.modificarCursoActividades(nombre_c,curso)
+
+    def modificar_cohorte(self, id_curso,id_cohorte,fecha_inicio,fecha_fin):
+        exito = self.logCohorte.modificar_cohorte(id_curso,id_cohorte,fecha_inicio,fecha_fin)
+        return exito
+
 
     def eliminarCurso(self, nombre):
         self.logicaCursos.eliminarCurso(nombre)
@@ -59,6 +66,10 @@ class ControlCoordinador:
 
     def buscarPersona(self, cedula):
         return self.logicaUsuario.buscarUsuario(cedula)
+
+    def consultar_cursos (self):
+        cursos = self.logicaCursos.consultarCursos()
+        return cursos
 
     def cerrarSesion(self):
         self.logicaCursos.cerrarSesion()
