@@ -47,6 +47,13 @@ class LogicaMatricula():
         self.session.commit()
         self.session.close()
 
+    def editar_nota(self, ncedula_lt, nid_cohorte, nid_curso, new_nota):
+        matricula = self.session.query(Matricula).filter_by(cedula_lt=ncedula_lt, id_cohorte=nid_cohorte,
+                                                            id_curso=nid_curso).first()
+        matricula.nota_definitiva = new_nota
+        self.session.commit()
+        self.session.close()
+
     def eliminarMatricula(self, ncedula_lt, nid_cohorte, nid_curso):
         matricula = self.session.query(Matricula).filter_by(cedula_lt=ncedula_lt, id_cohorte=nid_cohorte,
                                                             id_curso=nid_curso).first()
@@ -74,7 +81,7 @@ class LogicaMatricula():
                                    Matricula.nota_definitiva).\
             filter(Matricula.id_curso == id_curso,Matricula.cedula_lt == LeaderTeacher.cedula,
                    LeaderTeacher.cedula == Usuario.cedula, Matricula.id_curso ==Cohorte.id_curso,
-                   Cohorte.fecha_inicio>=fecha_ini, Cohorte.fecha_inicio <= fecha_fin,
+                   Cohorte.fecha_fin>=fecha_ini, Cohorte.fecha_fin <= fecha_fin,
                    Matricula.nota_definitiva >= 3.0).order_by(LeaderTeacher.departamento_secretaria).all()
         return reporte
 
@@ -100,6 +107,8 @@ class LogicaMatricula():
 usuario as us, cohorte as coh where mat.id_curso = 1  and mat.cedula_lt = lead.cedula and
 mat.id_curso = coh.id_curso  and coh.fecha_inicio between '2015/05/01' and '2015/05/30'
 and lead.cedula = us.cedula order by lead.departamento_secretaria'''''
+
+
 
 
     

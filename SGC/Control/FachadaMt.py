@@ -76,7 +76,29 @@ class FachadaMt():
         nota = Notas (id_curso = id_curso, id_actividad = id_actividad,id_cohorte = id_cohorte,cedula_lt =cedula,nota = nota_ingresada,asistencia = asistencia)
         exito = self.logNotas.agregarNotas(nota)
         if (exito == False):
+            nota_ant = self.logNotas.consultarNota(id_actividad,cedula,id_curso,id_cohorte).nota
             self.logNotas.editarNotas(id_actividad,cedula,id_curso,id_cohorte,nota_ingresada,asistencia)
+            self.actualizarDefinitiva(2,cedula,id_curso,id_cohorte,nota_ingresada,id_actividad,nota_ant)
+        else :
+            self.actualizarDefinitiva(1,cedula,id_curso,id_cohorte,nota_ingresada,id_actividad,0)
+
+    def actualizarDefinitiva (self,caso,id_lt,id_curso,id_cohorte,nota_ingresada,id_actividad,nota_ant):
+        reg_mat = self.logMatricula.consultarMatricula(id_lt,id_cohorte,id_curso)
+        nota_def = reg_mat.nota_definitiva
+        print "nota_antes" , nota_def
+        actividad = self.logActividades.consultarActividad_codigo(id_actividad,id_curso)
+        ponderado = actividad.ponderado
+        if caso == 1:
+            nota_def += nota_ingresada * ponderado
+        else :
+            print "paso por else"
+            print nota_ant, nota_ingresada
+            nota_def -= nota_ant * ponderado
+            nota_def += nota_ingresada * ponderado
+        print "nota_despues" , nota_def
+        self.logMatricula.editar_nota(id_lt,id_cohorte,id_curso,nota_def)
+
+
 
     def consultar_cohorte (self,id_curso,id_cohorte):
         cohorte = self.logCohorte.consulta_cohorte(id_curso,id_cohorte)

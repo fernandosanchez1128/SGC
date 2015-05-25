@@ -85,7 +85,7 @@ class Reporte:
         story=[]
         bodyStyle = ParagraphStyle('Body', fontName=_baseFontName, fontSize=24, leading=28, spaceBefore=6,
                                    align = "CENTER")
-        msg = "Detalles de Estudiantes del Curso " + curso + " Durante el Mes de " +mes+ " del ano " + anio
+        msg = "Estudiantes Que Aprobaron el Curso " + curso + " Durante el Mes de " +mes+ " del ano " + anio
         titulo = Paragraph(msg, bodyStyle)
         t.setStyle([('FONTSIZE',(0,0), (-1, -1), 16),
                     ('FONTSIZE',(0,0), (1, 0), 17),
