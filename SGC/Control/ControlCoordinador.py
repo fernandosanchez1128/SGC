@@ -6,6 +6,7 @@ from Modelo.LogicaCursos import LogicaCursos
 from Modelo.LogicaCohorte import LogicaCohorte
 from Modelo.LogicaMatricula import LogicaMatricula
 from Modelo.LogicaMasterTeacher import LogicaMasterTeacher
+from Modelo.LogicaLeaderTeacher import LogicaLeaderTeacher
 from Modelo.LogicaDicta import LogicaDicta
 
 from Modelo.LogicaUsuario import LogicaUsuario
@@ -30,7 +31,7 @@ class ControlCoordinador:
             ponderado_ac = actividad[1]
             obj_actividad = Actividades(nombre = nombre_ac, ponderado = ponderado_ac)
             obj_actividades.append(obj_actividad)
-        curso = Curso(nombre= nombre, descripcion=descripcion, actividades = obj_actividades, cohortes = [])
+        curso = Curso(nombre= nombre, descripcion=descripcion, actividades = obj_actividades)
         self.logicaCursos.agregarCurso(curso)
 
     def modificarCurso(self, nombre_c, descripcion_c, actividades):
@@ -40,7 +41,7 @@ class ControlCoordinador:
             ponderado_ac = actividad[1]
             obj_actividad = Actividades(nombre = nombre_ac, ponderado = ponderado_ac)
             obj_actividades.append(obj_actividad)
-        curso = Curso(nombre= nombre_c, descripcion=descripcion_c, actividades = obj_actividades, cohortes = [])
+        curso = Curso(nombre= nombre_c, descripcion=descripcion_c, actividades = obj_actividades)
         self.logicaCursos.modificarCursoActividades(nombre_c,curso)
 
     def modificar_cohorte(self, id_curso,id_cohorte,fecha_inicio,fecha_fin):
@@ -80,18 +81,20 @@ class ControlCoordinador:
         mt = log_m.consultarMT(cedula)
         return mt
 
+    def consultarLT(self, cedula):
+        log_l = LogicaLeaderTeacher()
+        return log_l.consultarLT(cedula)
+
     def agregarDicta(self, cedula_mt, id_curso, id_cohorte):
         log_d = LogicaDicta()
         log_d.agregarDicta(cedula_mt,id_curso,id_cohorte)
 
     def consultarCohorteN(self, id_curso, ano, semestre, N):
-        lc = LogicaCohorte()
-        cohorte  = lc.cohorteN(id_curso, ano, semestre, N)
+        cohorte  = self.logCohorte.cohorteN(id_curso, ano, semestre, N)
         return cohorte
 
     def consultarNumCohortes(self, id_curso, ano, semestre):
-        lc = LogicaCohorte()
-        cohortes = lc.numCohortes(id_curso,ano, semestre)
+        cohortes = self.logCohorte.numCohortes(id_curso,ano, semestre)
         return cohortes
 
     def cursosEstudiantes(self, cedula):
@@ -107,6 +110,9 @@ class ControlCoordinador:
     def consultar_cursos (self):
         cursos = self.logicaCursos.consultarCursos()
         return cursos
+
+    def consultar_est_mat(self, id_curso, id_cohorte):
+        return self.logicaMatricula.consultar_estudiantes(id_curso,id_cohorte)
 
     def cerrarSesion(self):
         self.logicaCursos.cerrarSesion()

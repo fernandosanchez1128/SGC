@@ -166,13 +166,6 @@
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QPushButton" name="btCohortes">
-        <property name="text">
-         <string>Editar Cohortes</string>
-        </property>
-       </widget>
-      </item>
      </layout>
     </item>
    </layout>

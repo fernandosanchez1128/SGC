@@ -1,6 +1,7 @@
 from sqlalchemy.orm import sessionmaker
 
 from LogicaCohorte import LogicaCohorte
+from LogicaCursos import LogicaCursos
 from ORM.Matricula import Matricula
 from ORM.basetest import *
 

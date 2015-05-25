@@ -39,7 +39,6 @@ class AsignarMT ( QDialog ):
         if not nombre_c.strip()=="" and self.busco:
             cedula = str(self.ui.leCedula.text())
             curso  = self.control_c.buscarCurso(nombre_c)
-            print "id",curso.id
             if not curso == None:
                 cohorte = self.control_c.consultarCohorteN(curso.id, self.ui.sbAno.value(), self.ui.sbSemestre.value(),self.ui.sbCohorte.value()-1)
                 self.control_c.agregarDicta(cedula,curso.id,cohorte.id_cohorte)

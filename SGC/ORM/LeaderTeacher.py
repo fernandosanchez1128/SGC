@@ -44,7 +44,7 @@ class LeaderTeacher(Usuario, Base):
     municipio_secretaria = Column(String(40))
     __mapper_args__ = {
         'polymorphic_identity':'leaderteacher',
-        #'polymorphic_on':type
+        # 'polymorphic_on':type
     }
 
 from AreasDesempenadas import *
