@@ -26,9 +26,6 @@ class AsignacionCohortes ( QMainWindow ):
         self.connect(self.ui.listWidget, SIGNAL("itemDoubleClicked(QListWidgetItem*)"), self.cargar_grid)
 
 
-
-
-
     def __del__ ( self ):
         self.ui = None
 
@@ -152,8 +149,6 @@ class AsignacionCohortes ( QMainWindow ):
         item = self.ui.grid.itemAtPosition(fila,1)
         fecha_inicio = item.widget()
         fecha_inicio.setDateRange(self.fecha_actual,fecha)
-
-
 
 
     def guardar(self):
