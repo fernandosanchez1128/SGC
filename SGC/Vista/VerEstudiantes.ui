@@ -88,6 +88,12 @@
      <height>27</height>
     </rect>
    </property>
+   <property name="minimum">
+    <number>1</number>
+   </property>
+   <property name="maximum">
+    <number>10</number>
+   </property>
   </widget>
  </widget>
  <resources/>
