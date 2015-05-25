@@ -2,7 +2,6 @@ from sqlalchemy.exc import *
 from ORM.Asignacion import Asignacion
 from sqlalchemy.orm import sessionmaker
 from ORM.basetest import *
-from sqlalchemy import exc as sqlalchemy_exceptions
 
 class LogicaAsignacion():
     Session = sessionmaker(bind=engine)
