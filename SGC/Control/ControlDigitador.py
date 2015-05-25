@@ -37,10 +37,15 @@ class ControlDigitador:
         print("paso por logica")
 
 
-    def agregarUsuarioLT(self, tipo, parametros):
-        print("Entro en agregar user LT")
-        usLT = self.Fabrica.getUsuario(tipo,parametros)
-        self.LogicaUsuarios.agregarUsuario(usLT)
+    def consultarLT(self,cedula):
+        lt=self.LogicaLT.consultarLT(cedula)
+        return lt
+
+    def consultarUsuario(self, cedula):
+        user=self.LogicaUsuarios.buscarUsuario(cedula)
+        return user
+
+
 
 
     def agregarAspirante(self, params):
@@ -54,6 +59,19 @@ class ControlDigitador:
     def agregarPreinscripcion(self, params):
         preinscripcion=Preinscripcion(cedula_asp=params[0], id_curso=params[1], fecha=params[2] )
         self.LogicaPreinscripcion.agregarPreinscripcion(preinscripcion)
+
+
+    #EDICION:
+    def editarUsuarioLT(self, ced, params):
+        user= self.Fabrica.getUsuario(1,params)
+        self.LogicaUsuarios.modificarUsuario(ced,user)
+
+    def editarLT(self, ced, params):
+        lt=self.Fabrica.getUsuario(3,params)
+        self.LogicaLT.editarLT(ced,lt)
+
+    def eliminarLT(self, ced):
+        self.LogicaLT.eliminarLT(ced)
 
     def cerrarSesion(self):
         self.LogicaUsuarios.cerrarSesion()
