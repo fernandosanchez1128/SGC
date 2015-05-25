@@ -5,6 +5,8 @@ from ORM.Actividades import Actividades
 from Modelo.LogicaCursos import LogicaCursos
 from Modelo.LogicaCohorte import LogicaCohorte
 from Modelo.LogicaMatricula import LogicaMatricula
+from Modelo.LogicaMasterTeacher import LogicaMasterTeacher
+from Modelo.LogicaDicta import LogicaDicta
 
 class ControlCoordinador:
 
@@ -49,13 +51,32 @@ class ControlCoordinador:
         curso = content[0][7:-1]
         id_curso = self.logicaCursos.consultarCurso(curso).id
         for cont in content:
-            print "CUROSOO", cont[:7]
             if cont[:7]=="Curso: ":
                 curso = cont[7:-1]
                 id_curso = self.logicaCursos.consultarCurso(curso).id
             else:
                 logMat  = LogicaMatricula()
                 logMat.agregarMatricula(cont[:-1],id_curso,ano,semestre)
+
+    def consultarMT(self, cedula):
+        log_m = LogicaMasterTeacher()
+        mt = log_m.consultarMT(cedula)
+        return mt
+
+    def agregarDicta(self, cedula_mt, id_curso, id_cohorte):
+        log_d = LogicaDicta()
+        log_d.agregarDicta(cedula_mt,id_curso,id_cohorte)
+
+    def consultarCohorteN(self, id_curso, ano, semestre, N):
+        lc = LogicaCohorte()
+        cohorte  = lc.cohorteN(id_curso, ano, semestre, N)
+        return cohorte
+
+    def consultarNumCohortes(self, id_curso, ano, semestre):
+        lc = LogicaCohorte()
+        cohortes = lc.numCohortes(id_curso,ano, semestre)
+        return cohortes
+
 
     def cerrarSesion(self):
         self.logicaCursos.cerrarSesion()
