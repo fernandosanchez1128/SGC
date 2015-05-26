@@ -83,6 +83,7 @@ class LogicaMatricula():
                    LeaderTeacher.cedula == Usuario.cedula, Matricula.id_curso ==Cohorte.id_curso,
                    Cohorte.fecha_fin>=fecha_ini, Cohorte.fecha_fin <= fecha_fin,
                    Matricula.nota_definitiva >= 3.0).order_by(LeaderTeacher.departamento_secretaria).all()
+        self.session.close()
         return reporte
 
     def estudianes_departamento_unique (self, fecha_ini,fecha_fin,id_curso,dpto):
@@ -92,6 +93,7 @@ class LogicaMatricula():
                    LeaderTeacher.cedula == Usuario.cedula, Matricula.id_curso ==Cohorte.id_curso,
                    Cohorte.fecha_inicio>=fecha_ini, Cohorte.fecha_inicio <= fecha_fin,
                    LeaderTeacher.departamento_secretaria == dpto).order_by(LeaderTeacher.departamento_secretaria).all()
+        self.session.close()
         return reporte
 
 
@@ -101,6 +103,7 @@ class LogicaMatricula():
             filter(Matricula.id_curso == id_curso,Matricula.cedula_lt == LeaderTeacher.cedula,
                    LeaderTeacher.cedula == Usuario.cedula, Matricula.id_curso ==Cohorte.id_curso,
                    Cohorte.fecha_inicio>=fecha_ini, Cohorte.fecha_inicio <= fecha_fin).order_by(LeaderTeacher.departamento_secretaria).all()
+        self.session.close()
         return reporte
         #sql de la consulta
         ''''select us.cedula, nombres,apellidos, nota_definitiva, municipio,departamento_secretaria from matricula as mat, leaderteacher as lead,
