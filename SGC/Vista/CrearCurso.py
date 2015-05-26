@@ -5,6 +5,7 @@ from PyQt4.QtGui import *
 from PyQt4 import QtCore, QtGui
 from sqlalchemy.exc import SQLAlchemyError
 from VerEstudiantes import VerEstudiantes
+from AnularLT import AnularLT
 
 from Control.ControlCoordinador import ControlCoordinador
 
@@ -193,8 +194,7 @@ class CrearCurso(QDialog):
             if self.tipo == 2: #ver estudiantes
                     v = VerEstudiantes(None, self.id_curso).exec_()
             elif self.tipo == 3: #anular matricula
-                pass
-                #v = AnularMatricula(None, self.id_curso).exec_()
+                v = AnularLT(None, self.id_curso).exec_()
         else:
             QtGui.QMessageBox.warning(self, self.tr("Error"),
                                               QString.fromUtf8("No hay cohortes asociados a este curso en este semestre."))

@@ -54,6 +54,7 @@ class LogicaCohorte():
         self.session.close()
         return cohortes
 
+
 '''		
 log = LogicaCohorte()
 print log.ultimoCohorte(123,3,1)

@@ -114,6 +114,14 @@ class ControlCoordinador:
     def consultar_est_mat(self, id_curso, id_cohorte):
         return self.logicaMatricula.consultar_estudiantes(id_curso,id_cohorte)
 
+    def anular_matricula(self, cedula, id_curso):
+        coh= self.logicaMatricula.consultar_cohorte_estudiante(cedula,id_curso)
+        self.logicaMatricula.eliminarMatricula(cedula,coh.id_cohorte, id_curso)
+
+    def mat_lt_curso(self, cedula, id_curso):
+        coh= self.logicaMatricula.consultar_cohorte_estudiante(cedula,id_curso)
+        return coh
+
     def cerrarSesion(self):
         self.logicaCursos.cerrarSesion()
 
