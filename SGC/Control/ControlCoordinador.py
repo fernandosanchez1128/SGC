@@ -6,14 +6,18 @@ from Modelo.LogicaCursos import LogicaCursos
 from Modelo.LogicaCohorte import LogicaCohorte
 from Modelo.LogicaMatricula import LogicaMatricula
 from Modelo.LogicaMasterTeacher import LogicaMasterTeacher
+from Modelo.LogicaLeaderTeacher import LogicaLeaderTeacher
 from Modelo.LogicaDicta import LogicaDicta
 
 from Modelo.LogicaUsuario import LogicaUsuario
 from Modelo.Certificado import Certificado
 from Modelo.LogicaCohorte import LogicaCohorte
+from Modelo.Reporte import Reporte
+
 
 class ControlCoordinador:
     logCohorte = LogicaCohorte()
+    reporte = Reporte()
 
     def __init__(self):
         #self.logCurso = LogicaCurso()
@@ -30,7 +34,7 @@ class ControlCoordinador:
             ponderado_ac = actividad[1]
             obj_actividad = Actividades(nombre = nombre_ac, ponderado = ponderado_ac)
             obj_actividades.append(obj_actividad)
-        curso = Curso(nombre= nombre, descripcion=descripcion, actividades = obj_actividades, cohortes = [])
+        curso = Curso(nombre= nombre, descripcion=descripcion, actividades = obj_actividades)
         self.logicaCursos.agregarCurso(curso)
 
     def modificarCurso(self, nombre_c, descripcion_c, actividades):
@@ -40,7 +44,7 @@ class ControlCoordinador:
             ponderado_ac = actividad[1]
             obj_actividad = Actividades(nombre = nombre_ac, ponderado = ponderado_ac)
             obj_actividades.append(obj_actividad)
-        curso = Curso(nombre= nombre_c, descripcion=descripcion_c, actividades = obj_actividades, cohortes = [])
+        curso = Curso(nombre= nombre_c, descripcion=descripcion_c, actividades = obj_actividades)
         self.logicaCursos.modificarCursoActividades(nombre_c,curso)
 
     def modificar_cohorte(self, id_curso,id_cohorte,fecha_inicio,fecha_fin):
@@ -80,18 +84,20 @@ class ControlCoordinador:
         mt = log_m.consultarMT(cedula)
         return mt
 
+    def consultarLT(self, cedula):
+        log_l = LogicaLeaderTeacher()
+        return log_l.consultarLT(cedula)
+
     def agregarDicta(self, cedula_mt, id_curso, id_cohorte):
         log_d = LogicaDicta()
         log_d.agregarDicta(cedula_mt,id_curso,id_cohorte)
 
     def consultarCohorteN(self, id_curso, ano, semestre, N):
-        lc = LogicaCohorte()
-        cohorte  = lc.cohorteN(id_curso, ano, semestre, N)
+        cohorte  = self.logCohorte.cohorteN(id_curso, ano, semestre, N)
         return cohorte
 
     def consultarNumCohortes(self, id_curso, ano, semestre):
-        lc = LogicaCohorte()
-        cohortes = lc.numCohortes(id_curso,ano, semestre)
+        cohortes = self.logCohorte.numCohortes(id_curso,ano, semestre)
         return cohortes
 
     def cursosEstudiantes(self, cedula):
@@ -108,10 +114,42 @@ class ControlCoordinador:
         cursos = self.logicaCursos.consultarCursos()
         return cursos
 
+    def consultar_est_mat(self, id_curso, id_cohorte):
+        return self.logicaMatricula.consultar_estudiantes(id_curso,id_cohorte)
+
     def cerrarSesion(self):
         self.logicaCursos.cerrarSesion()
 
+    def estudiantes_aprobados_curso (self,ruta,fecha_ini,fecha_fin,id_curso,nombre_curso,mes,anio):
+        exito =1
+        reporte = self.logicaMatricula.estudiantes_aprobados_curso(fecha_ini,fecha_fin,id_curso)
+        if reporte !=[] :
+            self.reporte.estudiants_aprob_curso(reporte,ruta,nombre_curso,mes,anio)
+        else:
+            exito =0
+        return exito
 
+    def estudiantes_departamento_unique (self,fecha_ini,fecha_fin,id_curso,dpto,nombre_curso,mes,anio):
+        reporte =self.logicaMatricula.estudianes_departamento_unique(fecha_ini,fecha_fin,id_curso,dpto)
+        print reporte
+        if reporte != None:
+            self.reporte.detalle_estudiantes_por_dpto(reporte, "/home/fernando/report.pdf",nombre_curso,mes,anio)
+
+    def estudiantes_departamento (self,ruta,fecha_ini,fecha_fin,id_curso,nombre_curso,mes,anio):
+        exito =1
+        reporte =self.logicaMatricula.estudiantes_departamento(fecha_ini,fecha_fin,id_curso)
+        print reporte
+        if reporte != []:
+            promedios = self.logicaMatricula.promedio_departamento(fecha_ini,fecha_fin,id_curso)
+            self.reporte.detalle_estudiantes_por_dpto(reporte,promedios,ruta,nombre_curso,mes,anio)
+        else:
+            exito =0
+
+        return exito
+
+#ControlCoordinador().estudiantes_departamento("2015/05/01","2015/05/30",1,"curso1","Mayo", "2015")
+#ControlCoordinador().estudiantes_departamento_unique("2015/05/01","2015/05/30",1,"antioquia","curso1","Mayo", "2015")
+#ControlCoordinador().estudiantes_aprobados_curso("2015/05/01","2015/05/30",1,"curso1","Mayo", "2015")
 '''
 con =  ControlCoordinador()
 #actividades = [["act1", 0.2], ["act2", 0.5], ["act3", 0.3]]

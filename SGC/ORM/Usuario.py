@@ -21,11 +21,12 @@ class Usuario (Base):
 
 
 Base.metadata.create_all(engine)
+'''
+Session = sessionmaker(bind=engine)
+session = Session()
+user = Usuario (cedula  = 1234, correo_electronico='coo@ah.com', contrasena= 'c', type = 'coordinador')
 
-# Session = sessionmaker(bind=engine)
-# session = Session()
-# user = Usuario (cedula  = 124, correo_electronico='c@ah.com', contrasena= 'c', type = 'coordinador')
-#
-# session.add(user)
-# session.commit()
-#
+session.add(user)
+session.commit()
+
+'''

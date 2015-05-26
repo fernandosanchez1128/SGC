@@ -7,6 +7,7 @@ from reportlab.lib.units import cm, mm, inch, pica
 from datetime import *
 
 
+
 class Certificado:
     def __init__(self):
         print "Constructor certificado"

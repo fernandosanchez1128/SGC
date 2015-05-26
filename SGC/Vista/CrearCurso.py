@@ -9,6 +9,9 @@ from VerEstudiantes import VerEstudiantes
 from Control.ControlCoordinador import ControlCoordinador
 
 
+from datetime import date
+import math
+
 ( Ui_CrearCurso, QDialog ) = uic.loadUiType('CrearCurso.ui')
 
 
@@ -184,17 +187,15 @@ class CrearCurso(QDialog):
             QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
                                           QString.fromUtf8("El curso no existe."))
     def ver_clicked(self):
-        if self.tipo == 2: #ver estudiantes
-            if self.id_curso!=None:
-                v = VerEstudiantes(None, self.id_curso).exec_()
-            else:
-                QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
-                                          QString.fromUtf8("Debe buscar un curso para ver sus estudiantes."))
-        elif self.tipo == 3: #anular matricula
-            pass
-            # if self.id_curso!=None:
-            #     v = AnularMatricula(None, self.id_curso).exec_()
-            # else:
-            #     QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
-            #                               QString.fromUtf8("Debe buscar un curso para ver sus estudiantes."))
+        ano = date.today().year
+        semestre  = math.ceil(float(date.today().month)/6)
+        if self.id_curso!=None and self.control.consultarNumCohortes(self.id_curso,ano,semestre)!=0:
+            if self.tipo == 2: #ver estudiantes
+                    v = VerEstudiantes(None, self.id_curso).exec_()
+            elif self.tipo == 3: #anular matricula
+                pass
+                #v = AnularMatricula(None, self.id_curso).exec_()
+        else:
+            QtGui.QMessageBox.warning(self, self.tr("Error"),
+                                              QString.fromUtf8("No hay cohortes asociados a este curso en este semestre."))
 

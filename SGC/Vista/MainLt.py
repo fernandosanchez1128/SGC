@@ -11,7 +11,7 @@ if __name__ == '__main__':
     app = QApplication( sys.argv )
     app.setApplicationName( 'My PyQt4 QtGui Project')
     # create widget
-    w = VistaLt.Instance()
+    w = VistaLt.Instance("usuario")
     w.setWindowTitle( 'My PyQt4 QtGui Project' )
     w.show()
 

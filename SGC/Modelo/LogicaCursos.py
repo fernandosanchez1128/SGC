@@ -38,7 +38,6 @@ class LogicaCursos():
         curso = self.session.query(Curso).filter_by(nombre=nombre_curso).first()
         curso.descripcion = curso_mod.descripcion
         curso.actividades = curso_mod.actividades
-        curso.cohortes = curso_mod.cohortes
         self.session.commit()
 
     def eliminarCurso(self, nombre_c):
