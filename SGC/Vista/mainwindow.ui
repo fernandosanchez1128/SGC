@@ -127,6 +127,19 @@ gridline-color: rgb(85, 255, 0);</string>
      <string>CURSOS</string>
     </property>
    </widget>
+   <widget class="QLabel" name="fin_cohorte">
+    <property name="geometry">
+     <rect>
+      <x>195</x>
+      <y>90</y>
+      <width>421</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
   </widget>
  </widget>
  <tabstops>
