@@ -125,9 +125,6 @@ class ControlCoordinador:
         coh= self.logicaMatricula.consultar_cohorte_estudiante(cedula,id_curso)
         return coh
 
-    def cerrarSesion(self):
-        self.logicaCursos.cerrarSesion()
-
     def estudiantes_aprobados_curso (self,ruta,fecha_ini,fecha_fin,id_curso,nombre_curso,mes,anio):
         exito =1
         reporte = self.logicaMatricula.estudiantes_aprobados_curso(fecha_ini,fecha_fin,id_curso)
@@ -154,6 +151,10 @@ class ControlCoordinador:
             exito =0
 
         return exito
+
+
+    def cerrarSesion(self):
+        self.logicaCursos.cerrarSesion()
 
 #ControlCoordinador().estudiantes_departamento("2015/05/01","2015/05/30",1,"curso1","Mayo", "2015")
 #ControlCoordinador().estudiantes_departamento_unique("2015/05/01","2015/05/30",1,"antioquia","curso1","Mayo", "2015")
