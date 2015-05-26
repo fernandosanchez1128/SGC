@@ -140,7 +140,8 @@ class ControlCoordinador:
         reporte =self.logicaMatricula.estudiantes_departamento(fecha_ini,fecha_fin,id_curso)
         print reporte
         if reporte != []:
-            self.reporte.detalle_estudiantes_por_dpto(reporte,ruta,nombre_curso,mes,anio)
+            promedios = self.logicaMatricula.promedio_departamento(fecha_ini,fecha_fin,id_curso)
+            self.reporte.detalle_estudiantes_por_dpto(reporte,promedios,ruta,nombre_curso,mes,anio)
         else:
             exito =0
 

@@ -6,6 +6,7 @@ from PyQt4.QtCore import *
 from Control.FachadaMt import FachadaMt
 from Asignacion import Asignacion
 from Singleton import Singleton
+from Asignacion_cohortes import  AsignacionCohortes
 
 (Ui_MainWindow, QMainWindow) = uic.loadUiType('mainwindow.ui')
 
@@ -187,7 +188,8 @@ class MainWindow(QMainWindow):
 
 
     def asignacion (self):
-        if (self.id_curso == 0 or self.id_cohorte ==0):
-            QtGui.QMessageBox.warning(self, 'Error', "Por favor escoga un curso", QtGui.QMessageBox.Ok)
-        else:
-            ventana = Asignacion(self.id_curso,self.id_cohorte).exec_()
+        # if (self.id_curso == 0 or self.id_cohorte ==0):
+        #     QtGui.QMessageBox.warning(self, 'Error', "Por favor escoga un curso", QtGui.QMessageBox.Ok)
+        # else:
+        #     ventana = Asignacion(self.id_curso,self.id_cohorte).exec_()
+        ventana =AsignacionCohortes().exec_()

@@ -39,16 +39,9 @@ class Reporte:
         #filtrar si la nota definitiva en todas las matriculas es >3.0
         #comparar con el numero de LT matriculados
 
-    def detalle_estudiantes_por_dpto(self, reporte, ruta,curso,mes,anio):
+    def detalle_estudiantes_por_dpto(self, reporte,promedios, ruta,curso,mes,anio):
         doc = SimpleDocTemplate(ruta, pagesize = A4)
         t = Table(data = [("Cedula","Nombres","Apellidos","Departamento","Definitiva")] + reporte,rowHeights=28,hAlign="LEFT",)
-        # encabezado = Table(
-        #     data = [['Cantidad', 'DEPARTAMENTO']],rowHeights=28,hAlign="LEFT")
-        # encabezado.setStyle([('FONTSIZE',(0,0), (-1, -1), 16),
-        #             ('FONT',(0,0), (-1, -1), 'Helvetica'),
-        #             ('VALIGN',(0,0), (-1, -1), 'TOP'),
-        #             ('GRID',(0,0),(-1,-1),1,colors.black),
-        #             ('ALIGN', (0,0), (-1, -1), 'LEFT')])
         story=[]
         bodyStyle = ParagraphStyle('Body', fontName=_baseFontName, fontSize=24, leading=28, spaceBefore=6,
                                    align = "CENTER")
@@ -61,13 +54,26 @@ class Reporte:
                     ('VALIGN',(0,0), (-1, -1), 'TOP'),
                     ('GRID',(0,0),(-1,-1),1,colors.black),
                     ('ALIGN', (0,0), (-1, -1), 'LEFT')
-
-
                     ])
+        t_prom = Table(data = [("Promedio","Departamento")] + promedios,rowHeights=28,hAlign="LEFT",)
+        t_prom.setStyle([('FONTSIZE',(0,0), (-1, -1), 16),
+                    ('FONTSIZE',(0,0), (1, 0), 17),
+                    ('FONT',(0,0), (-1, -1), 'Helvetica'),
+                    ('FONT',(0,0), (1, 0), 'Helvetica-Bold'),
+                    ('VALIGN',(0,0), (-1, -1), 'TOP'),
+                    ('GRID',(0,0),(-1,-1),1,colors.black),
+                    ('ALIGN', (0,0), (-1, -1), 'LEFT')
+                    ])
+        msg2 = "Promedio de las Notas de los Estudiantes por Departamento"
+        sub_titulo = Paragraph(msg2, bodyStyle)
         story.append(titulo)
-        story.append(Spacer(0, 10))
+        story.append(Spacer(0, 20))
         # story.append(encabezado)
         story.append(t)
+        story.append(Spacer(0, 20))
+        story.append(sub_titulo)
+        story.append(Spacer(0, 20))
+        story.append(t_prom)
         doc.build(story)
         os.system(ruta)
 

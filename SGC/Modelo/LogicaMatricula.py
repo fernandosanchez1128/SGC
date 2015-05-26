@@ -87,7 +87,7 @@ class LogicaMatricula():
         self.session.close()
         return reporte
 
-    def estudianes_departamento_unique (self, fecha_ini,fecha_fin,id_curso,dpto):
+    def estudiantes_departamento_unique (self, fecha_ini,fecha_fin,id_curso,dpto):
         reporte=self.session.query(LeaderTeacher.cedula,Usuario.nombres,Usuario.apellidos,
                                    LeaderTeacher.departamento_secretaria,Matricula.nota_definitiva).\
             filter(Matricula.id_curso == id_curso,Matricula.cedula_lt == LeaderTeacher.cedula,
@@ -111,6 +111,20 @@ class LogicaMatricula():
 usuario as us, cohorte as coh where mat.id_curso = 1  and mat.cedula_lt = lead.cedula and
 mat.id_curso = coh.id_curso  and coh.fecha_inicio between '2015/05/01' and '2015/05/30'
 and lead.cedula = us.cedula order by lead.departamento_secretaria'''''
+
+    def promedio_departamento (self,fecha_ini,fecha_fin,id_curso):
+        promedios = self.session.query(func.avg(Matricula.nota_definitiva),LeaderTeacher.departamento_secretaria).\
+            filter(Matricula.id_curso == id_curso,Matricula.cedula_lt == LeaderTeacher.cedula,
+                   Matricula.id_curso ==Cohorte.id_curso,Cohorte.fecha_inicio>=fecha_ini,
+                   Cohorte.fecha_inicio <= fecha_fin).group_by(LeaderTeacher.departamento_secretaria).all()
+        self.session.close()
+        return promedios
+
+
+
+
+
+
 
 
 
