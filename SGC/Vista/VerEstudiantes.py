@@ -27,6 +27,7 @@ class VerEstudiantes ( QDialog ):
 
     def __del__ ( self ):
         self.ui = None
+        self.control.cerrarSesion()
 
     def change_cohortes(self):
         cohorte = self.control.consultarCohorteN(self.id_curso,self.ano,self.semestre,self.ui.sbCohortes.value()-1)
