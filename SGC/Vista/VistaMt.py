@@ -72,6 +72,9 @@ class MainWindow(QMainWindow):
             nombre_curso = nombre_curso_com
         # busqueda de las actividades
         curso = self.fachadaMt.consulta_curso_by_name(nombre_curso)
+        cohorte=self.fachadaMt.consultar_cohorte(curso.id,codigo_cohorte)
+        fecha = str (cohorte.fecha_fin)
+        self.ui.fin_cohorte.setText (QString ("El Registros de Notas Estara Disponible Hasta " + fecha))
         actividades = curso.actividades
         num_actividades = len(actividades)
         self.ui.tableWidget.setColumnCount(num_actividades*2)
