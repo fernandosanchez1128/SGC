@@ -6,6 +6,7 @@ from ORM.Matricula import Matricula
 from ORM.Cohorte import Cohorte
 from ORM.LeaderTeacher import LeaderTeacher
 from ORM.basetest import *
+from datetime import *
 
 
 class LogicaMatricula():
@@ -68,9 +69,10 @@ class LogicaMatricula():
         return registros
 
     def consultar_estudiantes_aprobados(self, idCurso, anoBuscar, semestreBuscar):
+        fechaActual = date.today()
         departamentos=self.session.query(distinct(LeaderTeacher.dpto_secretaria)).join(Matricula).join(Cohorte).\
             filter(Cohorte.id_curso==idCurso).filter(Cohorte.semestre == semestreBuscar).\
-            filter(Cohorte.ano == anoBuscar).all()
+            filter(Cohorte.ano == anoBuscar).filter(Cohorte.fecha_fin<fechaActual).all()
         print departamentos
 
         dep_porcentajes=[]
@@ -102,9 +104,10 @@ class LogicaMatricula():
 
 
     def consultar_estudiantes_reprobados(self, idCurso, anoBuscar, semestreBuscar):
+        fechaActual = date.today()
         departamentos=self.session.query(distinct(LeaderTeacher.dpto_secretaria)).join(Matricula).join(Cohorte).\
             filter(Cohorte.id_curso==idCurso).filter(Cohorte.semestre == semestreBuscar).\
-            filter(Cohorte.ano == anoBuscar).all()
+            filter(Cohorte.ano == anoBuscar).filter(Cohorte.fecha_fin<fechaActual).all()
         print departamentos
 
         dep_porcentajes=[]
