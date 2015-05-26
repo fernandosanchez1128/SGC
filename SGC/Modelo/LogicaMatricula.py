@@ -1,7 +1,10 @@
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy import distinct
 
 from LogicaCohorte import LogicaCohorte
 from ORM.Matricula import Matricula
+from ORM.Cohorte import Cohorte
+from ORM.LeaderTeacher import LeaderTeacher
 from ORM.basetest import *
 
 
@@ -15,16 +18,16 @@ class LogicaMatricula():
 
     def agregarMatricula(self, cedula_lt, id_curso, ano, semestre):
         lc = LogicaCohorte()
-        ult_coh = lc.ultimoCohorte(id_curso,ano,semestre)
-        if ult_coh==None:
+        ult_coh = lc.ultimoCohorte(id_curso, ano, semestre)
+        if ult_coh == None:
             lc.agregarCohorte(id_curso, ano, semestre)
-            ult_coh = lc.ultimoCohorte(id_curso,ano,semestre)
+            ult_coh = lc.ultimoCohorte(id_curso, ano, semestre)
         else:
-            num_e = self.consultarNestudiantes(id_curso,ult_coh.id_cohorte)
-            if num_e==30:
+            num_e = self.consultarNestudiantes(id_curso, ult_coh.id_cohorte)
+            if num_e == 30:
                 lc.agregarCohorte(id_curso, ano, semestre)
-                ult_coh = lc.ultimoCohorte(id_curso,ano,semestre)
-        mat = Matricula(cedula_lt= cedula_lt, id_curso= id_curso, id_cohorte = ult_coh.id_cohorte, nota_definitiva =0)
+                ult_coh = lc.ultimoCohorte(id_curso, ano, semestre)
+        mat = Matricula(cedula_lt=cedula_lt, id_curso=id_curso, id_cohorte=ult_coh.id_cohorte, nota_definitiva=0)
         self.session.add(mat)
         self.session.commit()
         self.session.close()
@@ -59,13 +62,77 @@ class LogicaMatricula():
         self.session.close()
         return cantidad
 
-    def consultar_cursos_estudiantes (self,cedula_lt):
-        registros = self.session.query(Matricula).filter_by(cedula_lt = cedula_lt).all()
+    def consultar_cursos_estudiantes(self, cedula_lt):
+        registros = self.session.query(Matricula).filter_by(cedula_lt=cedula_lt).all()
         self.session.close()
         return registros
-    
-        
-       
+
+    def consultar_estudiantes_aprobados(self, idCurso, anoBuscar, semestreBuscar):
+        departamentos=self.session.query(distinct(LeaderTeacher.dpto_secretaria)).join(Matricula).join(Cohorte).\
+            filter(Cohorte.id_curso==idCurso).filter(Cohorte.semestre == semestreBuscar).\
+            filter(Cohorte.ano == anoBuscar).all()
+        print departamentos
+
+        dep_porcentajes=[]
+        for dep in departamentos:
+            aprobados = int(self.session.query(LeaderTeacher).join(Matricula).join(Cohorte).
+            filter(Cohorte.id_curso == idCurso).filter(Cohorte.semestre == semestreBuscar).
+                filter(Cohorte.ano == anoBuscar).filter(LeaderTeacher.dpto_secretaria == dep[0].encode("utf-8")).
+                filter(Matricula.nota_definitiva>2.5).count())
+            print "aprobados", aprobados
+
+            reprobados = int(self.session.query(LeaderTeacher).join(Matricula).join(Cohorte).
+            filter(Cohorte.id_curso == idCurso).filter(Cohorte.semestre == semestreBuscar).
+                filter(Cohorte.ano == anoBuscar).filter(LeaderTeacher.dpto_secretaria == dep[0].encode("utf-8")).
+                filter(Matricula.nota_definitiva<=2.5).count())
+
+            print "reprobados", reprobados
+
+            total = aprobados+reprobados
+            if total==0:
+                porcentaje=0.0
+            else:
+                porcentaje = float(aprobados)*100.0/total
+            dep_porcentajes.append((dep[0].encode("utf-8"), porcentaje))
+
+        self.session.close()
+        print dep_porcentajes
+        return dep_porcentajes
+
+
+
+    def consultar_estudiantes_reprobados(self, idCurso, anoBuscar, semestreBuscar):
+        departamentos=self.session.query(distinct(LeaderTeacher.dpto_secretaria)).join(Matricula).join(Cohorte).\
+            filter(Cohorte.id_curso==idCurso).filter(Cohorte.semestre == semestreBuscar).\
+            filter(Cohorte.ano == anoBuscar).all()
+        print departamentos
+
+        dep_porcentajes=[]
+        for dep in departamentos:
+            aprobados = int(self.session.query(LeaderTeacher).join(Matricula).join(Cohorte).
+            filter(Cohorte.id_curso == idCurso).filter(Cohorte.semestre == semestreBuscar).
+                filter(Cohorte.ano == anoBuscar).filter(LeaderTeacher.dpto_secretaria == dep[0].encode("utf-8")).
+                filter(Matricula.nota_definitiva>2.5).count())
+            print "aprobados", aprobados
+
+            reprobados = int(self.session.query(LeaderTeacher).join(Matricula).join(Cohorte).
+            filter(Cohorte.id_curso == idCurso).filter(Cohorte.semestre == semestreBuscar).
+                filter(Cohorte.ano == anoBuscar).filter(LeaderTeacher.dpto_secretaria == dep[0].encode("utf-8")).
+                filter(Matricula.nota_definitiva<=2.5).count())
+
+            print "reprobados", reprobados
+
+            total = aprobados+reprobados
+            if total==0:
+                porcentaje=0.0
+            else:
+                porcentaje = float(reprobados)*100.0/total
+            dep_porcentajes.append((dep[0].encode("utf-8"), porcentaje))
+
+        self.session.close()
+        print dep_porcentajes
+        return dep_porcentajes
+
 
 '''
 
