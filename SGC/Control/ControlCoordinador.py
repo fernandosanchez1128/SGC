@@ -120,10 +120,14 @@ class ControlCoordinador:
     def cerrarSesion(self):
         self.logicaCursos.cerrarSesion()
 
-    def estudiantes_aprobados_curso (self,fecha_ini,fecha_fin,id_curso,nombre_curso,mes,anio):
+    def estudiantes_aprobados_curso (self,ruta,fecha_ini,fecha_fin,id_curso,nombre_curso,mes,anio):
+        exito =1
         reporte = self.logicaMatricula.estudiantes_aprobados_curso(fecha_ini,fecha_fin,id_curso)
-        if reporte !=None :
-            self.reporte.estudiants_aprob_curso(reporte,"/home/fernando/report2.pdf",nombre_curso,mes,anio)
+        if reporte !=[] :
+            self.reporte.estudiants_aprob_curso(reporte,ruta,nombre_curso,mes,anio)
+        else:
+            exito =0
+        return exito
 
     def estudiantes_departamento_unique (self,fecha_ini,fecha_fin,id_curso,dpto,nombre_curso,mes,anio):
         reporte =self.logicaMatricula.estudianes_departamento_unique(fecha_ini,fecha_fin,id_curso,dpto)
@@ -131,12 +135,16 @@ class ControlCoordinador:
         if reporte != None:
             self.reporte.detalle_estudiantes_por_dpto(reporte, "/home/fernando/report.pdf",nombre_curso,mes,anio)
 
-    def estudiantes_departamento (self,fecha_ini,fecha_fin,id_curso,nombre_curso,mes,anio):
+    def estudiantes_departamento (self,ruta,fecha_ini,fecha_fin,id_curso,nombre_curso,mes,anio):
+        exito =1
         reporte =self.logicaMatricula.estudiantes_departamento(fecha_ini,fecha_fin,id_curso)
         print reporte
-        if reporte != None:
-            self.reporte.detalle_estudiantes_por_dpto(reporte, "/home/fernando/report.pdf",nombre_curso,mes,anio)
+        if reporte != []:
+            self.reporte.detalle_estudiantes_por_dpto(reporte,ruta,nombre_curso,mes,anio)
+        else:
+            exito =0
 
+        return exito
 
 #ControlCoordinador().estudiantes_departamento("2015/05/01","2015/05/30",1,"curso1","Mayo", "2015")
 #ControlCoordinador().estudiantes_departamento_unique("2015/05/01","2015/05/30",1,"antioquia","curso1","Mayo", "2015")
