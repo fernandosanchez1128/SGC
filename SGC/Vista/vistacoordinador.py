@@ -46,7 +46,7 @@ class VistaCoordinador ( QMainWindow ):
     def matricular_clicked(self):
         fname = QtGui.QFileDialog.getOpenFileName(self, 'Open file','', ("Text files (*.txt)" ))
         ano = date.today().year
-        semestre  = math.ceil(date.today().month/6)
+        semestre  = math.ceil(float(date.today().month)/6)
         self.control.procesarMatriculados(fname, ano, semestre)
 
     def asignar_clicked(self):
