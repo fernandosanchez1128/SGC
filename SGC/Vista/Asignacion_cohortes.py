@@ -4,9 +4,9 @@ from PyQt4.QtCore import *
 from PyQt4 import QtCore, QtGui
 from datetime import datetime,date
 from Control.ControlCoordinador import ControlCoordinador
-( Ui_Asignacion, QMainWindow ) = uic.loadUiType( 'Asignacion_fechas_cohortes.ui' )
+( Ui_Asignacion, QDialog ) = uic.loadUiType( 'Asignacion_fechas_cohortes.ui' )
 
-class AsignacionCohortes ( QMainWindow ):
+class AsignacionCohortes ( QDialog ):
     """Asignacion inherits QMainWindow"""
     id_curso = 0
     fachadaCordinador = ControlCoordinador()
@@ -18,7 +18,7 @@ class AsignacionCohortes ( QMainWindow ):
     fecha_actual=0
     fecha_limit =0
     def __init__ ( self,parent = None):
-        QMainWindow.__init__( self, parent )
+        QDialog.__init__( self, parent )
         self.ui = Ui_Asignacion()
         self.ui.setupUi( self )
         self.cargar_cursos()

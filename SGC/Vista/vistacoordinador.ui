@@ -167,6 +167,13 @@ departamento</string>
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QPushButton" name="btAsignarFecha">
+         <property name="text">
+          <string>Asignar fecha a cohorte</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
      <item>
