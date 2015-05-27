@@ -1,6 +1,5 @@
 from ORM.Cohorte import *
-from sqlalchemy.orm import sessionmaker
-
+from ORM.basetest import *
 
 class LogicaCohorte():
     Session = sessionmaker(bind=engine)
@@ -9,23 +8,22 @@ class LogicaCohorte():
     def __init__(self):
         print ("contructorc")
 
-    def agregarCohorte(self, cohorte):
-        self.session.add(cohorte)
+    def agregarCohorte(self, id_curso, ano, semestre):
+        coh = Cohorte(id_curso = id_curso, ano = ano, semestre = semestre)
+        self.session.add(coh)
         self.session.commit()
         self.session.close()
 
-    def consulta_cohorte (self,id_curso,id_cohorte):
-        cohorte = self.session.query(Cohorte).filter_by(id_curso=id_curso,id_cohorte = id_cohorte).first()
-        self.session.close()
-        return cohorte
-
     def ultimoCohorte(self, id_curso, ano, semestre):
-        cohorte = self.session.query(Cohorte).filter_by(id_curso=id_curso, ano=ano, semestre=semestre).all()
+        cohortes= self.session.query(Cohorte).filter_by(id_curso=id_curso, ano=ano, semestre=semestre).all()
         self.session.close()
-        return cohorte[len(cohorte) - 1].id_cohorte
+        if not cohortes == []:
+            return cohortes[- 1]
+        else:
+            None
 
-
-'''		
-log = LogicaCohorte()
-print log.ultimoCohorte(123,3,1)
+'''
+coh = Cohorte(id_curso = 4, ano = 2015, semestre = 2)
+lc= LogicaCohorte()
+lc.agregarCohorte(coh )
 '''

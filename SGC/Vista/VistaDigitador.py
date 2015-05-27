@@ -6,11 +6,12 @@ from PyQt4 import QtCore, QtGui
 from CrearAspirante import CrearAspirante
 from CrearPreinscripcion import CrearPreinscripcion
 from RegistrarLT import RegistrarLT
+from Singleton import Singleton
 
 
 
 ( Ui_VistaDigitador, QDialog ) = uic.loadUiType( 'VistaDigitador.ui' )
-
+@Singleton
 class VistaDigitador ( QDialog ):
 
     def __init__ ( self, parent = None):

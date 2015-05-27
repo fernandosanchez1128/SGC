@@ -4,7 +4,6 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4 import QtCore, QtGui
 
-
 from Control.ControlDigitador import ControlDigitador
 
 
@@ -42,6 +41,14 @@ class RegistrarLT ( QDialog ):
 
     def __del__ ( self ):
         self.ui = None
+
+    # def validaciones(self):
+    #     validador = QIntValidator()
+    #     val_contra = QRegExp('^.*[@].*[.].*')
+    #     exp_cadena = QRegExp('.+')
+    #     val_password = QRegExpValidator(val_contra)
+    #     val_vacio = QRegExpValidator(exp_cadena)
+    #     self.ui.txtpassword.setValidator(val_password)
 
     def cancelar_clicked(self):
         if(self.tipo==4):
@@ -142,33 +149,34 @@ class RegistrarLT ( QDialog ):
             for m in lt.modalidad:
                 if (m.modalidad==("Agropecuario")):
                     self.ui.agro.setChecked(True)
-                if (m.modalidad==("Comercial")):
+                elif (m.modalidad==("Comercial")):
                     self.ui.comercial.setChecked(True)
-                if (m.modalidad==("Promocion Social")):
+                elif (m.modalidad==("Promocion Social")):
                     self.ui.promocionSocial.setChecked(True)
-                if (m.modalidad==("Finanzas")):
+                elif (m.modalidad==("Finanzas")):
                     self.ui.finanzas.setChecked(True)
-                if (m.modalidad==("Administracion")):
+                elif (m.modalidad==("Administracion")):
                     self.ui.administracion.setChecked(True)
-                if (m.modalidad==("Ecologia")):
+                elif (m.modalidad==("Ecologia")):
                     self.ui.ecologia.setChecked(True)
-                if (m.modalidad==("Medio Ambiente")):
+                elif (m.modalidad==("Medio Ambiente")):
                     self.ui.medioambiente.setChecked(True)
-                if (m.modalidad==("Industrial")):
+                elif (m.modalidad==("Industrial")):
                     self.ui.industrial.setChecked(True)
-                if (m.modalidad==("Informatica")):
+                elif (m.modalidad==("Informatica")):
                     self.ui.informatica.setChecked(True)
-                if (m.modalidad==("Mineria")):
+                elif (m.modalidad==("Mineria")):
                     self.ui.mineria.setChecked(True)
-                if (m.modalidad==("Salud")):
+                elif (m.modalidad==("Salud")):
                     self.ui.salud.setChecked(True)
-                if (m.modalidad==("Recreacion")):
+                elif (m.modalidad==("Recreacion")):
                     self.ui.recreacion.setChecked(True)
-                if (m.modalidad==("Turismo")):
+                elif (m.modalidad==("Turismo")):
                     self.ui.turismo.setChecked(True)
-                if (m.modalidad==("Deporte")):
+                elif (m.modalidad==("Deporte")):
                     self.ui.deporte.setChecked(True)
                 else:
+                    self.ui.otromodalidad.setChecked(True)
                     self.ui.txtotromodalidad.setText(m.modalidad)
 
                 #3 de 9
@@ -185,15 +193,15 @@ class RegistrarLT ( QDialog ):
             for niv in lt.niveles_desempenados:
                 if (niv.niveles==("Transicion")):
                     self.ui.transicion.setChecked(True)
-                if (niv.niveles==("Educacion Inicial")):
+                elif (niv.niveles==("Educacion Inicial")):
                     self.ui.eduinicial.setChecked(True)
-                if (niv.niveles==("Educacion Primaria")):
+                elif (niv.niveles==("Educacion Primaria")):
                     self.ui.eduprimaria.setChecked(True)
-                if (niv.niveles==("Educacion Secundaria")):
+                elif (niv.niveles==("Educacion Secundaria")):
                     self.ui.edusecundaria.setChecked(True)
-                if (niv.niveles==("Educacion Media")):
+                elif (niv.niveles==("Educacion Media")):
                     self.ui.edumedia.setChecked(True)
-                if (niv.niveles==("Educacion Superior")):
+                elif (niv.niveles==("Educacion Superior")):
                     self.ui.edusuperior.setChecked(True)
                 else:
                     self.ui.otronivel.setChecked(True)
@@ -203,29 +211,29 @@ class RegistrarLT ( QDialog ):
             for gr in lt.grados_desempenados:
                 if (gr.grados==("Grado Transicion")):
                     self.ui.gtransicion.setChecked(True)
-                if (gr.grados=="Grado Inicial"):
+                elif (gr.grados=="Grado Inicial"):
                     self.ui.ginicial.setChecked(True)
-                if (gr.grados=="Grado 1"):
+                elif (gr.grados=="Grado 1"):
                     self.ui.g1.setChecked(True)
-                if (gr.grados=="Grado 2"):
+                elif (gr.grados=="Grado 2"):
                     self.ui.g2.setChecked(True)
-                if (gr.grados=="Grado 3"):
+                elif (gr.grados=="Grado 3"):
                     self.ui.g3.setChecked(True)
-                if (gr.grados==("Grado 4")):
+                elif (gr.grados==("Grado 4")):
                     self.ui.g4.setChecked(True)
-                if (gr.grados==("Grado 5")):
+                elif (gr.grados==("Grado 5")):
                     self.ui.g5.setChecked(True)
-                if (gr.grados==("Grado 6")):
+                elif (gr.grados==("Grado 6")):
                     self.ui.g6.setChecked(True)
-                if (gr.grados==("Grado 7")):
+                elif (gr.grados==("Grado 7")):
                     self.ui.g7.setChecked(True)
-                if (gr.grados==("Grado 8")):
+                elif (gr.grados==("Grado 8")):
                     self.ui.g8.setChecked(True)
-                if (gr.grados==("Grado 9")):
+                elif (gr.grados==("Grado 9")):
                     self.ui.g9.setChecked(True)
-                if (gr.grados==("Grado 10")):
+                elif (gr.grados==("Grado 10")):
                     self.ui.g10.setChecked(True)
-                if (gr.grados==("Grado 11")):
+                elif (gr.grados==("Grado 11")):
                     self.ui.g11.setChecked(True)
                 else:
                     self.ui.gotro.setChecked(True)

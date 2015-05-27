@@ -154,23 +154,9 @@ departamento</string>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="btANular">
-         <property name="text">
-          <string>Anular matricula LT</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QPushButton" name="btEditar">
          <property name="text">
           <string>Editar curso</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="btEliminar">
-         <property name="text">
-          <string>Eliminar curso</string>
          </property>
         </widget>
        </item>

@@ -48,6 +48,9 @@
      <height>17</height>
     </rect>
    </property>
+   <property name="text">
+    <string/>
+   </property>
    <property name="readOnly">
     <bool>false</bool>
    </property>
@@ -160,6 +163,9 @@
    </property>
   </widget>
   <widget class="QPushButton" name="btRegistrar">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>480</x>
@@ -204,8 +210,11 @@
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="currentIndex">
-       <number>9</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tabWidgetPage1">
        <attribute name="title">
@@ -335,6 +344,9 @@
         </property>
         <property name="text">
          <string>Academica</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
         </property>
        </widget>
        <widget class="QRadioButton" name="modaltecnica">
@@ -1296,6 +1308,9 @@
         <property name="text">
          <string>Nivel Tecnico (relativo a programas Tecnicos Profesionales)</string>
         </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
        </widget>
        <widget class="QRadioButton" name="niveltecnologico">
         <property name="geometry">
@@ -1469,6 +1484,9 @@ Especializacion Tecnologica y Especializaciones Profesionales)</string>
           <height>28</height>
          </rect>
         </property>
+        <property name="maximum">
+         <number>70</number>
+        </property>
        </widget>
        <widget class="QLabel" name="label_24">
         <property name="geometry">
@@ -1497,6 +1515,9 @@ Especializacion Tecnologica y Especializaciones Profesionales)</string>
           <width>61</width>
           <height>28</height>
          </rect>
+        </property>
+        <property name="maximum">
+         <number>70</number>
         </property>
        </widget>
        <widget class="QLabel" name="label_25">
@@ -1527,6 +1548,9 @@ Especializacion Tecnologica y Especializaciones Profesionales)</string>
           <height>28</height>
          </rect>
         </property>
+        <property name="maximum">
+         <number>70</number>
+        </property>
        </widget>
        <widget class="QLabel" name="label_26">
         <property name="geometry">
@@ -1556,6 +1580,9 @@ Especializacion Tecnologica y Especializaciones Profesionales)</string>
           <height>28</height>
          </rect>
         </property>
+        <property name="maximum">
+         <number>70</number>
+        </property>
        </widget>
        <widget class="QLabel" name="label_27">
         <property name="geometry">
@@ -1584,6 +1611,9 @@ Especializacion Tecnologica y Especializaciones Profesionales)</string>
           <width>61</width>
           <height>28</height>
          </rect>
+        </property>
+        <property name="maximum">
+         <number>70</number>
         </property>
        </widget>
       </widget>
@@ -1665,6 +1695,9 @@ Especializacion Tecnologica y Especializaciones Profesionales)</string>
           <width>61</width>
           <height>28</height>
          </rect>
+        </property>
+        <property name="maximum">
+         <number>70</number>
         </property>
        </widget>
        <widget class="QLabel" name="label_31">
@@ -1752,6 +1785,9 @@ Especializacion Tecnologica y Especializaciones Profesionales)</string>
           <height>28</height>
          </rect>
         </property>
+        <property name="maximum">
+         <number>70</number>
+        </property>
        </widget>
        <widget class="QSpinBox" name="exppublico">
         <property name="geometry">
@@ -1761,6 +1797,9 @@ Especializacion Tecnologica y Especializaciones Profesionales)</string>
           <width>61</width>
           <height>28</height>
          </rect>
+        </property>
+        <property name="maximum">
+         <number>70</number>
         </property>
        </widget>
        <widget class="QSpinBox" name="expprivado">
@@ -1772,6 +1811,9 @@ Especializacion Tecnologica y Especializaciones Profesionales)</string>
           <height>28</height>
          </rect>
         </property>
+        <property name="maximum">
+         <number>70</number>
+        </property>
        </widget>
        <widget class="QSpinBox" name="exptotal">
         <property name="geometry">
@@ -1781,6 +1823,9 @@ Especializacion Tecnologica y Especializaciones Profesionales)</string>
           <width>61</width>
           <height>28</height>
          </rect>
+        </property>
+        <property name="maximum">
+         <number>70</number>
         </property>
        </widget>
       </widget>
@@ -1834,6 +1879,9 @@ Especializacion Tecnologica y Especializaciones Profesionales)</string>
           <width>441</width>
           <height>28</height>
          </rect>
+        </property>
+        <property name="echoMode">
+         <enum>QLineEdit::PasswordEchoOnEdit</enum>
         </property>
        </widget>
       </widget>
@@ -2208,6 +2256,9 @@ Especializacion Tecnologica y Especializaciones Profesionales)</string>
          <property name="text">
           <string>Femenino</string>
          </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
         </widget>
         <widget class="QRadioButton" name="masculino">
          <property name="geometry">
@@ -2264,6 +2315,9 @@ Especializacion Tecnologica y Especializaciones Profesionales)</string>
          </property>
          <property name="text">
           <string>No</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
          </property>
         </widget>
         <widget class="QRadioButton" name="col_aprendeSi">
@@ -2379,6 +2433,9 @@ Especializacion Tecnologica y Especializaciones Profesionales)</string>
          <property name="text">
           <string>No</string>
          </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
         </widget>
         <widget class="QRadioButton" name="tutorSi">
          <property name="geometry">
@@ -2471,5 +2528,38 @@ Especializacion Tecnologica y Especializaciones Profesionales)</string>
   </widget>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>btBuscar</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>btRegistrar</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>381</x>
+     <y>105</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>530</x>
+     <y>112</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btBuscar</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>tabWidget</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>358</x>
+     <y>99</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>342</x>
+     <y>318</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
