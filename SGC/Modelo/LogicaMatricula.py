@@ -82,7 +82,7 @@ class LogicaMatricula():
                                    Matricula.nota_definitiva).\
             filter(Matricula.id_curso == id_curso,Matricula.cedula_lt == LeaderTeacher.cedula,
                    LeaderTeacher.cedula == Usuario.cedula, Matricula.id_curso ==Cohorte.id_curso,
-                   Cohorte.fecha_fin>=fecha_ini, Cohorte.fecha_fin <= fecha_fin,
+                   Cohorte.fecha_fin>=fecha_ini, Cohorte.fecha_fin <= fecha_fin,Matricula.id_cohorte == Cohorte.id_cohorte,
                    Matricula.nota_definitiva >= 3.0).order_by(LeaderTeacher.departamento_secretaria).all()
         self.session.close()
         return reporte
@@ -103,7 +103,8 @@ class LogicaMatricula():
                                    LeaderTeacher.departamento_secretaria,Matricula.nota_definitiva).\
             filter(Matricula.id_curso == id_curso,Matricula.cedula_lt == LeaderTeacher.cedula,
                    LeaderTeacher.cedula == Usuario.cedula, Matricula.id_curso ==Cohorte.id_curso,
-                   Cohorte.fecha_inicio>=fecha_ini, Cohorte.fecha_inicio <= fecha_fin).order_by(LeaderTeacher.departamento_secretaria).all()
+                   Cohorte.fecha_fin>=fecha_ini, Cohorte.fecha_fin <= fecha_fin,
+                   Matricula.id_cohorte == Cohorte.id_cohorte).order_by(LeaderTeacher.departamento_secretaria).all()
         self.session.close()
         return reporte
         #sql de la consulta
@@ -115,8 +116,8 @@ and lead.cedula = us.cedula order by lead.departamento_secretaria'''''
     def promedio_departamento (self,fecha_ini,fecha_fin,id_curso):
         promedios = self.session.query(func.avg(Matricula.nota_definitiva),LeaderTeacher.departamento_secretaria).\
             filter(Matricula.id_curso == id_curso,Matricula.cedula_lt == LeaderTeacher.cedula,
-                   Matricula.id_curso ==Cohorte.id_curso,Cohorte.fecha_inicio>=fecha_ini,
-                   Cohorte.fecha_inicio <= fecha_fin).group_by(LeaderTeacher.departamento_secretaria).all()
+                   Matricula.id_curso ==Cohorte.id_curso,Cohorte.fecha_fin>=fecha_ini,
+                   Cohorte.fecha_fin<= fecha_fin, Matricula.id_cohorte == Cohorte.id_cohorte).group_by(LeaderTeacher.departamento_secretaria).all()
         self.session.close()
         return promedios
 
