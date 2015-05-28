@@ -18,6 +18,7 @@ class MainWindow(QMainWindow):
     id_curso = 0
     id_cohorte = 0
     usuario = ""
+    cedula_mt = ""
     carga_notas = False
 
     def __init__(self,usuario, parent=None):
@@ -27,8 +28,10 @@ class MainWindow(QMainWindow):
         self.connect(self.ui.boton, SIGNAL("clicked()"), self.asignacion)
         self.connect(self.ui.lista_cursos, SIGNAL("itemDoubleClicked(QListWidgetItem*)"), self.cargarNotas)
         self.connect(self.ui.tableWidget, SIGNAL(("cellChanged(int,int)")), self.guardarNota)
-        self.empezar()
         self.usuario = usuario
+        self.cedula_mt = usuario.cedula
+        self.empezar()
+
         #print usuario.nombres
 
 
@@ -38,7 +41,7 @@ class MainWindow(QMainWindow):
 
     def empezar(self):
         # cambiar por el codigo del profesor
-        registros = self.fachadaMt.consulta_cursos_prof("1")
+        registros = self.fachadaMt.consulta_cursos_prof(self.cedula_mt)
         id_curso_ant = 0
         num_curso =0
         for reg_mat in registros:
@@ -188,8 +191,8 @@ class MainWindow(QMainWindow):
 
 
     def asignacion (self):
-        # if (self.id_curso == 0 or self.id_cohorte ==0):
-        #     QtGui.QMessageBox.warning(self, 'Error', "Por favor escoga un curso", QtGui.QMessageBox.Ok)
-        # else:
-        #     ventana = Asignacion(self.id_curso,self.id_cohorte).exec_()
-        ventana =AsignacionCohortes().exec_()
+            if (self.id_curso == 0 or self.id_cohorte ==0):
+                QtGui.QMessageBox.warning(self, 'Error', "Por favor escoga un curso", QtGui.QMessageBox.Ok)
+            else:
+                ventana = Asignacion(self.id_curso,self.id_cohorte).exec_()
+        #ventana =AsignacionCohortes().exec_()

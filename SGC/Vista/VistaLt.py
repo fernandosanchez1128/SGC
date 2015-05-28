@@ -17,9 +17,9 @@ class VistaLt(QMainWindow):
     fachadaLt = FachadaLt()
     id_curso = 0
     id_cohorte = 0
-    name = "fernando"
+    name = ""
     nombre_curso=""
-    cedula = "2"
+    cedula = ""
     usuario =""
 
     def __init__(self,usuario, parent=None):
@@ -28,9 +28,12 @@ class VistaLt(QMainWindow):
         self.ui.setupUi(self)
         self.connect(self.ui.certificado, SIGNAL("clicked()"), self.vista_certificado)
         self.connect(self.ui.lista_cursos, SIGNAL("itemDoubleClicked(QListWidgetItem*)"), self.cargarNotas)
-        self.cargar_cursos()
         self.usuario = usuario
-        #print usuario.nombres
+        self.name = usuario.nombres
+        self.cedula=usuario.cedula
+        self.cargar_cursos()
+        print usuario
+
 
     def __del__(self):
         self.ui = None
@@ -38,7 +41,8 @@ class VistaLt(QMainWindow):
 
     def cargar_cursos(self):
         # cambiar por el codigo del estudiante
-        registros = self.fachadaLt.consulta_cursos_estudiante("2")
+        print self.cedula
+        registros = self.fachadaLt.consulta_cursos_estudiante(self.cedula)
         id_curso_ant = 0
         num_curso =0
         for registro in registros:

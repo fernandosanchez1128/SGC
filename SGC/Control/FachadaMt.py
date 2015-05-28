@@ -30,7 +30,7 @@ class FachadaMt():
     def consulta_cursos_prof(self, cedulaMt):
         # reemplazar por cedula MT
         fecha = time.strftime("%d/%m/%y")
-        registros = self.logDicta.consultarCursosProf("1",fecha)
+        registros = self.logDicta.consultarCursosProf(cedulaMt,fecha)
 
         return registros
 

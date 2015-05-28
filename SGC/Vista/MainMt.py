@@ -4,7 +4,7 @@ import sys
 # import PyQt4 QtCore and QtGui modules
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-
+from ORM.Usuario import Usuario
 from VistaMt import MainWindow
 
 if __name__ == '__main__':
@@ -12,7 +12,8 @@ if __name__ == '__main__':
     app = QApplication( sys.argv )
     app.setApplicationName( 'My PyQt4 QtGui Project')
     # create widget
-    w = MainWindow.Instance("usuario")
+    usuario = Usuario(cedula = "1",nombres = "diego" ,apellidos = "sanchez quintero")
+    w = MainWindow.Instance(1,usuario)
     w.setWindowTitle( 'My PyQt4 QtGui Project' )
     w.show()
 
