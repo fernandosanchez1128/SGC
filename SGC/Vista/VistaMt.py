@@ -32,8 +32,6 @@ class MainWindow(QMainWindow):
         self.cedula_mt = usuario.cedula
         self.empezar()
 
-        #print usuario.nombres
-
 
     def __del__(self):
         self.ui = None
@@ -114,7 +112,6 @@ class MainWindow(QMainWindow):
 
         for i in range(0, num_estudiantes, 1):
             cod_estudiante =str(self.ui.tableWidget.verticalHeaderItem (i).text())
-            #print cod_estudiante
             nota =0
             for a in range (0,(num_actividades*2),1):
                 item = QtGui.QTableWidgetItem()

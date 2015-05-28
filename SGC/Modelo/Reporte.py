@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from reportlab.lib.styles import ParagraphStyle
 
 __author__ = 'braymrr'
@@ -45,7 +46,7 @@ class Reporte:
         story=[]
         bodyStyle = ParagraphStyle('Body', fontName=_baseFontName, fontSize=24, leading=28, spaceBefore=6,
                                    align = "CENTER")
-        msg = "Detalles de Estudiantes del Curso " + curso + " Durante el Mes de " +mes+ " del ano " + anio
+        msg = "Detalles de Estudiantes del Curso " + curso + " Durante el Mes de " +mes+ " del año " + anio
         titulo = Paragraph(msg, bodyStyle)
         t.setStyle([('FONTSIZE',(0,0), (-1, -1), 16),
                     ('FONTSIZE',(0,0), (1, 0), 17),
@@ -68,7 +69,6 @@ class Reporte:
         sub_titulo = Paragraph(msg2, bodyStyle)
         story.append(titulo)
         story.append(Spacer(0, 20))
-        # story.append(encabezado)
         story.append(t)
         story.append(Spacer(0, 20))
         story.append(sub_titulo)
