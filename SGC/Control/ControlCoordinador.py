@@ -152,6 +152,10 @@ class ControlCoordinador:
 
         return exito
 
+    def notas_estudiante(self, cedula_lt, id_curso):
+        exito=0
+        reporte =
+
 
     def cerrarSesion(self):
         self.logicaCursos.cerrarSesion()
