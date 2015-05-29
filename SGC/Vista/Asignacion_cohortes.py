@@ -81,6 +81,7 @@ class AsignacionCohortes ( QDialog ):
             wid4.deleteLater()
         #agregando los nuevos datos
         indice =1
+        self.ultimo_mod = indice
         for cohorte in cohortes:
             if (cohorte.semestre == self.semestre and cohorte.ano == self.year) :
                 label = QtGui.QLabel()

@@ -107,7 +107,9 @@ class VistaLogin(QDialog):
                 elif tipoUsuario == 'leaderteacher':
                     if fechaAcceso is None:
                         self.control.modificarFechaAcceso(username, fechaActual)
-                        QMessageBox.information(self, "Login", "Ingresa Leader Teacher")
+                        a = VistaLt.Instance(1,objUsuario)
+                        a.setWindowTitle('LeaderTeacher')
+                        a.show()
                     else:
                         if fechaAcceso >= fechaActual - delta:
                             self.control.modificarFechaAcceso(username, fechaActual)

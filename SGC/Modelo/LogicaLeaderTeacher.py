@@ -18,6 +18,7 @@ class LogicaLeaderTeacher():
 
     def agregarLT(self, let):
         print("ENTRO EN AGREGAR LT")
+        self.session.rollback()
         self.session.add(let)
         self.session.commit()
         self.session.close()
