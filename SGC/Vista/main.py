@@ -19,15 +19,11 @@ if __name__ == '__main__':
     app.setApplicationName( 'My PyQt4 QtGui Project')
     #w = RegistrarLT()
     #w = CrearAspirante()
-    #w=VistaDigitador()
-    w=VistaLogin()
+    w=VistaDigitador.Instance()
+    #w=VistaLogin()
     #w=Top10()
     #w=VistaCoordinador.Instance()
     w.show()
-    #new = 2
-    #url = "file:///home/nelson/Documentos/Git/SGC/SGC/Vista/test.html"
-    #webbrowser.open(url,new=new)
-
     # connection
     QObject.connect( app, SIGNAL( 'lastWindowClosed()' ), app, SLOT( 'quit()' ) )
     # execute application

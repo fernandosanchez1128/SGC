@@ -32,9 +32,8 @@ class ControlDigitador:
 
     def agregarLT(self, tipo, params):
         leaderTeacher=self.Fabrica.getUsuario(tipo,params)
-        print("paso por fabrica")
-        self.LogicaLT.agregarLT(leaderTeacher)
-        print("paso por logica")
+        return self.LogicaLT.agregarLT(leaderTeacher)
+
 
 
     def consultarLT(self,cedula):
@@ -54,7 +53,7 @@ class ControlDigitador:
                               municipio=params[7],genero=params[8],institucion=params[9], escalafon=params[10],
                               sede=params[11],codigo_dane=params[12], dpto_secretaria=params[13], tutor=params[14],
                               usuario_col_aprende=params[15])
-        self.LogicaAspirante.agregarAspirante(aspirante)
+        return self.LogicaAspirante.agregarAspirante(aspirante)
 
     def agregarPreinscripcion(self, params):
         preinscripcion=Preinscripcion(cedula_asp=params[0], id_curso=params[1], fecha=params[2] )
@@ -68,7 +67,7 @@ class ControlDigitador:
 
     def editarLT(self, ced, params):
         lt=self.Fabrica.getUsuario(3,params)
-        self.LogicaLT.editarLT(ced,lt)
+        return self.LogicaLT.editarLT(ced,lt)
 
     def eliminarLT(self, ced):
         self.LogicaLT.eliminarLT(ced)
@@ -76,3 +75,6 @@ class ControlDigitador:
     def cerrarSesion(self):
         self.LogicaUsuarios.cerrarSesion()
         self.LogicaLT.cerrarSesion()
+        self.LogicaCursos.cerrarSesion()
+        self.LogicaAspirante.cerrarSesion()
+        self.LogicaPreinscripcion.cerrarSesion()
