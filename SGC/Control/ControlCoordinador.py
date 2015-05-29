@@ -19,12 +19,14 @@ class ControlCoordinador:
     logCohorte = LogicaCohorte()
     reporte = Reporte()
 
+
     def __init__(self):
         #self.logCurso = LogicaCurso()
         self.logicaCursos = LogicaCursos()
         self.logicaMatricula = LogicaMatricula()
         self.logicaUsuario = LogicaUsuario()
         self.certificado= Certificado()
+        self.reportes = Reporte()
 
 
     def crearCurso(self, nombre, descripcion, actividades):
@@ -83,6 +85,9 @@ class ControlCoordinador:
         log_m = LogicaMasterTeacher()
         mt = log_m.consultarMT(cedula)
         return mt
+
+    def cursos_mas_asistentes(self,fechai):
+        self.reportes.cursos_mas_asistentes(fechai)
 
     def consultarLT(self, cedula):
         log_l = LogicaLeaderTeacher()
@@ -152,9 +157,9 @@ class ControlCoordinador:
 
         return exito
 
-    def notas_estudiante(self, cedula_lt, id_curso):
-        exito=0
-        reporte =
+    # def notas_estudiante(self, cedula_lt, id_curso):
+    #     exito=0
+    #     reporte =
 
 
     def cerrarSesion(self):

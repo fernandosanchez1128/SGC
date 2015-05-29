@@ -7,11 +7,12 @@ from CrearCurso import CrearCurso
 from AsignarMT import AsignarMT
 from Asignacion_cohortes import AsignacionCohortes
 from Control.ControlCoordinador import ControlCoordinador
-
+from Top10 import *
 from datetime import date
 import math
 
 ( Ui_VistaCoordinador, QMainWindow ) = uic.loadUiType( 'vistacoordinador.ui' )
+
 
 @Singleton
 class VistaCoordinador ( QMainWindow ):
@@ -22,6 +23,7 @@ class VistaCoordinador ( QMainWindow ):
         self.ui = Ui_VistaCoordinador()
         self.ui.setupUi( self )
         self.control  = ControlCoordinador()
+        self.r1=Top10()
         self.connect(self.ui.btCrear, SIGNAL("clicked()"), self.crear_clicked)
         self.connect(self.ui.btConsultar, SIGNAL("clicked()"), self.consultar_clicked)
         self.connect(self.ui.btEditar, SIGNAL("clicked()"), self.editar_clicked)
@@ -29,6 +31,7 @@ class VistaCoordinador ( QMainWindow ):
         self.connect(self.ui.btMatricular, SIGNAL("clicked()"), self.matricular_clicked)
         self.connect(self.ui.btAsignar, SIGNAL("clicked()"), self.asignar_clicked)
         self.connect(self.ui.btAsignarFecha, SIGNAL("clicked()"), self.asignarFecha_clicked)
+        self.connect(self.ui.btCursosAsistentes, SIGNAL("clicked()"), self.curso_asistentes())
 
     def __del__ ( self ):
         self.ui = None
@@ -56,3 +59,6 @@ class VistaCoordinador ( QMainWindow ):
 
     def asignarFecha_clicked(self):
         v = AsignacionCohortes().exec_()
+
+    def curso_asistentes(self):
+        self.r1.show()

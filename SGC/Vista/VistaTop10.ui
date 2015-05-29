@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>VistaTop10</class>
+ <widget class="QDialog" name="VistaTop10">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>310</width>
+    <height>277</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>10</y>
+     <width>271</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>&lt;center&gt;Curson con mayor numero de asistentes 
+&lt;center&gt;en el mes: TOP 10</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>110</y>
+     <width>171</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Seleccione el mes</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="combomes">
+   <property name="geometry">
+    <rect>
+     <x>167</x>
+     <y>110</y>
+     <width>111</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>Enero</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Febrero</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Marzo</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Abril</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Mayo</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Junio</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Julio</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Agosto</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Septiembre</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Octubre</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Noviembre</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Diciembre</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QPushButton" name="btgenerar">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>210</y>
+     <width>111</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Generar Reporte</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>140</y>
+     <width>281</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <italic>true</italic>
+    </font>
+   </property>
+   <property name="text">
+    <string>&lt;center&gt;El reporte genera un archivo (.svg) &lt;/center&gt;
+&lt;center&gt;el cual se abre con el navegador: 
+&lt;center&gt;Chrome o Firefox</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btSalir">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>240</y>
+     <width>111</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Salir</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>77</y>
+     <width>91</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Digite el año:</string>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="txtano">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>70</y>
+     <width>111</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="minimum">
+    <number>2000</number>
+   </property>
+   <property name="maximum">
+    <number>2020</number>
+   </property>
+  </widget>
+ </widget>
+ <tabstops>
+  <tabstop>txtano</tabstop>
+  <tabstop>combomes</tabstop>
+  <tabstop>btSalir</tabstop>
+  <tabstop>btgenerar</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

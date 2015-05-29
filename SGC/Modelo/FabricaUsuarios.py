@@ -26,7 +26,7 @@ class FabricaUsuarios:
         #Master Teacher
         elif(tipo==2 and len(params)==8):
             print ("creando MT")
-            objMT = MasterTeacher(cedula =params[0],nombres =params[1],apellidos = params[2], direccion = params[3],telefono = params[4],correoElectronico = params[5], fechaNacimiento = params[6], contrasena= params[7])
+            objMT = MasterTeacher(cedula =params[0],nombres =params[1],apellidos = params[2], direccion = params[3],telefono = params[4],correoElectronico = params[5], fechaNacimiento = params[6], contrasena= params[7], type='masterteacher')
             return objMT
 
         #Leader Teacher
@@ -73,6 +73,7 @@ class FabricaUsuarios:
                 correo_electronico = params[5],
                 fecha_nacimiento = params[6],
                 contrasena = params[7],
+                type='leaderteacher',
 
                 cedula =params[0],
                 municipio =params[8],

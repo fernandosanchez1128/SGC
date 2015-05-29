@@ -7,6 +7,8 @@ from datetime import *
 from vistacoordinador import *
 from VistaLt import VistaLt
 from VistaMt import MainWindow
+from VistaDigitador import VistaDigitador
+
 ( Ui_VistaLogin, QDialog ) = uic.loadUiType('VistaLogin.ui')
 
 
@@ -105,9 +107,7 @@ class VistaLogin(QDialog):
                 elif tipoUsuario == 'leaderteacher':
                     if fechaAcceso is None:
                         self.control.modificarFechaAcceso(username, fechaActual)
-                        a = VistaLt.Instance(1,objUsuario)
-                        a.setWindowTitle('LeaderTeacher')
-                        a.show()
+                        QMessageBox.information(self, "Login", "Ingresa Leader Teacher")
                     else:
                         if fechaAcceso >= fechaActual - delta:
                             self.control.modificarFechaAcceso(username, fechaActual)
@@ -139,11 +139,15 @@ class VistaLogin(QDialog):
                 elif tipoUsuario == 'digitador':
                     if fechaAcceso is None:
                         self.control.modificarFechaAcceso(username, fechaActual)
-                        QMessageBox.information(self, "Login", "Ingresa Digitador")
+                        w = VistaDigitador.Instance()
+                        w.setWindowTitle('Digitador')
+                        w.show()
                     else:
                         if fechaAcceso >= fechaActual - delta:
                             self.control.modificarFechaAcceso(username, fechaActual)
-                            QMessageBox.information(self, "Login", "Ingresa Digitador")
+                            w = VistaDigitador.Instance()
+                            w.setWindowTitle('Digitador')
+                            w.show()
                         else:
                             QMessageBox.information(self, "Login",
                                                     "Su ultimo acceso al sistema fue hace mas de 180 dias\n"

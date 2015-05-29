@@ -17,7 +17,6 @@ class LeaderTeacher(Usuario, Base):
     dpto_secretaria  = Column(String(20))
     tutor = Column(Boolean) #no estoy seguro del tipo
     usuario_col_aprende = Column(String(50))
-    dpto_secretaria  = Column(String(20))
     tipo_institucion = Column(String(20))
     
     exp_preescolar = Column(Integer)
@@ -40,11 +39,9 @@ class LeaderTeacher(Usuario, Base):
     niveles_desempenados = relationship("Niveles", backref='leaderteacher',cascade="all, delete, delete-orphan")
     
     grado = Column(Integer)
-    departamento_secretaria= Column (String (20))
-    municipio_secretaria = Column(String(40))
     __mapper_args__ = {
         'polymorphic_identity':'leaderteacher',
-        # 'polymorphic_on':type
+        #'polymorphic_on':type
     }
 
 from AreasDesempenadas import *

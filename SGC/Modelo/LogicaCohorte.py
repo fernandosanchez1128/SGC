@@ -9,6 +9,12 @@ class LogicaCohorte():
     def __init__(self):
         print ("contructorc")
 
+    def agregarCohorte(self, id_curso, ano, semestre):
+        coh = Cohorte(id_curso = id_curso, ano = ano, semestre = semestre)
+        self.session.add(coh)
+        self.session.commit()
+        self.session.close()
+
     def agregarCohorte(self, cohorte):
         self.session.add(cohorte)
         self.session.commit()
