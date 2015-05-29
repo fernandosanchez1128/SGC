@@ -110,7 +110,7 @@ class LogicaMatricula():
         #sql de la consulta
         ''''select us.cedula, nombres,apellidos, nota_definitiva, municipio,departamento_secretaria from matricula as mat, leaderteacher as lead,
 usuario as us, cohorte as coh where mat.id_curso = 1  and mat.cedula_lt = lead.cedula and
-mat.id_curso = coh.id_curso  and coh.fecha_inicio between '2015/05/01' and '2015/05/30'
+mat.id_curso = coh.id_curso and mat.id_cohorte = coh.id_cohorte and coh.fecha_inicio between '2015/05/01' and '2015/05/30'
 and lead.cedula = us.cedula order by lead.departamento_secretaria'''''
 
     def promedio_departamento (self,fecha_ini,fecha_fin,id_curso):

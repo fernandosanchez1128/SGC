@@ -29,8 +29,8 @@
     </font>
    </property>
    <property name="text">
-    <string>&lt;center&gt;Curson con mayor numero de asistentes 
-&lt;center&gt;en el mes: TOP 10</string>
+    <string>&lt;center&gt;Historico de Estudiantes que 
+&lt;center&gt;Han aprobado un Curso</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">

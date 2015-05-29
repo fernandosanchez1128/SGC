@@ -24,6 +24,7 @@ class VistaLt(QMainWindow):
 
     def __init__(self,usuario, parent=None):
         QMainWindow.__init__(self, parent)
+
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.connect(self.ui.certificado, SIGNAL("clicked()"), self.vista_certificado)
@@ -31,8 +32,9 @@ class VistaLt(QMainWindow):
         self.usuario = usuario
         self.name = usuario.nombres
         self.cedula=usuario.cedula
+        print "cedula_user", usuario.cedula
         self.cargar_cursos()
-        print usuario
+
 
 
     def __del__(self):
