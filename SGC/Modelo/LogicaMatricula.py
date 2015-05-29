@@ -1,10 +1,12 @@
 from sqlalchemy import func
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy import distinct
 
 from LogicaCohorte import LogicaCohorte
 from LogicaCursos import LogicaCursos
 from ORM.Matricula import Matricula
 from ORM.basetest import *
+from datetime import *
 from ORM.Curso import Curso
 from ORM.Cohorte import Cohorte
 from ORM.Usuario import Usuario
@@ -81,6 +83,74 @@ class LogicaMatricula():
         mat = self.session.query(Matricula).filter_by(id_curso=id_curso, cedula_lt=cedula).first()
         self.session.close()
         return mat
+
+    def consultar_estudiantes_aprobados(self, idCurso, anoBuscar, semestreBuscar):
+        fechaActual = date.today()
+        departamentos=self.session.query(distinct(LeaderTeacher.dpto_secretaria)).join(Matricula).join(Cohorte).\
+            filter(Cohorte.id_curso==idCurso).filter(Cohorte.semestre == semestreBuscar).\
+            filter(Cohorte.ano == anoBuscar).filter(Cohorte.fecha_fin<fechaActual).all()
+        print departamentos
+
+        dep_porcentajes=[]
+        for dep in departamentos:
+            aprobados = int(self.session.query(LeaderTeacher).join(Matricula).join(Cohorte).
+            filter(Cohorte.id_curso == idCurso).filter(Cohorte.semestre == semestreBuscar).
+                filter(Cohorte.ano == anoBuscar).filter(LeaderTeacher.dpto_secretaria == dep[0].encode("utf-8")).
+                filter(Matricula.nota_definitiva>2.5).count())
+            print "aprobados", aprobados
+
+            reprobados = int(self.session.query(LeaderTeacher).join(Matricula).join(Cohorte).
+            filter(Cohorte.id_curso == idCurso).filter(Cohorte.semestre == semestreBuscar).
+                filter(Cohorte.ano == anoBuscar).filter(LeaderTeacher.dpto_secretaria == dep[0].encode("utf-8")).
+                filter(Matricula.nota_definitiva<=2.5).count())
+
+            print "reprobados", reprobados
+
+            total = aprobados+reprobados
+            if total==0:
+                porcentaje=0.0
+            else:
+                porcentaje = float(aprobados)*100.0/total
+            dep_porcentajes.append((dep[0].encode("utf-8"), porcentaje))
+
+        self.session.close()
+        print dep_porcentajes
+        return dep_porcentajes
+
+
+
+    def consultar_estudiantes_reprobados(self, idCurso, anoBuscar, semestreBuscar):
+        fechaActual = date.today()
+        departamentos=self.session.query(distinct(LeaderTeacher.dpto_secretaria)).join(Matricula).join(Cohorte).\
+            filter(Cohorte.id_curso==idCurso).filter(Cohorte.semestre == semestreBuscar).\
+            filter(Cohorte.ano == anoBuscar).filter(Cohorte.fecha_fin<fechaActual).all()
+        print departamentos
+
+        dep_porcentajes=[]
+        for dep in departamentos:
+            aprobados = int(self.session.query(LeaderTeacher).join(Matricula).join(Cohorte).
+            filter(Cohorte.id_curso == idCurso).filter(Cohorte.semestre == semestreBuscar).
+                filter(Cohorte.ano == anoBuscar).filter(LeaderTeacher.dpto_secretaria == dep[0].encode("utf-8")).
+                filter(Matricula.nota_definitiva>2.5).count())
+            print "aprobados", aprobados
+
+            reprobados = int(self.session.query(LeaderTeacher).join(Matricula).join(Cohorte).
+            filter(Cohorte.id_curso == idCurso).filter(Cohorte.semestre == semestreBuscar).
+                filter(Cohorte.ano == anoBuscar).filter(LeaderTeacher.dpto_secretaria == dep[0].encode("utf-8")).
+                filter(Matricula.nota_definitiva<=2.5).count())
+
+            print "reprobados", reprobados
+
+            total = aprobados+reprobados
+            if total==0:
+                porcentaje=0.0
+            else:
+                porcentaje = float(reprobados)*100.0/total
+            dep_porcentajes.append((dep[0].encode("utf-8"), porcentaje))
+
+        self.session.close()
+        print dep_porcentajes
+        return dep_porcentajes
 
     def estudiantes_aprobados_curso (self,fecha_ini,fecha_fin,id_curso):
         reporte=self.session.query(LeaderTeacher.cedula,Usuario.nombres,Usuario.apellidos,
