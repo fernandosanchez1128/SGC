@@ -8,6 +8,8 @@ from Modelo.LogicaMatricula import LogicaMatricula
 from Modelo.LogicaMasterTeacher import LogicaMasterTeacher
 from Modelo.LogicaLeaderTeacher import LogicaLeaderTeacher
 from Modelo.LogicaDicta import LogicaDicta
+from Modelo.LogicaNotas import LogicaNotas
+from Modelo.LogicaActividades import LogicaActividades
 
 from Modelo.LogicaUsuario import LogicaUsuario
 from Modelo.Certificado import Certificado
@@ -25,7 +27,9 @@ class ControlCoordinador:
         self.logicaCursos = LogicaCursos()
         self.logicaMatricula = LogicaMatricula()
         self.logicaUsuario = LogicaUsuario()
+        self.logicaNotas= LogicaNotas()
         self.certificado= Certificado()
+        self.logicaActs = LogicaActividades()
         self.reportes = Reporte()
 
 
@@ -140,7 +144,7 @@ class ControlCoordinador:
         return exito
 
     def estudiantes_departamento_unique (self,fecha_ini,fecha_fin,id_curso,dpto,nombre_curso,mes,anio):
-        reporte =self.logicaMatricula.estudianes_departamento_unique(fecha_ini,fecha_fin,id_curso,dpto)
+        reporte =self.logicaMatricula.estudiantes_departamento_unique(fecha_ini,fecha_fin,id_curso,dpto)
         print reporte
         if reporte != None:
             self.reporte.detalle_estudiantes_por_dpto(reporte, "/home/fernando/report.pdf",nombre_curso,mes,anio)
@@ -157,9 +161,14 @@ class ControlCoordinador:
 
         return exito
 
-    # def notas_estudiante(self, cedula_lt, id_curso):
-    #     exito=0
-    #     reporte =
+    def notas_estudiante(self, cedula_lt, id_curso):
+        exito=0
+        mat = self.logicaMatricula.consultar_cohorte_estudiante(cedula_lt,id_curso)
+        acts = self.logicaActs.actividades_curso(id_curso)
+        notas =[]
+        if mat!=None and acts!=[]:
+            for act in acts:
+                notas.append(self.logicaNotas.consultarNota(act.id_actividad,cedula_lt,id_curso,mat.id_cohorte).nota)
 
 
     def cerrarSesion(self):

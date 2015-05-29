@@ -15,10 +15,10 @@ class LogicaCohorte():
         self.session.commit()
         self.session.close()
 
-    def agregarCohorte(self, cohorte):
-        self.session.add(cohorte)
-        self.session.commit()
-        self.session.close()
+    # def agregarCohorte(self, cohorte):
+    #     self.session.add(cohorte)
+    #     self.session.commit()
+    #     self.session.close()
 
     def consulta_cohorte (self,id_curso,id_cohorte):
         cohorte = self.session.query(Cohorte).filter_by(id_curso=id_curso,id_cohorte = id_cohorte).first()
