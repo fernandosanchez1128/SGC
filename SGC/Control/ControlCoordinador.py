@@ -117,8 +117,13 @@ class ControlCoordinador:
     def consultar_est_mat(self, id_curso, id_cohorte):
         return self.logicaMatricula.consultar_estudiantes(id_curso,id_cohorte)
 
-    def cerrarSesion(self):
-        self.logicaCursos.cerrarSesion()
+    def anular_matricula(self, cedula, id_curso):
+        coh= self.logicaMatricula.consultar_cohorte_estudiante(cedula,id_curso)
+        self.logicaMatricula.eliminarMatricula(cedula,coh.id_cohorte, id_curso)
+
+    def mat_lt_curso(self, cedula, id_curso):
+        coh= self.logicaMatricula.consultar_cohorte_estudiante(cedula,id_curso)
+        return coh
 
     def estudiantes_aprobados_curso (self,ruta,fecha_ini,fecha_fin,id_curso,nombre_curso,mes,anio):
         exito =1
@@ -146,6 +151,14 @@ class ControlCoordinador:
             exito =0
 
         return exito
+
+    def notas_estudiante(self, cedula_lt, id_curso):
+        exito=0
+        reporte =
+
+
+    def cerrarSesion(self):
+        self.logicaCursos.cerrarSesion()
 
 #ControlCoordinador().estudiantes_departamento("2015/05/01","2015/05/30",1,"curso1","Mayo", "2015")
 #ControlCoordinador().estudiantes_departamento_unique("2015/05/01","2015/05/30",1,"antioquia","curso1","Mayo", "2015")

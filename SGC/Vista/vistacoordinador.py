@@ -5,6 +5,7 @@ from Singleton import Singleton
 
 from CrearCurso import CrearCurso
 from AsignarMT import AsignarMT
+from Asignacion_cohortes import AsignacionCohortes
 from Control.ControlCoordinador import ControlCoordinador
 
 from datetime import date
@@ -27,6 +28,7 @@ class VistaCoordinador ( QMainWindow ):
        # self.connect(self.ui.btEliminar, SIGNAL("clicked()"), self.eliminar_clicked)
         self.connect(self.ui.btMatricular, SIGNAL("clicked()"), self.matricular_clicked)
         self.connect(self.ui.btAsignar, SIGNAL("clicked()"), self.asignar_clicked)
+        self.connect(self.ui.btAsignarFecha, SIGNAL("clicked()"), self.asignarFecha_clicked)
 
     def __del__ ( self ):
         self.ui = None
@@ -51,3 +53,6 @@ class VistaCoordinador ( QMainWindow ):
 
     def asignar_clicked(self):
         venAs = AsignarMT().exec_()
+
+    def asignarFecha_clicked(self):
+        v = AsignacionCohortes().exec_()

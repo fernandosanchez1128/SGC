@@ -77,6 +77,11 @@ class LogicaMatricula():
         self.session.close()
         return registros
 
+    def consultar_cohorte_estudiante(self, cedula, id_curso):
+        mat = self.session.query(Matricula).filter_by(id_curso=id_curso, cedula_lt=cedula).first()
+        self.session.close()
+        return mat
+
     def estudiantes_aprobados_curso (self,fecha_ini,fecha_fin,id_curso):
         reporte=self.session.query(LeaderTeacher.cedula,Usuario.nombres,Usuario.apellidos,
                                    Matricula.nota_definitiva).\
