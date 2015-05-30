@@ -4,7 +4,7 @@ from reportlab.lib.styles import ParagraphStyle
 __author__ = 'braymrr'
 from ORM.Curso import Curso
 from ORM.basetest import *
-
+from ORM.Matricula import Matricula
 from reportlab.platypus import (SimpleDocTemplate, PageBreak, Image, Spacer,
 Paragraph, Table, TableStyle)
 from reportlab.lib.pagesizes import A4
@@ -146,13 +146,13 @@ class Reporte:
         msg = "Porcentaje de estudiantes que aprobaron " + str(curso) + " Durante el semestre " + str(semestre) + " del ano "\
               + str(anio)
         titulo = Paragraph(msg, bodyStyle)
-        # t.setStyle([('FONTSIZE',(0,0), (-1, -1), 16),
-        #             ('FONTSIZE',(0,0), (1, 0), 17),
-        #             ('FONT',(0,0), (-1, -1), 'Helvetica'),
-        #             ('FONT',(0,0), (3, 0), 'Helvetica-Bold'),
-        #             ('VALIGN',(0,0), (-1, -1), 'TOP'),
-        #             ('GRID',(0,0),(-1,-1),1,colors.black),
-        #             ('ALIGN', (0,0), (-1, -1), 'LEFT') ])
+        t.setStyle([('FONTSIZE',(0,0), (-1, -1), 16),
+                    ('FONTSIZE',(0,0), (1, 0), 17),
+                    ('FONT',(0,0), (-1, -1), 'Helvetica'),
+                    ('FONT',(0,0), (3, 0), 'Helvetica-Bold'),
+                    ('VALIGN',(0,0), (-1, -1), 'TOP'),
+                    ('GRID',(0,0),(-1,-1),1,colors.black),
+                    ('ALIGN', (0,0), (-1, -1), 'LEFT') ])
         story.append(titulo)
         story.append(Spacer(0, 10))
         story.append(t)
@@ -182,8 +182,6 @@ class Reporte:
                     ('VALIGN',(0,0), (-1, -1), 'TOP'),
                     ('GRID',(0,0),(-1,-1),1,colors.black),
                     ('ALIGN', (0,0), (-1, -1), 'LEFT')
-
-
                     ])
         story.append(titulo)
         story.append(Spacer(0, 10))
@@ -191,3 +189,6 @@ class Reporte:
         story.append(t)
         doc.build(story)
         os.system(ruta)
+
+
+
