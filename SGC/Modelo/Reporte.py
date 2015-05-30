@@ -3,22 +3,26 @@ from reportlab.lib.styles import ParagraphStyle
 
 __author__ = 'braymrr'
 from ORM.Curso import Curso
-from reportlab.platypus import SimpleDocTemplate, PageBreak, Image, Spacer, Paragraph, Table, TableStyle
-from reportlab.lib.pagesizes import A4
-from Modelo.LogicaCursos import LogicaCursos
-from reportlab.lib.units import cm, mm, inch, pica
-from reportlab.pdfgen.canvas import Canvas
-# Importa el tamaNo de pagina carta
-from reportlab.lib.pagesizes import letter
-from ORM.Matricula import Matricula
-from ORM.LeaderTeacher import *
-from ORM.Cohorte import Cohorte
 from ORM.basetest import *
+
+from reportlab.platypus import (SimpleDocTemplate, PageBreak, Image, Spacer,
+Paragraph, Table, TableStyle)
+from reportlab.lib.pagesizes import A4
+# from Modelo.LogicaCursos import LogicaCursos
+# from reportlab.lib.units import cm, mm, inch, pica
+# from reportlab.pdfgen.canvas import Canvas
+# # Importa el tamaNo de pagina carta
+# from reportlab.lib.pagesizes import letter
+# from ORM.Matricula import *
+# from ORM.LeaderTeacher import *
+from ORM.Cohorte import Cohorte
 import pygal
 from pygal.style import *
 from reportlab.lib import colors
 from reportlab.lib.styles import _baseFontName, _baseFontNameI
+from reportlab import *
 import os
+import sys
 
 class Reporte:
     Session = sessionmaker(bind=engine)
@@ -139,16 +143,16 @@ class Reporte:
         story=[]
         bodyStyle = ParagraphStyle('Body', fontName=_baseFontName, fontSize=24, leading=28, spaceBefore=6,
                                    align = "CENTER")
-        msg = "Porcentaje de estudiantes que aprobaron " + str(curso) + " Durante el semestre " + str(semestre) + " del ano "\
+        msg = "Porcentaje de estudiantes que aprobaron " + str(curso) + " durante el semestre " + str(semestre) + " del "\
               + str(anio)
         titulo = Paragraph(msg, bodyStyle)
-        t.setStyle([('FONTSIZE',(0,0), (-1, -1), 16),
-                    ('FONTSIZE',(0,0), (1, 0), 17),
-                    ('FONT',(0,0), (-1, -1), 'Helvetica'),
-                    ('FONT',(0,0), (3, 0), 'Helvetica-Bold'),
-                    ('VALIGN',(0,0), (-1, -1), 'TOP'),
-                    ('GRID',(0,0),(-1,-1),1,colors.black),
-                    ('ALIGN', (0,0), (-1, -1), 'LEFT') ])
+        #t.setStyle([('FONTSIZE',(0,0), (-1, -1), 16),
+        #            ('FONTSIZE',(0,0), (1, 0), 17),
+        #            ('FONT',(0,0), (-1, -1), 'Helvetica'),
+        #            ('FONT',(0,0), (3, 0), 'Helvetica-Bold'),
+        #            ('VALIGN',(0,0), (-1, -1), 'TOP'),
+        #            ('GRID',(0,0),(-1,-1),1,colors.black),
+        #            ('ALIGN', (0,0), (-1, -1), 'LEFT') ])
         story.append(titulo)
         story.append(Spacer(0, 10))
         story.append(t)
@@ -158,30 +162,22 @@ class Reporte:
 
     def porcentajes_reprob_curso (self, reporte, ruta, curso, semestre, anio):
         doc = SimpleDocTemplate(ruta, pagesize = A4)
-        t = Table(data = [("Departamento","Porcentaje")] + reporte,rowHeights=28,hAlign="LEFT",)
-        # encabezado = Table(
-        #     data = [['Cantidad', 'DEPARTAMENTO']],rowHeights=28,hAlign="LEFT")
-        # encabezado.setStyle([('FONTSIZE',(0,0), (-1, -1), 16),
-        #             ('FONT',(0,0), (-1, -1), 'Helvetica'),
-        #             ('VALIGN',(0,0), (-1, -1), 'TOP'),
-        #             ('GRID',(0,0),(-1,-1),1,colors.black),
-        #             ('ALIGN', (0,0), (-1, -1), 'LEFT')])
+        t = Table(data = [("Departamento","Porcentaje Reprobados")] + reporte,rowHeights=28,hAlign="LEFT",)
         story=[]
         bodyStyle = ParagraphStyle('Body', fontName=_baseFontName, fontSize=24, leading=28, spaceBefore=6,
                                    align = "CENTER")
-        msg = "Porcentaje de estudiantes que reprobaron " + curso + " Durante el semestre " +semestre+ " del ano " + anio
+        msg = "Porcentaje de estudiantes que reprobaron " + str(curso) + " durante el semestre " + str(semestre) + " del "\
+              + str(anio)
         titulo = Paragraph(msg, bodyStyle)
-        t.setStyle([('FONTSIZE',(0,0), (-1, -1), 16),
-                    ('FONTSIZE',(0,0), (1, 0), 17),
-                    ('FONT',(0,0), (-1, -1), 'Helvetica'),
-                    ('FONT',(0,0), (3, 0), 'Helvetica-Bold'),
-                    ('VALIGN',(0,0), (-1, -1), 'TOP'),
-                    ('GRID',(0,0),(-1,-1),1,colors.black),
-                    ('ALIGN', (0,0), (-1, -1), 'LEFT')
-                    ])
+        #t.setStyle([('FONTSIZE',(0,0), (-1, -1), 16),
+        #            ('FONTSIZE',(0,0), (1, 0), 17),
+        #            ('FONT',(0,0), (-1, -1), 'Helvetica'),
+        #            ('FONT',(0,0), (3, 0), 'Helvetica-Bold'),
+        #            ('VALIGN',(0,0), (-1, -1), 'TOP'),
+        #            ('GRID',(0,0),(-1,-1),1,colors.black),
+        #            ('ALIGN', (0,0), (-1, -1), 'LEFT') ])
         story.append(titulo)
         story.append(Spacer(0, 10))
-        # story.append(encabezado)
         story.append(t)
         doc.build(story)
         os.system(ruta)
