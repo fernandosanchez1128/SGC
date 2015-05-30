@@ -96,13 +96,13 @@ class LogicaMatricula():
             aprobados = int(self.session.query(LeaderTeacher).join(Matricula).join(Cohorte).
             filter(Cohorte.id_curso == idCurso).filter(Cohorte.semestre == semestreBuscar).
                 filter(Cohorte.ano == anoBuscar).filter(LeaderTeacher.dpto_secretaria == dep[0].encode("utf-8")).
-                filter(Matricula.nota_definitiva>2.5).count())
+                filter(Matricula.nota_definitiva>2.5).filter(Cohorte.fecha_fin<fechaActual).count())
             print "aprobados", aprobados
 
             reprobados = int(self.session.query(LeaderTeacher).join(Matricula).join(Cohorte).
             filter(Cohorte.id_curso == idCurso).filter(Cohorte.semestre == semestreBuscar).
                 filter(Cohorte.ano == anoBuscar).filter(LeaderTeacher.dpto_secretaria == dep[0].encode("utf-8")).
-                filter(Matricula.nota_definitiva<=2.5).count())
+                filter(Matricula.nota_definitiva<=2.5).filter(Cohorte.fecha_fin<fechaActual).count())
 
             print "reprobados", reprobados
 
@@ -131,13 +131,13 @@ class LogicaMatricula():
             aprobados = int(self.session.query(LeaderTeacher).join(Matricula).join(Cohorte).
             filter(Cohorte.id_curso == idCurso).filter(Cohorte.semestre == semestreBuscar).
                 filter(Cohorte.ano == anoBuscar).filter(LeaderTeacher.dpto_secretaria == dep[0].encode("utf-8")).
-                filter(Matricula.nota_definitiva>2.5).count())
+                filter(Matricula.nota_definitiva>2.5).filter(Cohorte.fecha_fin<fechaActual).count())
             print "aprobados", aprobados
 
             reprobados = int(self.session.query(LeaderTeacher).join(Matricula).join(Cohorte).
             filter(Cohorte.id_curso == idCurso).filter(Cohorte.semestre == semestreBuscar).
                 filter(Cohorte.ano == anoBuscar).filter(LeaderTeacher.dpto_secretaria == dep[0].encode("utf-8")).
-                filter(Matricula.nota_definitiva<=2.5).count())
+                filter(Matricula.nota_definitiva<=2.5).filter(Cohorte.fecha_fin<fechaActual).count())
 
             print "reprobados", reprobados
 
