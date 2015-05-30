@@ -98,14 +98,14 @@ class LogicaMatricula():
         for dep in departamentos:
             aprobados = int(self.session.query(LeaderTeacher).join(Matricula).join(Cohorte).
             filter(Cohorte.id_curso == idCurso).filter(Cohorte.semestre == semestreBuscar).
-                filter(Cohorte.ano == anoBuscar).filter(LeaderTeacher.dpto_secretaria == dep[0].encode("utf-8")).
-                filter(Matricula.nota_definitiva>2.5).count())
+                filter(Cohorte.ano == anoBuscar).filter(LeaderTeacher.dpto_secretaria == dep[0]).
+                filter(Matricula.nota_definitiva>2.5).filter(Cohorte.fecha_fin<fechaActual).count())
             print "aprobados", aprobados
 
             reprobados = int(self.session.query(LeaderTeacher).join(Matricula).join(Cohorte).
             filter(Cohorte.id_curso == idCurso).filter(Cohorte.semestre == semestreBuscar).
-                filter(Cohorte.ano == anoBuscar).filter(LeaderTeacher.dpto_secretaria == dep[0].encode("utf-8")).
-                filter(Matricula.nota_definitiva<=2.5).count())
+                filter(Cohorte.ano == anoBuscar).filter(LeaderTeacher.dpto_secretaria == dep[0]).
+                filter(Matricula.nota_definitiva<=2.5).filter(Cohorte.fecha_fin<fechaActual).count())
 
             print "reprobados", reprobados
 
@@ -114,7 +114,7 @@ class LogicaMatricula():
                 porcentaje=0.0
             else:
                 porcentaje = float(aprobados)*100.0/total
-            dep_porcentajes.append((dep[0].encode("utf-8"), porcentaje))
+            dep_porcentajes.append((dep[0], porcentaje))
 
         self.session.close()
         print dep_porcentajes
@@ -134,13 +134,13 @@ class LogicaMatricula():
             aprobados = int(self.session.query(LeaderTeacher).join(Matricula).join(Cohorte).
             filter(Cohorte.id_curso == idCurso).filter(Cohorte.semestre == semestreBuscar).
                 filter(Cohorte.ano == anoBuscar).filter(LeaderTeacher.dpto_secretaria == dep[0].encode("utf-8")).
-                filter(Matricula.nota_definitiva>2.5).count())
+                filter(Matricula.nota_definitiva>2.5).filter(Cohorte.fecha_fin<fechaActual).count())
             print "aprobados", aprobados
 
             reprobados = int(self.session.query(LeaderTeacher).join(Matricula).join(Cohorte).
             filter(Cohorte.id_curso == idCurso).filter(Cohorte.semestre == semestreBuscar).
                 filter(Cohorte.ano == anoBuscar).filter(LeaderTeacher.dpto_secretaria == dep[0].encode("utf-8")).
-                filter(Matricula.nota_definitiva<=2.5).count())
+                filter(Matricula.nota_definitiva<=2.5).filter(Cohorte.fecha_fin<fechaActual).count())
 
             print "reprobados", reprobados
 
@@ -161,41 +161,41 @@ class LogicaMatricula():
             filter(Matricula.id_curso == id_curso,Matricula.cedula_lt == LeaderTeacher.cedula,
                    LeaderTeacher.cedula == Usuario.cedula, Matricula.id_curso ==Cohorte.id_curso,
                    Cohorte.fecha_fin>=fecha_ini, Cohorte.fecha_fin <= fecha_fin,Matricula.id_cohorte == Cohorte.id_cohorte,
-                   Matricula.nota_definitiva >= 3.0).order_by(LeaderTeacher.departamento_secretaria).all()
+                   Matricula.nota_definitiva >= 3.0).order_by(LeaderTeacher.dpto_secretaria).all()
         self.session.close()
         return reporte
 
     def estudiantes_departamento_unique (self, fecha_ini,fecha_fin,id_curso,dpto):
         reporte=self.session.query(LeaderTeacher.cedula,Usuario.nombres,Usuario.apellidos,
-                                   LeaderTeacher.departamento_secretaria,Matricula.nota_definitiva).\
+                                   LeaderTeacher.dpto_secretaria,Matricula.nota_definitiva).\
             filter(Matricula.id_curso == id_curso,Matricula.cedula_lt == LeaderTeacher.cedula,
                    LeaderTeacher.cedula == Usuario.cedula, Matricula.id_curso ==Cohorte.id_curso,
                    Cohorte.fecha_inicio>=fecha_ini, Cohorte.fecha_inicio <= fecha_fin,
-                   LeaderTeacher.departamento_secretaria == dpto).order_by(LeaderTeacher.departamento_secretaria).all()
+                   LeaderTeacher.dpto_secretaria == dpto).order_by(LeaderTeacher.dpto_secretaria).all()
         self.session.close()
         return reporte
 
 
     def estudiantes_departamento (self,fecha_ini,fecha_fin,id_curso):
         reporte=self.session.query(LeaderTeacher.cedula,Usuario.nombres,Usuario.apellidos,
-                                   LeaderTeacher.departamento_secretaria,Matricula.nota_definitiva).\
+                                   LeaderTeacher.dpto_secretaria,Matricula.nota_definitiva).\
             filter(Matricula.id_curso == id_curso,Matricula.cedula_lt == LeaderTeacher.cedula,
                    LeaderTeacher.cedula == Usuario.cedula, Matricula.id_curso ==Cohorte.id_curso,
                    Cohorte.fecha_fin>=fecha_ini, Cohorte.fecha_fin <= fecha_fin,
-                   Matricula.id_cohorte == Cohorte.id_cohorte).order_by(LeaderTeacher.departamento_secretaria).all()
+                   Matricula.id_cohorte == Cohorte.id_cohorte).order_by(LeaderTeacher.dpto_secretaria).all()
         self.session.close()
         return reporte
         #sql de la consulta
-        ''''select us.cedula, nombres,apellidos, nota_definitiva, municipio,departamento_secretaria from matricula as mat, leaderteacher as lead,
+        ''''select us.cedula, nombres,apellidos, nota_definitiva, municipio,dpto_secretaria from matricula as mat, leaderteacher as lead,
 usuario as us, cohorte as coh where mat.id_curso = 1  and mat.cedula_lt = lead.cedula and
 mat.id_curso = coh.id_curso and mat.id_cohorte = coh.id_cohorte and coh.fecha_inicio between '2015/05/01' and '2015/05/30'
-and lead.cedula = us.cedula order by lead.departamento_secretaria'''''
+and lead.cedula = us.cedula order by lead.dpto_secretaria'''''
 
     def promedio_departamento (self,fecha_ini,fecha_fin,id_curso):
-        promedios = self.session.query(func.avg(Matricula.nota_definitiva),LeaderTeacher.departamento_secretaria).\
+        promedios = self.session.query(func.avg(Matricula.nota_definitiva),LeaderTeacher.dpto_secretaria).\
             filter(Matricula.id_curso == id_curso,Matricula.cedula_lt == LeaderTeacher.cedula,
                    Matricula.id_curso ==Cohorte.id_curso,Cohorte.fecha_fin>=fecha_ini,
-                   Cohorte.fecha_fin<= fecha_fin, Matricula.id_cohorte == Cohorte.id_cohorte).group_by(LeaderTeacher.departamento_secretaria).all()
+                   Cohorte.fecha_fin<= fecha_fin, Matricula.id_cohorte == Cohorte.id_cohorte).group_by(LeaderTeacher.dpto_secretaria).all()
         self.session.close()
         return promedios
 
