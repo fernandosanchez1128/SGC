@@ -36,8 +36,8 @@ class AsignacionCohortes ( QDialog ):
         mes =fecha_actual.month
 
         print "mes" ,mes
-        if (mes <6):
-            self.mes =5
+        if (mes <=6):
+            self.mes =6
             self.semestre=1
         else:
             self.mes =11
@@ -88,18 +88,17 @@ class AsignacionCohortes ( QDialog ):
                 time_ini = cohorte.fecha_inicio
                 time_final = cohorte.fecha_fin
                 self.ui.grid.setRowMinimumHeight(indice,20)
-                label.setText(QString(str (cohorte.id_cohorte)))
+                label.setText(QString(str (indice)))
+                label.setObjectName(QString(str (cohorte.id_cohorte)))
                 fecha_inicio = QtGui.QDateEdit()
                 fecha_fin = QtGui.QDateEdit()
                 #fecha de inicio
                 name = str (indice)
                 fecha_inicio.setCalendarPopup(True)
-                fecha_inicio.setDateRange(self.fecha_actual,fecha_limit)
                 fecha_inicio.setCursor(QtGui.QCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor)))
                 fecha_inicio.setObjectName(name)
                 #fecha de fin
                 fecha_fin.setCalendarPopup(True)
-                fecha_fin.setDateRange(self.fecha_actual,fecha_limit)
                 fecha_fin.setCursor(QtGui.QCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor)))
                 fecha_fin.setObjectName(name)
                 checkBox = QtGui.QCheckBox()
@@ -108,11 +107,22 @@ class AsignacionCohortes ( QDialog ):
                 checkBox.setObjectName(QString (name))
                 label_estado = QtGui.QLabel()
                 if (cohorte.fecha_inicio != None and cohorte.fecha_fin != None) :
+                    print "paso"
+                    fecha_ini = cohorte.fecha_inicio  #fecha
                     label_estado.setText(QString("Asignado"))
-                    fecha_inicio.setDate(QDate(cohorte.fecha_inicio))
+                    fecha_inicio.setDate(QDate(cohorte.fecha_inicio)) #label
+                    fecha_fin.setDateRange(cohorte.fecha_inicio,fecha_limit)
                     fecha_fin.setDate(QDate(cohorte.fecha_fin))
+                    if (fecha_ini < self.fecha_actual):
+                        fecha_inicio.setDateRange(fecha_ini,fecha_limit)
+                    else:
+                        fecha_inicio.setDateRange(self.fecha_actual,fecha_limit)
+
                 else :
                     label_estado.setText(QString("No Asignado"))
+                    fecha_inicio.setDateRange(self.fecha_actual,fecha_limit)
+                    fecha_fin.setDateRange(self.fecha_actual,fecha_limit)
+
                 self.connect(fecha_fin, SIGNAL("dateChanged(QDate)"),self.fin_cambiado)
                 self.connect(fecha_inicio, SIGNAL("dateChanged(QDate)"),self.inicio_cambiado)
                 self.connect(checkBox, SIGNAL("stateChanged(int)"),self.cambio)
@@ -148,8 +158,9 @@ class AsignacionCohortes ( QDialog ):
         sender = self.sender()
         fila = int (sender.objectName())
         item = self.ui.grid.itemAtPosition(fila,1)
-        fecha_inicio = item.widget()
-        fecha_inicio.setDateRange(self.fecha_actual,fecha)
+        fecha_inicio = item.widget()  #label
+        fecha_ini = fecha_inicio.date() #fecha del label
+        fecha_inicio.setDateRange(fecha_ini,fecha)
 
 
     def guardar(self):
@@ -162,7 +173,7 @@ class AsignacionCohortes ( QDialog ):
             wid_fecha_fin= item2.widget()
             item3 = self.ui.grid.itemAtPosition(fila,4)
             estado= item3.widget()
-            cohorte = int(str(label_cohorte.text()))
+            cohorte = int(str(label_cohorte.objectName()))
             fecha_inicio = str (wid_fecha_inicio.date().toString(QString ("dd/MM/yyyy")))
             fecha_fin= str (wid_fecha_fin.date().toString(QString ("dd/MM/yyyy")))
 

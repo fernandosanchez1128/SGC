@@ -17,9 +17,10 @@ from VistaDigitador import VistaDigitador
 
 class Top10 ( QDialog ):
 
-    def __init__ ( self, parent = None):
+    def __init__ ( self, parent = None, modo=1):
         self.control = ControlCoordinador()
         QDialog.__init__( self, parent )
+        self.reporte=modo
         self.ui = Ui_VistaTop10()
         self.ui.setupUi( self )
         self.connect(self.ui.btSalir, SIGNAL("clicked()"), self.salir_clicked)
@@ -47,6 +48,22 @@ class Top10 ( QDialog ):
             num_dias =31
 
         fecha = date(year,nmes,1)
-        self.control.cursos_mas_asistentes(fecha)
-        QMessageBox.information(self, "Top10", "Reporte creado exitosamente, para visualizar la grafica abra el archivo top10.svg\n"
-                                               "Ubicado en la carpeta modelo")
+
+        if(self.reporte==1):
+            if(self.control.cursos_mas_asistentes(fecha)=="Exito"):
+                QMessageBox.information(self, "Top10", "Reporte creado exitosamente, para visualizar la grafica abra el archivo top10.svg\n"
+                                                       "Ubicado en la carpeta Vista")
+            else:
+                QMessageBox.information(self, "Top10", "No hay registros para esa fecha")
+        else:
+            if(self.control.lt_por_departamento(fecha)=="Exito"):
+                QMessageBox.information(self, "LT-por-Dpto", "Reporte creado exitosamente, para visualizar la grafica abra el archivo lt-por-departamento.svg\n"
+                                                       "Ubicado en la carpeta Vista")
+            else:
+                QMessageBox.information(self, "LT-por-Dpto", "No hay registros para esa fecha")
+
+
+'''
+kas=Top10()
+kas.show()
+'''

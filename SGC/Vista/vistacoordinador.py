@@ -17,7 +17,7 @@ import math
 @Singleton
 class VistaCoordinador ( QMainWindow ):
     """VistaCoordinador inherits QMainWindow"""
-    
+
     def __init__ ( self, parent = None ):
         QMainWindow.__init__( self, parent )
         self.ui = Ui_VistaCoordinador()
@@ -32,19 +32,20 @@ class VistaCoordinador ( QMainWindow ):
         self.connect(self.ui.btAsignar, SIGNAL("clicked()"), self.asignar_clicked)
         self.connect(self.ui.btAsignarFecha, SIGNAL("clicked()"), self.asignarFecha_clicked)
         self.connect(self.ui.btCursosAsistentes, SIGNAL("clicked()"), self.curso_asistentes)
+        self.connect(self.ui.btLTDpto, SIGNAL("clicked()"), self.ltxdpto)
 
     def __del__ ( self ):
         self.ui = None
 
     def crear_clicked(self):
         venCrear =  CrearCurso(None, 1).exec_()
-        
+
     def consultar_clicked(self):
         venConsultar =  CrearCurso(None,2).exec_()
 
     def editar_clicked(self):
         venConsultar =  CrearCurso(None,3).exec_()
-        
+
     def eliminar_clicked(self):
 		venEliminar =  CrearCurso(None,4).exec_()
 
@@ -61,5 +62,11 @@ class VistaCoordinador ( QMainWindow ):
         v = AsignacionCohortes().exec_()
 
     def curso_asistentes(self):
-        self.r1=Top10()
+        self.r1=Top10(None,1)
         self.r1.show()
+
+    def ltxdpto(self):
+        self.r1=Top10(None,2)
+        self.r1.show()
+
+
