@@ -19,6 +19,7 @@ import pygal
 from pygal.style import *
 from reportlab.lib import colors
 from reportlab.lib.styles import _baseFontName, _baseFontNameI
+from reportlab import *
 import os
 
 class Reporte:
@@ -103,7 +104,7 @@ class Reporte:
 
     def estudiants_aprob_curso (self, reporte, ruta,curso,mes,anio):
         doc = SimpleDocTemplate(ruta, pagesize = A4)
-        t = Table(data = [("Cedula","Nombres","Apellidos","Definitiva")] + reporte,rowHeights=28,hAlign="LEFT",)
+        t = Table(data = [("Cedula", "Nombres", "Apellidos", "Definitiva")] + reporte, rowHeights=28, hAlign="LEFT",)
         # encabezado = Table(
         #     data = [['Cantidad', 'DEPARTAMENTO']],rowHeights=28,hAlign="LEFT")
         # encabezado.setStyle([('FONTSIZE',(0,0), (-1, -1), 16),
@@ -136,18 +137,12 @@ class Reporte:
 
     def porcentajes_aprob_curso (self, reporte, ruta, curso, semestre, anio):
         doc = SimpleDocTemplate(ruta, pagesize = A4)
-        t = Table(data = [("Departamento","Porcentaje")] + reporte,rowHeights=28,hAlign="LEFT",)
-        # encabezado = Table(
-        #     data = [['Cantidad', 'DEPARTAMENTO']],rowHeights=28,hAlign="LEFT")
-        # encabezado.setStyle([('FONTSIZE',(0,0), (-1, -1), 16),
-        #             ('FONT',(0,0), (-1, -1), 'Helvetica'),
-        #             ('VALIGN',(0,0), (-1, -1), 'TOP'),
-        #             ('GRID',(0,0),(-1,-1),1,colors.black),
-        #             ('ALIGN', (0,0), (-1, -1), 'LEFT')])
+        t = Table(data = [("Departamento","Porcentaje Aprobados")] + reporte,rowHeights=28,hAlign="LEFT",)
         story=[]
         bodyStyle = ParagraphStyle('Body', fontName=_baseFontName, fontSize=24, leading=28, spaceBefore=6,
                                    align = "CENTER")
-        msg = "Porcentaje de estudiantes que aprobaron " + curso + " Durante el semestre " +semestre+ " del ano " + anio
+        msg = "Porcentaje de estudiantes que aprobaron " + str(curso) + " Durante el semestre " + str(semestre) + " del ano "\
+              + str(anio)
         titulo = Paragraph(msg, bodyStyle)
         t.setStyle([('FONTSIZE',(0,0), (-1, -1), 16),
                     ('FONTSIZE',(0,0), (1, 0), 17),
@@ -155,13 +150,9 @@ class Reporte:
                     ('FONT',(0,0), (3, 0), 'Helvetica-Bold'),
                     ('VALIGN',(0,0), (-1, -1), 'TOP'),
                     ('GRID',(0,0),(-1,-1),1,colors.black),
-                    ('ALIGN', (0,0), (-1, -1), 'LEFT')
-
-
-                    ])
+                    ('ALIGN', (0,0), (-1, -1), 'LEFT') ])
         story.append(titulo)
         story.append(Spacer(0, 10))
-        # story.append(encabezado)
         story.append(t)
         doc.build(story)
         os.system(ruta)
