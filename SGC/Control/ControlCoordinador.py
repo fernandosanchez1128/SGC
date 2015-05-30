@@ -161,6 +161,27 @@ class ControlCoordinador:
 
         return exito
 
+    def porcentaje_aprobado (self, ruta, id_curso, nombre_curso, anoBuscar, semestreBuscar):
+        exito =1
+        porcentajes =self.logicaMatricula.consultar_estudiantes_aprobados(int(id_curso), int(anoBuscar),int(semestreBuscar))
+        if porcentajes != []:
+            self.reporte.porcentajes_aprob_curso(porcentajes, ruta, nombre_curso, semestreBuscar, anoBuscar)
+        else:
+            exito =0
+
+        return exito
+
+    def porcentaje_reprobado (self, ruta, id_curso, nombre_curso, anoBuscar, semestreBuscar):
+        exito =1
+        porcentajes =self.logicaMatricula.consultar_estudiantes_reprobados(int(id_curso), int(anoBuscar),int(semestreBuscar))
+        if porcentajes != []:
+            self.reporte.porcentajes_reprob_curso(porcentajes, ruta, nombre_curso, semestreBuscar, anoBuscar)
+        else:
+            exito =0
+
+        return exito
+
+
     def notas_estudiante(self, cedula_lt, id_curso):
         exito=0
         mat = self.logicaMatricula.consultar_cohorte_estudiante(cedula_lt,id_curso)
