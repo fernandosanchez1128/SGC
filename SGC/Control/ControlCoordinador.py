@@ -92,7 +92,12 @@ class ControlCoordinador:
         return mt
 
     def cursos_mas_asistentes(self,fechai):
-        self.reportes.cursos_mas_asistentes(fechai)
+        res=self.reportes.cursos_mas_asistentes(fechai)
+        return res
+
+    def lt_por_departamento(self, fechai):
+        res=self.reporte.lt_por_departamento(fechai)
+        return res
 
     def consultarLT(self, cedula):
         log_l = LogicaLeaderTeacher()
