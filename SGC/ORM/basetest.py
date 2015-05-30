@@ -4,7 +4,7 @@ from sqlalchemy.orm import relationship, backref, sessionmaker
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKeyConstraint, Float
 from sqlalchemy import Table, Text, func
 
-#engine = create_engine('postgresql://fersanq:fersanq@pgsql/fersanq', echo=True)
+
 engine = create_engine('postgresql://juand:juand@localhost/juand_prueba', echo=True)
 #engine = create_engine('postgresql://brayanrod:bryan1112@localhost/sgc', echo=True)
 #engine = create_engine('postgresql://braymrr:braymrr@pgsql/braymrr', echo=True)

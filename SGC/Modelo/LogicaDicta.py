@@ -21,6 +21,7 @@ class LogicaDicta ():
         return cursos
 
     def agregarDicta(self,cedula_mt, id_curso, id_cohorte):
+        self.session.rollback()
         dicta = Dicta(cedula_mt = cedula_mt, id_curso = id_curso, id_cohorte=id_cohorte)
         self.session.add(dicta)
         self.session.commit()

@@ -38,7 +38,7 @@ class LeaderTeacher(Usuario, Base):
     etnoeducacion = relationship("Etnoeducacion", backref='leaderteacher',cascade="all, delete, delete-orphan")
     niveles_desempenados = relationship("Niveles", backref='leaderteacher',cascade="all, delete, delete-orphan")
     
-    grado = Column(Integer)
+    grado = Column(String(50))
     __mapper_args__ = {
         'polymorphic_identity':'leaderteacher',
         #'polymorphic_on':type

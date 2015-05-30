@@ -10,6 +10,7 @@ class LogicaCohorte():
         print ("contructorc")
 
     def agregarCohorte(self, id_curso, ano, semestre):
+        self.session.rollback()
         coh = Cohorte(id_curso = id_curso, ano = ano, semestre = semestre)
         self.session.add(coh)
         self.session.commit()
@@ -26,6 +27,7 @@ class LogicaCohorte():
         return cohorte
 
     def modificar_cohorte(self, id_curso,id_cohorte,fecha_inicio,fecha_fin):
+        self.session.rollback()
         exito = 1
         try:
             cohorte= self.session.query(Cohorte).filter_by(id_curso=id_curso,id_cohorte=id_cohorte).first()

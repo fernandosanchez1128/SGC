@@ -22,6 +22,7 @@ class LogicaMatricula():
         print ("contructorAct")
 
     def agregarMatricula(self, cedula_lt, id_curso, ano, semestre):
+        self.session.rollback()
         lc = LogicaCohorte()
         ult_coh = lc.ultimoCohorte(id_curso,ano,semestre)
         if ult_coh==None:
@@ -44,6 +45,7 @@ class LogicaMatricula():
         return matricula
 
     def editarMatricula(self, ncedula_lt, nid_cohorte, nid_curso, newMatricula):
+        self.session.rollback()
         matricula = self.session.query(Matricula).filter_by(cedula_lt=ncedula_lt, id_cohorte=nid_cohorte,
                                                             id_curso=nid_curso).first()
         matricula.nota_definitiva = newMatricula.nota_definitiva
@@ -51,6 +53,7 @@ class LogicaMatricula():
         self.session.close()
 
     def editar_nota(self, ncedula_lt, nid_cohorte, nid_curso, new_nota):
+        self.session.rollback()
         matricula = self.session.query(Matricula).filter_by(cedula_lt=ncedula_lt, id_cohorte=nid_cohorte,
                                                             id_curso=nid_curso).first()
         matricula.nota_definitiva = new_nota

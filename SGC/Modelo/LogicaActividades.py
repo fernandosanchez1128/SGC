@@ -13,6 +13,7 @@ class LogicaActividades():
         print ("contructorAct")
 
     def agregarActividades(self, actividades):
+        self.session.rollback()
         self.session.add(actividades)
         self.session.commit()
         self.session.close()
@@ -41,6 +42,7 @@ class LogicaActividades():
         return actividad
 
     def editarActividades(self, idActividad, newActividades):
+        self.session.rollback()
         actividades = self.session.query(Actividades).filter_by(id_actividades=idActividad).first()
         actividades.nombre = newActividades.nombre
         actividades.id_curso = newActividades.id_curso

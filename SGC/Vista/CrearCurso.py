@@ -104,7 +104,6 @@ class CrearCurso(QDialog):
                     else:
                         self.control.crearCurso(nombre_c, descripcion_c, actividades)
                         self.close()
-                        self.control.cerrarSesion()
                 except SQLAlchemyError, e:
                    QtGui.QMessageBox.warning(self, self.tr("Error en Base de Datos"),
                                              QString.fromUtf8("Error en Base de Datos. \n"
@@ -146,7 +145,6 @@ class CrearCurso(QDialog):
                     else:
                         self.control.modificarCurso(nombre_c, descripcion_c, actividades)
                         self.close()
-                        self.control.cerrarSesion()
                 except SQLAlchemyError, e:
                    QtGui.QMessageBox.warning(self, self.tr("Error en Base de Datos"),
                                              QString.fromUtf8("Error en Base de Datos. \n"
@@ -187,6 +185,7 @@ class CrearCurso(QDialog):
         else:
             QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
                                           QString.fromUtf8("El curso no existe."))
+        self.control.cerrarSesion()
     def ver_clicked(self):
         ano = date.today().year
         semestre  = math.ceil(float(date.today().month)/6)

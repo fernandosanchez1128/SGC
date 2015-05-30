@@ -42,6 +42,7 @@ class ControlCoordinador:
             obj_actividades.append(obj_actividad)
         curso = Curso(nombre= nombre, descripcion=descripcion, actividades = obj_actividades)
         self.logicaCursos.agregarCurso(curso)
+        self.logicaCursos.cerrarSesion()
 
     def modificarCurso(self, nombre_c, descripcion_c, actividades):
         obj_actividades = []

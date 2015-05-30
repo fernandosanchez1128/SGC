@@ -2,6 +2,7 @@ from sqlalchemy.orm import sessionmaker
 
 from ORM.Preinscripcion import Preinscripcion
 from ORM.basetest import *
+from sqlalchemy import exc as sqlalchemy_exceptions
 
 
 class LogicaPreinscripcion():
@@ -12,6 +13,12 @@ class LogicaPreinscripcion():
         print ("contructorPre")
 
     def agregarPreinscripcion(self, preinscripcion):
-        self.session.add(preinscripcion)
-        self.session.commit()
+        try:
+            self.session.add(preinscripcion)
+            self.session.commit()
+            self.session.close()
+        except Exception:
+            self.session.close()
+
+    def cerrarSesion(self):
         self.session.close()
