@@ -3,23 +3,21 @@ from reportlab.lib.styles import ParagraphStyle
 
 __author__ = 'braymrr'
 from ORM.Curso import Curso
-from ORM.basetest import *
-from reportlab.platypus import (SimpleDocTemplate, PageBreak, Image, Spacer,
-Paragraph, Table, TableStyle)
+from reportlab.platypus import SimpleDocTemplate, PageBreak, Image, Spacer, Paragraph, Table, TableStyle
 from reportlab.lib.pagesizes import A4
 from Modelo.LogicaCursos import LogicaCursos
 from reportlab.lib.units import cm, mm, inch, pica
 from reportlab.pdfgen.canvas import Canvas
 # Importa el tamaNo de pagina carta
 from reportlab.lib.pagesizes import letter
-from ORM.Matricula import *
+from ORM.Matricula import Matricula
 from ORM.LeaderTeacher import *
-from ORM.Cohorte import *
+from ORM.Cohorte import Cohorte
+from ORM.basetest import *
 import pygal
 from pygal.style import *
 from reportlab.lib import colors
 from reportlab.lib.styles import _baseFontName, _baseFontNameI
-from reportlab import *
 import os
 
 class Reporte:
@@ -180,8 +178,6 @@ class Reporte:
                     ('VALIGN',(0,0), (-1, -1), 'TOP'),
                     ('GRID',(0,0),(-1,-1),1,colors.black),
                     ('ALIGN', (0,0), (-1, -1), 'LEFT')
-
-
                     ])
         story.append(titulo)
         story.append(Spacer(0, 10))
