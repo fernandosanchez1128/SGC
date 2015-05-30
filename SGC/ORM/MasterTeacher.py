@@ -13,9 +13,16 @@ class MasterTeacher(Usuario, Base):
 
     __mapper_args__ = {
         'polymorphic_identity':'masterteacher',
+        # 'polymorphic_on':type
     }
 
 
 Base.metadata.create_all(engine)
 
 
+# Session = sessionmaker(bind=engine)
+# session = Session()
+# user = MasterTeacher(cedula  = 2246, nombres = 'Da',correo_electronico='d@ah.com', contrasena= 'd')
+#
+# session.add(user)
+# session.commit()

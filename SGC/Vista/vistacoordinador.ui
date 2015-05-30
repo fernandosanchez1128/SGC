@@ -154,13 +154,6 @@ departamento</string>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="btANular">
-         <property name="text">
-          <string>Anular matricula LT</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QPushButton" name="btEditar">
          <property name="text">
           <string>Editar curso</string>
@@ -168,9 +161,16 @@ departamento</string>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="btEliminar">
+        <widget class="QPushButton" name="btAsignar">
          <property name="text">
-          <string>Eliminar curso</string>
+          <string>Asignar curso a MT</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btAsignarFecha">
+         <property name="text">
+          <string>Asignar fecha a cohorte</string>
          </property>
         </widget>
        </item>
@@ -195,7 +195,7 @@ por LT</string>
      <rect>
       <x>20</x>
       <y>60</y>
-      <width>581</width>
+      <width>611</width>
       <height>31</height>
      </rect>
     </property>
@@ -206,7 +206,7 @@ por LT</string>
      <item>
       <widget class="QLabel" name="lbReportes">
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Reportes&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Reportes&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
@@ -225,7 +225,7 @@ por LT</string>
         <number>0</number>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Gestión de Cursos&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Gestión de Cursos&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -247,7 +247,7 @@ por LT</string>
         <number>0</number>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Certificados&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Certificados&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>

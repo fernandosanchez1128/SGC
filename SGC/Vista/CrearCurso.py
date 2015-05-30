@@ -5,9 +5,13 @@ from PyQt4.QtGui import *
 from PyQt4 import QtCore, QtGui
 from sqlalchemy.exc import SQLAlchemyError
 from VerEstudiantes import VerEstudiantes
+from AnularLT import AnularLT
 
 from Control.ControlCoordinador import ControlCoordinador
 
+
+from datetime import date
+import math
 
 ( Ui_CrearCurso, QDialog ) = uic.loadUiType('CrearCurso.ui')
 
@@ -40,7 +44,7 @@ class CrearCurso(QDialog):
             self.ui.btBuscar.setVisible(True)
             self.ui.btCrear.setVisible(False)
             self.ui.leNombre.setEnabled(True)
-            self.ui.teDescripcion.setEnabled(True)
+            self.ui.teDescripcion.setEnabled(False)
             self.ui.label.setText(QString.fromUtf8("<P><b><FONT SIZE = 4> Edición de cursos </b></P></br>"))
             self.ui.btVer.setText(QString.fromUtf8("Ver Estudiantes"))
             self.ui.btVer.setVisible(True)
@@ -80,24 +84,26 @@ class CrearCurso(QDialog):
                     i = 0
                     actividades = []
                     acum_pon = 0
+                    flag = False
                     while i < self.ui.sbNumActividades.value():
                         nombre_ac = str(self.ui.twActividades.item(i, 0).text())
                         if nombre_ac.strip() == "":
                             QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
                                                       QString.fromUtf8("Recuerde llenar todos los campos."))
+                            flag = True
+                            break
                         ponderado_ac = float(self.ui.twActividades.item(i,
                                                                         1).text()) / 100  # la idea es que el usuario ingrese un numero entre 0 y 100
                         acum_pon += ponderado_ac
                         actividades.append([nombre_ac, ponderado_ac])
                         i += 1
-                    if not (acum_pon == 1 or self.ui.sbNumActividades.value() == 0):
+                    if not (acum_pon == 1 or self.ui.sbNumActividades.value() == 0) and flag:
                         QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
                                                   QString.fromUtf8(
                                                       "Recuerde que la suma de ponderados de todas las actividades debe dar 100"))
                     else:
                         self.control.crearCurso(nombre_c, descripcion_c, actividades)
                         self.close()
-                        self.control.cerrarSesion()
                 except SQLAlchemyError, e:
                    QtGui.QMessageBox.warning(self, self.tr("Error en Base de Datos"),
                                              QString.fromUtf8("Error en Base de Datos. \n"
@@ -111,52 +117,84 @@ class CrearCurso(QDialog):
             else:
                 QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
                                           QString.fromUtf8("Recuerde llenar todos los campos."))
-        elif self.tipo == 2:
-            nombre_c = str(self.ui.leNombre.text())
-            descripcion = str(self.ui.teDescripcion.toPlainText())
-            i = 0
-            actividades = []
-            while i < self.ui.sbNumActividades.value():
-                nombre_ac = str(self.ui.twActividades.item(i, 0).text())
-                ponderado_ac = float(self.ui.twActividades.item(i, 1).text())
-                actividades.append([nombre_ac, ponderado_ac])
-                i += 1
-            self.control.modificarCurso(nombre_c, descripcion, actividades)
-            self.close()
-            self.control.cerrarSesion()
         elif self.tipo == 3:
+            nombre_c = str(self.ui.leNombre.text())
+            descripcion_c = str(self.ui.teDescripcion.toPlainText())
+            if not (descripcion_c.strip() == ""):
+                try:
+                    i = 0
+                    actividades = []
+                    acum_pon = 0
+                    flag = False
+                    while i < self.ui.sbNumActividades.value():
+                        nombre_ac = str(self.ui.twActividades.item(i, 0).text())
+                        if nombre_ac.strip() == "":
+                            QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
+                                                      QString.fromUtf8("Recuerde llenar todos los campos."))
+                            flag = True
+                            break
+                        ponderado_ac = float(self.ui.twActividades.item(i,
+                                                                        1).text()) / 100  # la idea es que el usuario ingrese un numero entre 0 y 100
+                        acum_pon += ponderado_ac
+                        actividades.append([nombre_ac, ponderado_ac])
+                        i += 1
+                    if not (acum_pon == 1 or self.ui.sbNumActividades.value() == 0) and flag:
+                        QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
+                                                  QString.fromUtf8(
+                                                      "Recuerde que la suma de ponderados de todas las actividades debe dar 100"))
+                    else:
+                        self.control.modificarCurso(nombre_c, descripcion_c, actividades)
+                        self.close()
+                except SQLAlchemyError, e:
+                   QtGui.QMessageBox.warning(self, self.tr("Error en Base de Datos"),
+                                             QString.fromUtf8("Error en Base de Datos. \n"
+                                                              "Recuerde que los nombres de los cursos son únicos \n"
+                                                              "y que no debe haber dos actividades con el mismo nombre en el mismo curso."))
+                   print e
+                except:
+                   QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
+                                             QString.fromUtf8(
+                                                 "Recuerde que los ponderados de las actividades deben ser numeros entre 0 y 100."))
+            else:
+                QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
+                                          QString.fromUtf8("Recuerde llenar todos los campos."))
+        elif self.tipo == 4:
             nombre_c = str(self.ui.leNombre.text())
             self.control.eliminarCurso(nombre_c)
             self.close()
 
     def buscar_clicked(self):
         curso = self.control.buscarCurso(str(self.ui.leNombre.text()))
-        self.id_curso = curso.id
-        self.ui.teDescripcion.setText(curso.descripcion)
-        self.ui.leNombre.setEnabled(False)
-        if (self.tipo == 2) | (self.tipo == 3):
-            actividades = curso.actividades
-            self.ui.sbNumActividades.setValue(len(actividades))
-            i = 0
-            for actividad in actividades:
-                self.ui.twActividades.setItem(i, 0, QtGui.QTableWidgetItem())
-                self.ui.twActividades.item(i, 0).setText(actividad.nombre)
-                self.ui.twActividades.setItem(i, 1, QtGui.QTableWidgetItem())
-                self.ui.twActividades.item(i, 1).setText(str(actividad.ponderado))
-                i += 1
-
+        if not curso==None:
+            self.id_curso = curso.id
+            self.ui.teDescripcion.setText(curso.descripcion)
+            self.ui.leNombre.setEnabled(False)
+            if (self.tipo == 2) | (self.tipo == 3) | (self.tipo == 4):
+                actividades = curso.actividades
+                self.ui.sbNumActividades.setValue(len(actividades))
+                i = 0
+                for actividad in actividades:
+                    self.ui.twActividades.setItem(i, 0, QtGui.QTableWidgetItem())
+                    self.ui.twActividades.item(i, 0).setText(actividad.nombre)
+                    self.ui.twActividades.setItem(i, 1, QtGui.QTableWidgetItem())
+                    self.ui.twActividades.item(i, 1).setText(str(actividad.ponderado))
+                    if self.tipo==2:
+                        self.ui.twActividades.item(i, 0).setFlags(QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable)
+                        self.ui.twActividades.item(i, 1).setFlags(QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable)
+                    i += 1
+        else:
+            QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
+                                          QString.fromUtf8("El curso no existe."))
+        self.control.cerrarSesion()
     def ver_clicked(self):
-        if self.tipo == 2: #ver estudiantes
-            if self.id_curso!=None:
-                v = VerEstudiantes(None, self.id_curso).exec_()
-            else:
-                QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
-                                          QString.fromUtf8("Debe buscar un curso para ver sus estudiantes."))
-        elif self.tipo == 3: #anular matricula
-            pass
-            # if self.id_curso!=None:
-            #     v = AnularMatricula(None, self.id_curso).exec_()
-            # else:
-            #     QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
-            #                               QString.fromUtf8("Debe buscar un curso para ver sus estudiantes."))
+        ano = date.today().year
+        semestre  = math.ceil(float(date.today().month)/6)
+        if self.id_curso!=None and self.control.consultarNumCohortes(self.id_curso,ano,semestre)!=0:
+            if self.tipo == 2: #ver estudiantes
+                    v = VerEstudiantes(None, self.id_curso).exec_()
+            elif self.tipo == 3: #anular matricula
+                v = AnularLT(None, self.id_curso).exec_()
+        else:
+            QtGui.QMessageBox.warning(self, self.tr("Error"),
+                                              QString.fromUtf8("No hay cohortes asociados a este curso en este semestre."))
 

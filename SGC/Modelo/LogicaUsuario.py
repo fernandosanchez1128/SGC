@@ -37,6 +37,7 @@ class LogicaUsuario():
         usuario.direccion = usuario_mod.direccion
         usuario.correo_electronico = usuario_mod.correo_electronico
         usuario.fecha_nacimiento = usuario_mod.fecha_nacimiento
+        usuario.contrasena=usuario_mod.contrasena
         self.session.commit()
         self.session.close()
 

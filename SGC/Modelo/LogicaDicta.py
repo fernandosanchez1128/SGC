@@ -1,5 +1,5 @@
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy import between,funcfilter
+from sqlalchemy import between#,funcfilter
 
 from ORM.basetest import *
 from ORM.Cohorte import Cohorte
@@ -20,3 +20,13 @@ class LogicaDicta ():
         self.session.close()
         return cursos
 
+    def agregarDicta(self,cedula_mt, id_curso, id_cohorte):
+        self.session.rollback()
+        dicta = Dicta(cedula_mt = cedula_mt, id_curso = id_curso, id_cohorte=id_cohorte)
+        self.session.add(dicta)
+        self.session.commit()
+        self.session.close()
+'''
+lo = LogicaDicta()
+lo.agregarDicta("2246", 7, 6)
+'''

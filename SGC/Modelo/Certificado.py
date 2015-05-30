@@ -7,12 +7,13 @@ from reportlab.lib.units import cm, mm, inch, pica
 from datetime import *
 
 
+
 class Certificado:
     def __init__(self):
         print "Constructor certificado"
         pass
 
-    def generaCertificado(ruta, nombre, cedula, nota, nombreCurso):
+    def generaCertificado(self, ruta, nombre, cedula, nota, nombreCurso):
         if nota <= 2.5:
             tipoCertificado = "asistencia"
         elif nota > 2.5 and nota <= 3.5:

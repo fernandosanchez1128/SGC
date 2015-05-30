@@ -5,25 +5,31 @@ from PyQt4.QtCore import *
 
 from Control.FachadaMt import FachadaMt
 from Asignacion import Asignacion
+from Singleton import Singleton
+from Asignacion_cohortes import  AsignacionCohortes
 
 (Ui_MainWindow, QMainWindow) = uic.loadUiType('mainwindow.ui')
 
-
+@Singleton
 class MainWindow(QMainWindow):
     """MainWindow inherits QMainWindow"""
     codigo_profesor = ""
     fachadaMt = FachadaMt()
     id_curso = 0
     id_cohorte = 0
+    usuario = ""
+    cedula_mt = ""
+    carga_notas = False
 
-
-    def __init__(self, parent=None):
+    def __init__(self,usuario, parent=None):
         QMainWindow.__init__(self, parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.connect(self.ui.boton, SIGNAL("clicked()"), self.asignacion)
         self.connect(self.ui.lista_cursos, SIGNAL("itemDoubleClicked(QListWidgetItem*)"), self.cargarNotas)
         self.connect(self.ui.tableWidget, SIGNAL(("cellChanged(int,int)")), self.guardarNota)
+        self.usuario = usuario
+        self.cedula_mt = usuario.cedula
         self.empezar()
 
 
@@ -33,7 +39,7 @@ class MainWindow(QMainWindow):
 
     def empezar(self):
         # cambiar por el codigo del profesor
-        registros = self.fachadaMt.consulta_cursos_prof("1")
+        registros = self.fachadaMt.consulta_cursos_prof(self.cedula_mt)
         id_curso_ant = 0
         num_curso =0
         for reg_mat in registros:
@@ -55,6 +61,7 @@ class MainWindow(QMainWindow):
 
 
     def cargarNotas(self):
+        self.carga_notas = True
         item_seleccionado = self.ui.lista_cursos.currentItem()
         # extraccion del codigo y del cohorte
         nombre_curso_com = str(item_seleccionado.text())
@@ -65,11 +72,11 @@ class MainWindow(QMainWindow):
             nombre_curso = nombre_curso_com[:index]
         else :
             nombre_curso = nombre_curso_com
-        print "nombre" ,nombre_curso
         # busqueda de las actividades
         curso = self.fachadaMt.consulta_curso_by_name(nombre_curso)
-        # print "actividades",curso.actividades
-        # print curso.actividades
+        cohorte=self.fachadaMt.consultar_cohorte(curso.id,codigo_cohorte)
+        fecha = str (cohorte.fecha_fin)
+        self.ui.fin_cohorte.setText (QString ("El Registros de Notas Estara Disponible Hasta " + fecha))
         actividades = curso.actividades
         num_actividades = len(actividades)
         self.ui.tableWidget.setColumnCount(num_actividades*2)
@@ -88,9 +95,7 @@ class MainWindow(QMainWindow):
             indice += 1
         self.fachadaMt.cerrar_session_curso()
         # consulta para estudiantes
-        #print curso.id, codigo_cohorte
         estudiantes = self.fachadaMt.estudiantes_curso(int(curso.id), int(codigo_cohorte))
-        #print "tamano", len(estudiantes)
         num_estudiantes = len(estudiantes)
         self.ui.tableWidget.setRowCount(num_estudiantes)
         indice = 0
@@ -107,22 +112,19 @@ class MainWindow(QMainWindow):
 
         for i in range(0, num_estudiantes, 1):
             cod_estudiante =str(self.ui.tableWidget.verticalHeaderItem (i).text())
-            #print cod_estudiante
             nota =0
             for a in range (0,(num_actividades*2),1):
                 item = QtGui.QTableWidgetItem()
                 if (a % 2 == 0):
                     nombre_actividad =str (self.ui.tableWidget.horizontalHeaderItem(a).text())
                     actividad =self.fachadaMt.consultar_actividad(nombre_actividad,self.id_curso)
-                    # print self.id_curso, actividad.id_actividad, cod_estudiante, self.id_cohorte
                     nota = self.fachadaMt.consultar_nota(self.id_curso,actividad.id_actividad,cod_estudiante,self.id_cohorte)
-                    #print "nota", nota
                     if (nota != None):
                         item.setText(QString(str(nota.nota)))
                         if (nota.nota== 0):
                             item.setFlags(Qt.ItemIsUserCheckable)
 
-                else :
+                else:
                     if (nota != None):
                         if (nota.nota == 0):
                             item.setCheckState(False)
@@ -133,58 +135,61 @@ class MainWindow(QMainWindow):
 
 
                 self.ui.tableWidget.setItem(i,a,item)
+        self.carga_notas = False
 
 
     def guardarNota(self, fila,columna):
-        sender = self.sender()
-        nombre_actividad = ""
-        cedula = ""
-        id_actividad = 0
-        item = sender.item(fila, columna)
-        validacion = False
-        nota = 0
-        if (item != None ):
-            if (columna %2 == 0 and item.text() != ""):
-                nombre_actividad = str(self.ui.tableWidget.horizontalHeaderItem(columna).text())
-                cedula = str(self.ui.tableWidget.verticalHeaderItem(fila).text())
-                actividad = self.fachadaMt.consultar_actividad(nombre_actividad, self.id_curso)
-                id_actividad = actividad.id_actividad
-                #print item
-                nota_str = str(item.text())
-                try:
-                    nota = float(nota_str)
-                    validacion = True
-                except ValueError:
-                    validacion = False
-                    item.setText("")
-                    msj = "ingrese un numero"+str(columna)
-                    QtGui.QMessageBox.warning(self, 'Error',msj , QtGui.QMessageBox.Ok)
-                if (validacion):
-
-                    if (nota >= 0.0 and nota <= 5.0):
-                        #print id_actividad, cedula
-                        self.fachadaMt.guardar_nota(id_actividad, self.id_curso, self.id_cohorte, cedula, nota,True)
-                    else:
-                        QtGui.QMessageBox.warning(self, 'Error', "ingrese un numero entre 0.0 y 5.0", QtGui.QMessageBox.Ok)
+        if ( not self.carga_notas):
+            sender = self.sender()
+            nombre_actividad = ""
+            cedula = ""
+            id_actividad = 0
+            item = sender.item(fila, columna)
+            validacion = False
+            nota = 0
+            if (item != None ):
+                if (columna %2 == 0 and item.text() != ""):
+                    nombre_actividad = str(self.ui.tableWidget.horizontalHeaderItem(columna).text())
+                    cedula = str(self.ui.tableWidget.verticalHeaderItem(fila).text())
+                    actividad = self.fachadaMt.consultar_actividad(nombre_actividad, self.id_curso)
+                    id_actividad = actividad.id_actividad
+                    #print item
+                    nota_str = str(item.text())
+                    try:
+                        nota = float(nota_str)
+                        validacion = True
+                    except ValueError:
+                        validacion = False
                         item.setText("")
-            elif (columna % 2 != 0):
-                estado = item.checkState()
-                nombre_actividad = str(self.ui.tableWidget.horizontalHeaderItem(columna - 1).text())
-                cedula = str(self.ui.tableWidget.verticalHeaderItem(fila).text())
-                actividad = self.fachadaMt.consultar_actividad(nombre_actividad, self.id_curso)
-                id_actividad = actividad.id_actividad
-                item_ant = sender.item(fila, columna - 1)
-                # itemant.setFlags(Qt.ItemIsSelectable|Qt.ItemIsDragEnabled|Qt.ItemIsEnabled)
-                if (estado == 0):
-                    item_ant.setFlags(Qt.ItemIsUserCheckable)
-                    item_ant.setText ("0.0")
-                    self.fachadaMt.guardar_nota(id_actividad, self.id_curso, self.id_cohorte, cedula, 0, False)
-                elif (estado == 2):
-                    item_ant.setFlags(Qt.ItemIsSelectable|Qt.ItemIsDragEnabled|Qt.ItemIsEnabled|Qt.ItemIsEditable)
+                        msj = "ingrese un numero"+str(columna)
+                        QtGui.QMessageBox.warning(self, 'Error',msj , QtGui.QMessageBox.Ok)
+                    if (validacion):
+
+                        if (nota >= 0.0 and nota <= 5.0):
+                            #print id_actividad, cedula
+                            self.fachadaMt.guardar_nota(id_actividad, self.id_curso, self.id_cohorte, cedula, nota,True)
+                        else:
+                            QtGui.QMessageBox.warning(self, 'Error', "ingrese un numero entre 0.0 y 5.0", QtGui.QMessageBox.Ok)
+                            item.setText("")
+                elif (columna % 2 != 0):
+                    estado = item.checkState()
+                    nombre_actividad = str(self.ui.tableWidget.horizontalHeaderItem(columna - 1).text())
+                    cedula = str(self.ui.tableWidget.verticalHeaderItem(fila).text())
+                    actividad = self.fachadaMt.consultar_actividad(nombre_actividad, self.id_curso)
+                    id_actividad = actividad.id_actividad
+                    item_ant = sender.item(fila, columna - 1)
+                    # itemant.setFlags(Qt.ItemIsSelectable|Qt.ItemIsDragEnabled|Qt.ItemIsEnabled)
+                    if (estado == 0):
+                        item_ant.setFlags(Qt.ItemIsUserCheckable)
+                        item_ant.setText ("0.0")
+                        self.fachadaMt.guardar_nota(id_actividad, self.id_curso, self.id_cohorte, cedula, 0, False)
+                    elif (estado == 2):
+                        item_ant.setFlags(Qt.ItemIsSelectable|Qt.ItemIsDragEnabled|Qt.ItemIsEnabled|Qt.ItemIsEditable)
 
 
     def asignacion (self):
-        if (self.id_curso == 0 or self.id_cohorte ==0):
-            QtGui.QMessageBox.warning(self, 'Error', "Por favor escoga un curso", QtGui.QMessageBox.Ok)
-        else:
-            ventana = Asignacion(self.id_curso,self.id_cohorte).exec_()
+            if (self.id_curso == 0 or self.id_cohorte ==0):
+                QtGui.QMessageBox.warning(self, 'Error', "Por favor escoga un curso", QtGui.QMessageBox.Ok)
+            else:
+                ventana = Asignacion(self.id_curso,self.id_cohorte).exec_()
+        #ventana =AsignacionCohortes().exec_()

@@ -14,8 +14,10 @@ class LogicaCursos():
         print ("contructor Logica Cursos")
 
     def agregarCurso(self, curso):
+        self.session.rollback()
         self.session.add(curso)
         self.session.commit()
+        self.session.close()
 
     def consultarCursos(self):
         cursos = self.session.query(Curso).all()
@@ -30,22 +32,25 @@ class LogicaCursos():
         return curso
 
     def modificarCurso(self, nombre_curso, curso_mod):
+        self.session.rollback()
         curso = self.session.query(Curso).filter_by(nombre=nombre_curso).first()
         curso.descripcion = curso_mod.descripcion
         self.session.commit()
+        self.session.close()
 
     def modificarCursoActividades(self, nombre_curso, curso_mod):
+        self.session.rollback()
         curso = self.session.query(Curso).filter_by(nombre=nombre_curso).first()
         curso.descripcion = curso_mod.descripcion
         curso.actividades = curso_mod.actividades
-        curso.cohortes = curso_mod.cohortes
-        self.session.commit()
-
-    def eliminarCurso(self, id_curso_el):
-        curso = self.session.query(Curso).filter_by(id=id_curso_el).first()
-        self.session.delete(curso)
         self.session.commit()
         self.session.close()
+
+    def eliminarCurso(self, nombre_c):
+        curso = self.session.query(Curso).filter_by(nombre=nombre_c).first()
+        self.session.delete(curso)
+        self.session.commit()
+        self.cerrarSesion()
 
     def cerrarSesion(self):
         self.session.close()
