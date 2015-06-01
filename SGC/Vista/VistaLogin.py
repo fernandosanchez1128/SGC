@@ -95,6 +95,7 @@ class VistaLogin(QDialog):
                         w.show()
                     else:
                         if fechaAcceso >= fechaActual - delta:
+                            QMessageBox.information(self, "Login", "Fecha ultimo acceso: "+str(fechaAcceso))
                             self.control.modificarFechaAcceso(username, fechaActual)
                             w = VistaCoordinador.Instance()
                             w.setWindowTitle('Coordinador')
@@ -112,6 +113,7 @@ class VistaLogin(QDialog):
                         a.show()
                     else:
                         if fechaAcceso >= fechaActual - delta:
+                            QMessageBox.information(self, "Login", "Fecha ultimo acceso: "+str(fechaAcceso))
                             self.control.modificarFechaAcceso(username, fechaActual)
                             a = VistaLt.Instance(1,objUsuario)
                             a.setWindowTitle('LeaderTeacher')
@@ -129,6 +131,7 @@ class VistaLogin(QDialog):
                         w.show()
                     else:
                         if fechaAcceso >= fechaActual - delta:
+                            QMessageBox.information(self, "Login", "Fecha ultimo acceso: "+str(fechaAcceso))
                             self.control.modificarFechaAcceso(username, fechaActual)
                             w = MainWindow.Instance(1,objUsuario)
                             w.setWindowTitle('MasterTeacher')
@@ -146,6 +149,7 @@ class VistaLogin(QDialog):
                         w.show()
                     else:
                         if fechaAcceso >= fechaActual - delta:
+                            QMessageBox.information(self, "Login", "Fecha ultimo acceso: "+str(fechaAcceso))
                             self.control.modificarFechaAcceso(username, fechaActual)
                             w = VistaDigitador.Instance()
                             w.setWindowTitle('Digitador')
