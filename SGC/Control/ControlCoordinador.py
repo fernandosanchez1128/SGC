@@ -16,7 +16,6 @@ from Modelo.Certificado import Certificado
 from Modelo.LogicaCohorte import LogicaCohorte
 from Modelo.Reporte import Reporte
 
-
 class ControlCoordinador:
     logCohorte = LogicaCohorte()
     reporte = Reporte()
@@ -29,6 +28,7 @@ class ControlCoordinador:
         self.logicaNotas= LogicaNotas()
         self.certificado= Certificado()
         self.logicaActs = LogicaActividades()
+        self.log_l = LogicaLeaderTeacher()
 
 
     def crearCurso(self, nombre, descripcion, actividades):
@@ -89,8 +89,7 @@ class ControlCoordinador:
         return mt
 
     def consultarLT(self, cedula):
-        log_l = LogicaLeaderTeacher()
-        return log_l.consultarLT(cedula)
+        return self.log_l.consultarLT(cedula)
 
     def agregarDicta(self, cedula_mt, id_curso, id_cohorte):
         log_d = LogicaDicta()
@@ -156,18 +155,46 @@ class ControlCoordinador:
 
         return exito
 
-    def notas_estudiante(self, cedula_lt, id_curso):
-        exito=0
+    def notas_estudiante(self, ruta, cedula_lt, id_curso):
         mat = self.logicaMatricula.consultar_cohorte_estudiante(cedula_lt,id_curso)
+
         acts = self.logicaActs.actividades_curso(id_curso)
+
         notas =[]
         if mat!=None and acts!=[]:
             for act in acts:
                 notas.append(self.logicaNotas.consultarNota(act.id_actividad,cedula_lt,id_curso,mat.id_cohorte).nota)
 
+        if acts != [] and notas != []:
+            acts = map(lambda x: (x.nombre), acts)
+            nota_def = mat.nota_definitiva
+            self.reporte.notas_estudiante(ruta,cedula_lt,id_curso,acts,notas, nota_def)
+            exito = 1
+        else:
+            exito = 0
+        return exito
+
+    #ruta con / al final
+    def cursos_menos_avance(self, fecha_act, ruta):
+        avg_curso = self.logicaMatricula.cinco_peor_avance(fecha_act)
+        if avg_curso!=[]:
+            #listar los cursos en este mismo orden que me entregan pero con todo el objeto curso
+            cursos = (self.buscarCursoId(x[1]) for x in avg_curso)
+            #listar promedios
+            avgs = list(x[0] for x in avg_curso)
+            self.reporte.cursos_menos_avance(cursos, avgs,ruta)
+            exito = 1
+        else:
+            exito = 0
+        return exito
+
+
 
     def cerrarSesion(self):
         self.logicaCursos.cerrarSesion()
+
+    def cerrarSesionLT(self):
+        self.log_l.cerrarSesion()
 
 #ControlCoordinador().estudiantes_departamento("2015/05/01","2015/05/30",1,"curso1","Mayo", "2015")
 #ControlCoordinador().estudiantes_departamento_unique("2015/05/01","2015/05/30",1,"antioquia","curso1","Mayo", "2015")
