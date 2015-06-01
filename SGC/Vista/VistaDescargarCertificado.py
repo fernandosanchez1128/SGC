@@ -25,23 +25,24 @@ class VistaDescargarCertificado ( QDialog ):
     def buscar_clicked(self):
         self.ui.comboCursos.clear()
         self.cedula=str(self.ui.txtCedula.text())
-        self.matriculas=self.controlCoordinador.cursosEstudiantes(self.cedula)
-        self.idsCursos=[]
-        self.nombresCursos=[]
-        for matricula in self.matriculas:
-            idCurso=matricula.id_curso
-            self.idsCursos.append(idCurso)
-            curso=self.controlCoordinador.buscarCursoId(idCurso)
-            nombreCurso=curso.nombre
-            self.nombresCursos.append(nombreCurso)
-        for nombre in self.nombresCursos:
-            self.ui.comboCursos.addItem(nombre)
-        if len(self.nombresCursos)<1:
-            self.ui.comboCursos.setEnabled(0)
-            self.ui.btnDescargar.setEnabled(0)
-        else:
-            self.ui.comboCursos.setEnabled(1)
-            self.ui.btnDescargar.setEnabled(1)
+        if self.cedula!=None and self.cedula != "":
+            self.matriculas=self.controlCoordinador.cursosTerminadosEstudiantes(self.cedula)
+            self.idsCursos=[]
+            self.nombresCursos=[]
+            for matricula in self.matriculas:
+                idCurso=matricula.id_curso
+                self.idsCursos.append(idCurso)
+                curso=self.controlCoordinador.buscarCursoId(idCurso)
+                nombreCurso=curso.nombre
+                self.nombresCursos.append(nombreCurso)
+            for nombre in self.nombresCursos:
+                self.ui.comboCursos.addItem(nombre)
+            if len(self.nombresCursos)<1:
+                self.ui.comboCursos.setEnabled(0)
+                self.ui.btnDescargar.setEnabled(0)
+            else:
+                self.ui.comboCursos.setEnabled(1)
+                self.ui.btnDescargar.setEnabled(1)
 
 
     def descargar_clicked(self):
