@@ -119,6 +119,10 @@ class ControlCoordinador:
         matriculas=self.logicaMatricula.consultar_cursos_estudiantes(cedula)
         return matriculas
 
+    def cursosTerminadosEstudiantes(self, cedula):
+        matriculas=self.logicaMatricula.consultar_cursos_terminados_estudiantes(cedula)
+        return matriculas
+
     def descargaCertificado(self, ruta, nombre, cedula, nota, nomCurso):
         self.certificado.generaCertificado(ruta, nombre, cedula, nota, nomCurso)
 
