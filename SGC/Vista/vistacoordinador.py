@@ -8,6 +8,8 @@ from AsignarMT import AsignarMT
 from Asignacion_cohortes import AsignacionCohortes
 from NotasEstudiante import NotasEstudiante
 from Control.ControlCoordinador import ControlCoordinador
+from EstudiantesAprob import EstudiantesAprob
+from EstudiantesDpto import EstudiantesDpto
 from Top10 import *
 from datetime import date
 import math
@@ -34,6 +36,9 @@ class VistaCoordinador ( QMainWindow ):
         self.connect(self.ui.btLTDpto, SIGNAL("clicked()"), self.ltxdpto)
         self.connect(self.ui.btCursosAvance, SIGNAL("clicked()"), self.cursosAvance_clicked)
         self.connect(self.ui.btNotasLT, SIGNAL("clicked()"), self.notasLT_clicked)
+        self.connect(self.ui.btLTAprobaron, SIGNAL("clicked()"), self.aprob_clicked)
+        self.connect(self.ui.btHistoricoDpto, SIGNAL("clicked()"), self.hist_dpto_clicked)
+
 
     def __del__ ( self ):
         self.ui = None
@@ -89,5 +94,13 @@ class VistaCoordinador ( QMainWindow ):
     def ltxdpto(self):
         self.r1=Top10(None,2)
         self.r1.show()
+
+    def aprob_clicked(self):
+        w=EstudiantesAprob.Instance()
+        w.show()
+    def hist_dpto_clicked(self):
+        w=EstudiantesDpto.Instance()
+        w.show()
+
 
 
