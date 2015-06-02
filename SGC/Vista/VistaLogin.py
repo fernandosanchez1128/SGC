@@ -93,6 +93,7 @@ class VistaLogin(QDialog):
                         w = VistaCoordinador.Instance()
                         w.setWindowTitle('Coordinador')
                         w.show()
+                        self.close()
                     else:
                         if fechaAcceso >= fechaActual - delta:
                             QMessageBox.information(self, "Login", "Fecha ultimo acceso: "+str(fechaAcceso))
@@ -100,6 +101,7 @@ class VistaLogin(QDialog):
                             w = VistaCoordinador.Instance()
                             w.setWindowTitle('Coordinador')
                             w.show()
+                            self.close()
                         else:
                             QMessageBox.information(self, "Login",
                                                     "Su ultimo acceso al sistema fue hace mas de 180 dias\n"
@@ -111,6 +113,7 @@ class VistaLogin(QDialog):
                         a = VistaLt.Instance(1,objUsuario)
                         a.setWindowTitle('LeaderTeacher')
                         a.show()
+                        self.close()
                     else:
                         if fechaAcceso >= fechaActual - delta:
                             QMessageBox.information(self, "Login", "Fecha ultimo acceso: "+str(fechaAcceso))
@@ -118,6 +121,7 @@ class VistaLogin(QDialog):
                             a = VistaLt.Instance(1,objUsuario)
                             a.setWindowTitle('LeaderTeacher')
                             a.show()
+                            self.close()
                         else:
                             QMessageBox.information(self, "Login",
                                                     "Su ultimo acceso al sistema fue hace mas de 180 dias\n"
@@ -129,6 +133,7 @@ class VistaLogin(QDialog):
                         w = MainWindow.Instance(1,objUsuario)
                         w.setWindowTitle('MasterTeacher')
                         w.show()
+                        self.close()
                     else:
                         if fechaAcceso >= fechaActual - delta:
                             QMessageBox.information(self, "Login", "Fecha ultimo acceso: "+str(fechaAcceso))
@@ -136,6 +141,7 @@ class VistaLogin(QDialog):
                             w = MainWindow.Instance(1,objUsuario)
                             w.setWindowTitle('MasterTeacher')
                             w.show()
+                            self.close()
                         else:
                             QMessageBox.information(self, "Login",
                                                     "Su ultimo acceso al sistema fue hace mas de 180 dias\n"
@@ -147,6 +153,7 @@ class VistaLogin(QDialog):
                         w = VistaDigitador.Instance()
                         w.setWindowTitle('Digitador')
                         w.show()
+                        self.close()
                     else:
                         if fechaAcceso >= fechaActual - delta:
                             QMessageBox.information(self, "Login", "Fecha ultimo acceso: "+str(fechaAcceso))
@@ -154,6 +161,7 @@ class VistaLogin(QDialog):
                             w = VistaDigitador.Instance()
                             w.setWindowTitle('Digitador')
                             w.show()
+                            self.close()
                         else:
                             QMessageBox.information(self, "Login",
                                                     "Su ultimo acceso al sistema fue hace mas de 180 dias\n"
