@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>VistaLogin</string>
+   <string>Login</string>
   </property>
   <widget class="QLineEdit" name="txtUsuario">
    <property name="geometry">
@@ -50,7 +50,7 @@
    <property name="geometry">
     <rect>
      <x>70</x>
-     <y>10</y>
+     <y>0</y>
      <width>221</width>
      <height>111</height>
     </rect>
