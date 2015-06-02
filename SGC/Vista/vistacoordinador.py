@@ -8,6 +8,8 @@ from AsignarMT import AsignarMT
 from Asignacion_cohortes import AsignacionCohortes
 from Control.ControlCoordinador import ControlCoordinador
 from Top10 import *
+from PorcentajeAprob import PorcentajeAprob
+from PorcentajesReprob import PorcentajesReprob
 from datetime import date
 import math
 
@@ -33,6 +35,9 @@ class VistaCoordinador ( QMainWindow ):
         self.connect(self.ui.btAsignarFecha, SIGNAL("clicked()"), self.asignarFecha_clicked)
         self.connect(self.ui.btCursosAsistentes, SIGNAL("clicked()"), self.curso_asistentes)
         self.connect(self.ui.btLTDpto, SIGNAL("clicked()"), self.ltxdpto)
+        self.connect(self.ui.btLTReprobaron, SIGNAL("clicked()"), self.lt_reprobaron_clicked)
+        self.connect(self.ui.btLTAprobaron, SIGNAL("clicked()"), self.lt_aprobaron_clicked)
+
 
     def __del__ ( self ):
         self.ui = None
@@ -68,5 +73,11 @@ class VistaCoordinador ( QMainWindow ):
     def ltxdpto(self):
         self.r1=Top10(None,2)
         self.r1.show()
+
+    def lt_reprobaron_clicked(self):
+        v = PorcentajesReprob().exec_()
+
+    def lt_aprobaron_clicked(self):
+        v = PorcentajeAprob().exec_()
 
 
