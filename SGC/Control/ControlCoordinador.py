@@ -223,14 +223,39 @@ class ControlCoordinador:
         return exito
 
 
-    def notas_estudiante(self, cedula_lt, id_curso):
-        exito=0
+    def notas_estudiante(self, ruta, cedula_lt, id_curso):
         mat = self.logicaMatricula.consultar_cohorte_estudiante(cedula_lt,id_curso)
+
         acts = self.logicaActs.actividades_curso(id_curso)
+
         notas =[]
         if mat!=None and acts!=[]:
             for act in acts:
                 notas.append(self.logicaNotas.consultarNota(act.id_actividad,cedula_lt,id_curso,mat.id_cohorte).nota)
+
+        if acts != [] and notas != []:
+            acts = map(lambda x: (x.nombre), acts)
+            nota_def = mat.nota_definitiva
+            self.reporte.notas_estudiante(ruta,cedula_lt,id_curso,acts,notas, nota_def)
+            exito = 1
+        else:
+            exito = 0
+        return exito
+
+    #ruta con nombre .svg
+    def cursos_menos_avance(self, fecha_act, ruta):
+        avg_curso = self.logicaMatricula.cinco_peor_avance(fecha_act)
+        if avg_curso!=[]:
+            #listar los cursos en este mismo orden que me entregan pero con todo el objeto curso
+            cursos = (self.buscarCursoId(x[1]) for x in avg_curso)
+            #listar promedios
+            avgs = list(x[0] for x in avg_curso)
+            self.reporte.cursos_menos_avance(cursos, avgs,ruta)
+            exito = 1
+        else:
+            exito = 0
+        return exito
+
 
 
     def cerrarSesion(self):
