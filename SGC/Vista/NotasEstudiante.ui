@@ -94,7 +94,7 @@
     <string>Digite la cédula del LT</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit">
+  <widget class="QLineEdit" name="leCedula">
    <property name="geometry">
     <rect>
      <x>190</x>
@@ -117,7 +117,7 @@
     <string>Buscar</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_2">
+  <widget class="QLineEdit" name="leNombre">
    <property name="geometry">
     <rect>
      <x>190</x>

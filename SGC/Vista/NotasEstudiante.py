@@ -15,6 +15,7 @@ class NotasEstudiante ( QDialog ):
         self.ui.setupUi(self)
         self.cedula_lt = None
         self.connect(self.ui.reporte, SIGNAL("clicked()"), self.generar_reporte)
+        self.connect(self.ui.btBuscar, SIGNAL("clicked()"), self.buscar_clicked)
         self.connect(self.ui.salir, SIGNAL("clicked()"), self.close)
 
     def __del__ ( self ):
@@ -29,6 +30,14 @@ class NotasEstudiante ( QDialog ):
         for curso in cursos :
             self.ui.cursos.addItem(QString(curso.nombre))
 
+    def buscar_clicked(self):
+        self.ui.leCedula.setEnabled(False)
+        self.cedula_lt = str(self.ui.leCedula.text())
+        lt = self.controlcordinador.consultarLT(self.cedula_lt ).nombres
+        self.ui.leNombre.setText(lt)
+        self.controlcordinador.cerrarSesionLT()
+        self.cargar_cursos()
+
 
     def generar_reporte (self):
         curso = str (self.ui.cursos.currentText())
@@ -36,8 +45,9 @@ class NotasEstudiante ( QDialog ):
 
         ruta = QFileDialog.getSaveFileName(self, 'Guardar Reporte', '', selectedFilter='*.pdf')
         if ruta and self.cedula_lt!=None:
-            exito =self.controlcordinador.estudiantes_departamento(str (ruta),self.cedula_lt, obj_curso)
+            exito = self.controlcordinador.notas_estudiante(str (ruta),self.cedula_lt, obj_curso.id)
             if exito == 0 :
                 QtGui.QMessageBox.warning(self, 'Error',"no se encontraron datos para generar reporte", QtGui.QMessageBox.Ok)
+
         else :
             QtGui.QMessageBox.warning(self, 'Error',"Por favor seleccione un destino y un lt", QtGui.QMessageBox.Ok)
