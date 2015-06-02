@@ -154,7 +154,7 @@ class ControlCoordinador:
             exito =0
 
         return exito
-
+#BRAYAN
     def notas_estudiante(self, ruta, cedula_lt, id_curso):
         mat = self.logicaMatricula.consultar_cohorte_estudiante(cedula_lt,id_curso)
 
@@ -174,7 +174,8 @@ class ControlCoordinador:
             exito = 0
         return exito
 
-    #ruta con / al final
+#BRAYAN
+    #ruta con nombre .svg
     def cursos_menos_avance(self, fecha_act, ruta):
         avg_curso = self.logicaMatricula.cinco_peor_avance(fecha_act)
         if avg_curso!=[]:
@@ -187,8 +188,6 @@ class ControlCoordinador:
         else:
             exito = 0
         return exito
-
-
 
     def cerrarSesion(self):
         self.logicaCursos.cerrarSesion()

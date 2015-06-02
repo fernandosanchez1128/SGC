@@ -123,7 +123,7 @@ and lead.cedula = us.cedula order by lead.departamento_secretaria'''''
                    Cohorte.fecha_inicio <= fecha_fin).group_by(LeaderTeacher.departamento_secretaria).all()
         self.session.close()
         return promedios
-
+#BRAYAN
     def cinco_peor_avance(self, fecha_act):
         tuples= self.session.query(func.avg(Matricula.nota_definitiva), Matricula.id_curso).\
             filter(Matricula.id_cohorte ==Cohorte.id_cohorte, Matricula.id_curso ==Cohorte.id_curso,

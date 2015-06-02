@@ -60,7 +60,7 @@ class LogicaActividades():
             self.session.delete(actividad)
             self.session.commit()
         self.session.close()
-
+#BRAYAN
     def actividades_curso(self, id_curso):
         actividades = self.session.query(Actividades).filter_by(id_curso=id_curso).all()
         #self.session.close()

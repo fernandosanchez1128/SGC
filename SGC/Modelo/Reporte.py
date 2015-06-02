@@ -29,7 +29,8 @@ class Reporte:
         # se cuenta en numero de matriculados de cada curso
         #ordena de menor a mayor y se traen los 10 primeros
 
-    #ruta con / al final
+#BRAYAN
+    #ruta con nombre .svg
     def cursos_menos_avance(self, cursos, promedios, ruta):
         bar_chart = pygal.Bar()
         bar_chart.title = 'Cursos con menos potencial de avance, tomando como criterio las notas definitivas'
@@ -39,7 +40,7 @@ class Reporte:
             valores=[None]*(len(promedios)-1)
             valores.insert(i,promedios[i])
             bar_chart.add(nombres[i], valores)
-        bar_chart.render_to_file(ruta+'CursosMenosAvance.svg')
+        bar_chart.render_to_file(ruta)
 
     def estudiantes_por_dpto(self):
         pass
@@ -52,6 +53,7 @@ class Reporte:
         #filtrar si la nota definitiva en todas las matriculas es >3.0
         #comparar con el numero de LT matriculados
 
+#BRAYAN
     def notas_estudiante(self, ruta, cedula_lt, id_curso, acts, notas, nota_def):
         doc = SimpleDocTemplate(ruta, pagesize = A4)
         if nota_def!=None:

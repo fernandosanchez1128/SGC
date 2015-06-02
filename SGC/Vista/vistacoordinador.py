@@ -69,8 +69,10 @@ class VistaCoordinador ( QMainWindow ):
     #REPORTES
     def cursosAvance_clicked (self):
         fecha_act = date.today()
-        ruta = QFileDialog.getSaveFileName(self, 'Guardar Reporte', '', selectedFilter='*.pdf')
+        ruta = QFileDialog.getSaveFileName(self, 'Guardar Reporte', '', selectedFilter='*.svg')
         if ruta:
+            if ruta[-4:]!='.svg':
+                ruta=ruta+'.svg'
             exito =self.control.cursos_menos_avance(fecha_act, str (ruta))
             if exito == 0 :
                 QtGui.QMessageBox.warning(self, 'Error',"no se encontraron datos para generar reporte", QtGui.QMessageBox.Ok)
