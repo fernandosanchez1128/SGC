@@ -16,9 +16,9 @@ from reportlab.lib.pagesizes import A4
 # from ORM.Matricula import *
 # from ORM.LeaderTeacher import *
 from ORM.Cohorte import Cohorte
-import pygal
+#import pygal
 from Modelo.LogicaCursos import LogicaCursos
-from pygal.style import *
+#from pygal.style import *
 from reportlab.lib import colors
 from reportlab.lib.styles import _baseFontName, _baseFontNameI
 from reportlab import *

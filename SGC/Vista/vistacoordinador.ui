@@ -75,30 +75,6 @@ departamento</string>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="btLTReprobaron">
-         <property name="text">
-          <string>LTs que
-reprobaron</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="btLTCurso">
-         <property name="text">
-          <string>LTs por
-curso</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="btNotasLT">
-         <property name="text">
-          <string>Notas por
-LT</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QPushButton" name="btCursosAvance">
          <property name="minimumSize">
           <size>
@@ -121,10 +97,34 @@ aprobaron</string>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="btHistoricoDpto">
+        <widget class="QPushButton" name="btLTReprobaron">
+         <property name="text">
+          <string>LTs que
+reprobaron</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btNotasLT">
+         <property name="text">
+          <string>Notas por
+LT</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btLTCurso">
          <property name="text">
           <string>Histórico por
-departamento</string>
+curso</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btHistoricoDpto">
+         <property name="text">
+          <string>LT por curso
+y departamento</string>
          </property>
         </widget>
        </item>

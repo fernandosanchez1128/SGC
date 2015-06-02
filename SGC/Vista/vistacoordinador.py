@@ -12,6 +12,7 @@ from EstudiantesAprob import EstudiantesAprob
 from EstudiantesDpto import EstudiantesDpto
 from PorcentajeAprob import PorcentajeAprob
 from PorcentajesReprob import PorcentajesReprob
+from VistaDescargarCertificado import VistaDescargarCertificado
 from Top10 import *
 from datetime import date
 import math
@@ -42,8 +43,9 @@ class VistaCoordinador ( QMainWindow ):
         self.connect(self.ui.btNotasLT, SIGNAL("clicked()"), self.notasLT_clicked)
         self.connect(self.ui.btLTReprobaron, SIGNAL("clicked()"), self.lt_reprobaron_clicked)
         self.connect(self.ui.btLTAprobaron, SIGNAL("clicked()"), self.lt_aprobaron_clicked)
-        self.connect(self.ui.btLTAprobaron, SIGNAL("clicked()"), self.aprob_clicked)
+        self.connect(self.ui.btLTCurso, SIGNAL("clicked()"), self.aprob_clicked)
         self.connect(self.ui.btHistoricoDpto, SIGNAL("clicked()"), self.hist_dpto_clicked)
+        self.connect(self.ui.btCertificado, SIGNAL("clicked()"), self.certificado_clicked)
 
 
     def __del__ ( self ):
@@ -104,11 +106,10 @@ class VistaCoordinador ( QMainWindow ):
         self.r1.show()
 
     def aprob_clicked(self):
-        w=EstudiantesAprob.Instance()
-        w.show()
+        w=EstudiantesAprob().exec_()
+
     def hist_dpto_clicked(self):
-        w=EstudiantesDpto.Instance()
-        w.show()
+        w=EstudiantesDpto().exec_()
 
     def lt_reprobaron_clicked(self):
         v = PorcentajesReprob().exec_()
@@ -116,4 +117,5 @@ class VistaCoordinador ( QMainWindow ):
     def lt_aprobaron_clicked(self):
         v = PorcentajeAprob().exec_()
 
-
+    def certificado_clicked(self):
+        v= VistaDescargarCertificado().exec_()
