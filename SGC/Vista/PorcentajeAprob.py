@@ -5,11 +5,9 @@ from PyQt4 import QtCore, QtGui
 
 from datetime import datetime,date
 from PyQt4.QtGui import QFileDialog
-from Singleton import Singleton
 from Control.ControlCoordinador import ControlCoordinador
 ( Ui_PorcAprob, QDialog ) = uic.loadUiType( 'porcentaje_aprobados.ui' )
 
-@Singleton
 class PorcentajeAprob( QDialog ):
     """Asignacion inherits QMainWindow"""
     controlcordinador = ControlCoordinador()

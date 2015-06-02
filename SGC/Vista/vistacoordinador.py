@@ -10,11 +10,14 @@ from NotasEstudiante import NotasEstudiante
 from Control.ControlCoordinador import ControlCoordinador
 from EstudiantesAprob import EstudiantesAprob
 from EstudiantesDpto import EstudiantesDpto
+from PorcentajeAprob import PorcentajeAprob
+from PorcentajesReprob import PorcentajesReprob
 from Top10 import *
 from datetime import date
 import math
 
 ( Ui_VistaCoordinador, QMainWindow ) = uic.loadUiType( 'vistacoordinador.ui' )
+
 
 @Singleton
 class VistaCoordinador ( QMainWindow ):
@@ -25,6 +28,7 @@ class VistaCoordinador ( QMainWindow ):
         self.ui = Ui_VistaCoordinador()
         self.ui.setupUi( self )
         self.control  = ControlCoordinador()
+
         self.connect(self.ui.btCrear, SIGNAL("clicked()"), self.crear_clicked)
         self.connect(self.ui.btConsultar, SIGNAL("clicked()"), self.consultar_clicked)
         self.connect(self.ui.btEditar, SIGNAL("clicked()"), self.editar_clicked)
@@ -36,6 +40,8 @@ class VistaCoordinador ( QMainWindow ):
         self.connect(self.ui.btLTDpto, SIGNAL("clicked()"), self.ltxdpto)
         self.connect(self.ui.btCursosAvance, SIGNAL("clicked()"), self.cursosAvance_clicked)
         self.connect(self.ui.btNotasLT, SIGNAL("clicked()"), self.notasLT_clicked)
+        self.connect(self.ui.btLTReprobaron, SIGNAL("clicked()"), self.lt_reprobaron_clicked)
+        self.connect(self.ui.btLTAprobaron, SIGNAL("clicked()"), self.lt_aprobaron_clicked)
         self.connect(self.ui.btLTAprobaron, SIGNAL("clicked()"), self.aprob_clicked)
         self.connect(self.ui.btHistoricoDpto, SIGNAL("clicked()"), self.hist_dpto_clicked)
 
@@ -104,5 +110,10 @@ class VistaCoordinador ( QMainWindow ):
         w=EstudiantesDpto.Instance()
         w.show()
 
+    def lt_reprobaron_clicked(self):
+        v = PorcentajesReprob().exec_()
+
+    def lt_aprobaron_clicked(self):
+        v = PorcentajeAprob().exec_()
 
 
