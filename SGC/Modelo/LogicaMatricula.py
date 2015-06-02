@@ -82,6 +82,13 @@ class LogicaMatricula():
         self.session.close()
         return registros
 
+    def consultar_cursos_terminados_estudiantes(self, cedula_lt):
+        fechaActual = date.today()
+        registros = self.session.query(Matricula).join(Cohorte).filter(Matricula.cedula_lt == cedula_lt).\
+            filter(Cohorte.fecha_fin<fechaActual).all()
+        self.session.close()
+        return registros
+
     def consultar_cohorte_estudiante(self, cedula, id_curso):
         mat = self.session.query(Matricula).filter_by(id_curso=id_curso, cedula_lt=cedula).first()
         self.session.close()
@@ -114,7 +121,7 @@ class LogicaMatricula():
                 porcentaje=0.0
             else:
                 porcentaje = float(aprobados)*100.0/total
-            dep_porcentajes.append((dep[0], porcentaje))
+            dep_porcentajes.append((dep[0], str(porcentaje)+"%"))
 
         self.session.close()
         print dep_porcentajes
@@ -149,7 +156,7 @@ class LogicaMatricula():
                 porcentaje=0.0
             else:
                 porcentaje = float(reprobados)*100.0/total
-            dep_porcentajes.append((dep[0], porcentaje))
+            dep_porcentajes.append((dep[0], str(porcentaje)+"%"))
 
         self.session.close()
         print dep_porcentajes
@@ -198,6 +205,15 @@ and lead.cedula = us.cedula order by lead.dpto_secretaria'''''
                    Cohorte.fecha_fin<= fecha_fin, Matricula.id_cohorte == Cohorte.id_cohorte).group_by(LeaderTeacher.dpto_secretaria).all()
         self.session.close()
         return promedios
+
+    def cinco_peor_avance(self, fecha_act):
+        tuples= self.session.query(func.avg(Matricula.nota_definitiva), Matricula.id_curso).\
+            filter(Matricula.id_cohorte ==Cohorte.id_cohorte, Matricula.id_curso ==Cohorte.id_curso,
+                   Cohorte.fecha_fin<=fecha_act).\
+            group_by(Matricula.id_curso).order_by(func.avg(Matricula.nota_definitiva).asc()).all()
+        if len(tuples)<=5:
+            return tuples
+        return tuples[:5]
 
 
 

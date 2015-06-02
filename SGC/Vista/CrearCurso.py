@@ -177,7 +177,7 @@ class CrearCurso(QDialog):
                     self.ui.twActividades.setItem(i, 0, QtGui.QTableWidgetItem())
                     self.ui.twActividades.item(i, 0).setText(actividad.nombre)
                     self.ui.twActividades.setItem(i, 1, QtGui.QTableWidgetItem())
-                    self.ui.twActividades.item(i, 1).setText(str(actividad.ponderado))
+                    self.ui.twActividades.item(i, 1).setText(str(actividad.ponderado*100))
                     if self.tipo==2:
                         self.ui.twActividades.item(i, 0).setFlags(QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable)
                         self.ui.twActividades.item(i, 1).setFlags(QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable)
