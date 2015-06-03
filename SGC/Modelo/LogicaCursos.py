@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from ORM.Curso import *
-
+from itertools import *
 from ORM.basetest import *
 
 
@@ -42,11 +42,19 @@ class LogicaCursos():
         self.session.rollback()
         curso = self.session.query(Curso).filter_by(nombre=nombre_curso).first()
         curso.descripcion = curso_mod.descripcion
-        curso.actividades = curso_mod.actividades
+        for act, act_mod in izip(curso.actividades, curso_mod.actividades):
+            print act.nombre
+            if act.nombre== act_mod.nombre:
+                act.ponderado=act_mod.ponderado
+            else:
+                act.nombre = act_mod.nombre
+                act.ponderado=act_mod.ponderado
+        #curso.actividades = curso_mod.actividades
         self.session.commit()
         self.session.close()
 
     def eliminarCurso(self, nombre_c):
+        self.session.rollback()
         curso = self.session.query(Curso).filter_by(nombre=nombre_c).first()
         self.session.delete(curso)
         self.session.commit()
@@ -55,13 +63,14 @@ class LogicaCursos():
     def cerrarSesion(self):
         self.session.close()
 
-'''
 
+'''
 log = LogicaCursos()
-curso = Curso(id = 122, nombre= 'micurso24', descripcion='descripcion')
-log.agregarCurso(curso)
+act1 = Actividades(id_curso = 28, nombre = 'act3', ponderado = 0.8)
+act2 = Actividades(id_curso = 28, nombre = 'act4', ponderado = 0.2)
+actividades = [act1, act2]
+curso = Curso(nombre= 'curso_', descripcion='desc curso_', actividades=actividades)
+log.modificarCursoActividades('curso_', curso)
 #cursos= log.consultarCurso('micurso24')
 #print cursos.actividades
-
-
 '''

@@ -97,23 +97,25 @@ class CrearCurso(QDialog):
                         acum_pon += ponderado_ac
                         actividades.append([nombre_ac, ponderado_ac])
                         i += 1
-                    if not (acum_pon == 1 or self.ui.sbNumActividades.value() == 0) and flag:
+                    if not (acum_pon == 1 or self.ui.sbNumActividades.value() == 0) and not flag:
                         QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
                                                   QString.fromUtf8(
                                                       "Recuerde que la suma de ponderados de todas las actividades debe dar 100"))
                     else:
-                        self.control.crearCurso(nombre_c, descripcion_c, actividades)
-                        self.close()
+                        if not flag:
+                            self.control.crearCurso(nombre_c, descripcion_c, actividades)
+                            self.close()
                 except SQLAlchemyError, e:
                    QtGui.QMessageBox.warning(self, self.tr("Error en Base de Datos"),
                                              QString.fromUtf8("Error en Base de Datos. \n"
                                                               "Recuerde que los nombres de los cursos son únicos \n"
                                                               "y que no debe haber dos actividades con el mismo nombre en el mismo curso."))
                    print e
-                except:
+                except Exception, e:
                    QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
                                              QString.fromUtf8(
                                                  "Recuerde que los ponderados de las actividades deben ser numeros entre 0 y 100."))
+                   print e
             else:
                 QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
                                           QString.fromUtf8("Recuerde llenar todos los campos."))
@@ -138,23 +140,26 @@ class CrearCurso(QDialog):
                         acum_pon += ponderado_ac
                         actividades.append([nombre_ac, ponderado_ac])
                         i += 1
-                    if not (acum_pon == 1 or self.ui.sbNumActividades.value() == 0) and flag:
+                    if not (acum_pon == 1 or self.ui.sbNumActividades.value() == 0) and not flag:
                         QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
                                                   QString.fromUtf8(
                                                       "Recuerde que la suma de ponderados de todas las actividades debe dar 100"))
                     else:
-                        self.control.modificarCurso(nombre_c, descripcion_c, actividades)
-                        self.close()
+                        if not flag:
+                            self.control.modificarCurso(nombre_c, descripcion_c, actividades)
+                            self.close()
                 except SQLAlchemyError, e:
                    QtGui.QMessageBox.warning(self, self.tr("Error en Base de Datos"),
                                              QString.fromUtf8("Error en Base de Datos. \n"
                                                               "Recuerde que los nombres de los cursos son únicos \n"
                                                               "y que no debe haber dos actividades con el mismo nombre en el mismo curso."))
                    print e
-                except:
+                except Exception, e:
                    QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
                                              QString.fromUtf8(
                                                  "Recuerde que los ponderados de las actividades deben ser numeros entre 0 y 100."))
+                   print e
+
             else:
                 QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
                                           QString.fromUtf8("Recuerde llenar todos los campos."))
