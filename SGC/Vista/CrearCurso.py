@@ -38,6 +38,7 @@ class CrearCurso(QDialog):
             self.ui.btCrear.setText("Crear Curso")
             self.ui.leNombre.setEnabled(True)
             self.ui.teDescripcion.setEnabled(True)
+            self.ui.sbNumActividades.setEnabled(True)
             self.ui.label.setText(QString.fromUtf8("<P><b><FONT SIZE = 4> Creación de cursos </b></P></br>"))
             self.ui.btVer.setVisible(False)
         elif tipo == 2:  # consultar
@@ -45,6 +46,7 @@ class CrearCurso(QDialog):
             self.ui.btCrear.setVisible(False)
             self.ui.leNombre.setEnabled(True)
             self.ui.teDescripcion.setEnabled(False)
+            self.ui.sbNumActividades.setEnabled(False)
             self.ui.label.setText(QString.fromUtf8("<P><b><FONT SIZE = 4> Edición de cursos </b></P></br>"))
             self.ui.btVer.setText(QString.fromUtf8("Ver Estudiantes"))
             self.ui.btVer.setVisible(True)
@@ -53,6 +55,7 @@ class CrearCurso(QDialog):
             self.ui.btCrear.setText("Modificar Curso")
             self.ui.leNombre.setEnabled(True)
             self.ui.teDescripcion.setEnabled(True)
+            self.ui.sbNumActividades.setEnabled(True)
             self.ui.label.setText(QString.fromUtf8("<P><b><FONT SIZE = 4> Edición de cursos </b></P></br>"))
             self.ui.btVer.setText(QString.fromUtf8("Anular Matrícula a LT"))
             self.ui.btVer.setVisible(True)
@@ -61,6 +64,7 @@ class CrearCurso(QDialog):
             self.ui.btCrear.setText("Eliminar Curso")
             self.ui.leNombre.setEnabled(True)
             self.ui.teDescripcion.setEnabled(False)
+            self.ui.sbNumActividades.setEnabled(False)
             self.ui.label.setText(QString.fromUtf8("<P><b><FONT SIZE = 4> Eliminación de cursos </b></P></br>"))
             self.ui.btVer.setVisible(False)
 
@@ -68,11 +72,9 @@ class CrearCurso(QDialog):
         self.ui = None
 
     def change_actividades(self):
-
         self.ui.twActividades.setRowCount(self.ui.sbNumActividades.value())
 
     def cancelar_clicked(self):
-
         self.close()
 
     def crear_clicked(self):
@@ -107,14 +109,15 @@ class CrearCurso(QDialog):
                             self.close()
                 except SQLAlchemyError, e:
                    QtGui.QMessageBox.warning(self, self.tr("Error en Base de Datos"),
-                                             QString.fromUtf8("Error en Base de Datos. \n"
-                                                              "Recuerde que los nombres de los cursos son únicos \n"
+                                             QString.fromUtf8("Error en Base de Datos.\n"
+                                                              "Recuerde que los nombres de los cursos son únicos\n"
                                                               "y que no debe haber dos actividades con el mismo nombre en el mismo curso."))
                    print e
                 except Exception, e:
                    QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
                                              QString.fromUtf8(
-                                                 "Recuerde que los ponderados de las actividades deben ser numeros entre 0 y 100."))
+                                                 "Recuerde que los ponderados de las actividades deben ser numeros entre 0 y 100\n"
+                                                 "y digitar los nombres de las actividades."))
                    print e
             else:
                 QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
@@ -159,7 +162,6 @@ class CrearCurso(QDialog):
                                              QString.fromUtf8(
                                                  "Recuerde que los ponderados de las actividades deben ser numeros entre 0 y 100."))
                    print e
-
             else:
                 QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
                                           QString.fromUtf8("Recuerde llenar todos los campos."))

@@ -42,14 +42,19 @@ class LogicaCursos():
         self.session.rollback()
         curso = self.session.query(Curso).filter_by(nombre=nombre_curso).first()
         curso.descripcion = curso_mod.descripcion
-        for act, act_mod in izip(curso.actividades, curso_mod.actividades):
-            print act.nombre
+        i=0
+        for act_mod, act in izip(curso_mod.actividades, curso.actividades):
             if act.nombre== act_mod.nombre:
                 act.ponderado=act_mod.ponderado
             else:
                 act.nombre = act_mod.nombre
                 act.ponderado=act_mod.ponderado
-        #curso.actividades = curso_mod.actividades
+            i+=1
+        print i, len(curso_mod.actividades)
+        if i<len(curso_mod.actividades):
+            curso.actividades += curso_mod.actividades[i:]
+        elif i<len(curso.actividades):
+            curso.actividades = curso.actividades[:i]
         self.session.commit()
         self.session.close()
 
