@@ -11,7 +11,7 @@ class LeaderTeacher(Usuario, Base):
     municipio = Column(String(40))
     genero = Column(String(10))
     institucion = Column(String(50))
-    escalafon = Column(Integer)
+    escalafon = Column(String(20))
     sede = Column(String(40))
     codigo_dane = Column(String(20))
     dpto_secretaria  = Column(String(20))
