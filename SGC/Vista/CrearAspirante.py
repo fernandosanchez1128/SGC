@@ -21,6 +21,8 @@ class CrearAspirante ( QDialog ):
         self.connect(self.ui.btAceptar, SIGNAL("clicked()"), self.inscribir_clicked)
         self.validaciones()
         self.ui.txtCorreo.textChanged.connect(self.check_state)
+        self.ui.txtid.textChanged.connect(self.check_state)
+        self.ui.txtCelular.textChanged.connect(self.check_state)
         self.validacion()
 
 
@@ -30,10 +32,14 @@ class CrearAspirante ( QDialog ):
     def validaciones(self):
         validador = QIntValidator()
         exp_correo = QRegExp('^.*[@].*[.].*')
+        exp_digitos = QRegExp('\\d+')
         exp_cadena = QRegExp('.+')
         val_correo = QRegExpValidator(exp_correo)
         val_vacio = QRegExpValidator(exp_cadena)
+        val_digitos = QRegExpValidator(exp_digitos)
         self.ui.txtCorreo.setValidator(val_correo)
+        self.ui.txtid.setValidator(val_digitos)
+        self.ui.txtCelular.setValidator(val_digitos)
 
     def validacion(self):
         correo = self.ui.txtCorreo.validator().validate(self.ui.txtCorreo.text(), 0)[0]
@@ -41,6 +47,98 @@ class CrearAspirante ( QDialog ):
             return True
         else:
             return False
+
+    def validacionVacios(self):
+        resultado=[]
+
+        cedula = (self.ui.txtid.text() != "" and self.ui.txtid != None)
+        if not(cedula):
+            resultado.append("Identificacion")
+
+        nombre = (self.ui.txtNombre.text() != "" and self.ui.txtNombre != None)
+        if not(nombre):
+            resultado.append("Nombre")
+
+        apellido = (self.ui.txtApellidos.text() != "" and self.ui.txtApellidos != None)
+        if not(apellido):
+            resultado.append("Apellido")
+
+        correo = (self.ui.txtCorreo.text() != "" and self.ui.txtCorreo != None)
+        if not(correo):
+            resultado.append("Correo")
+
+        celular = (self.ui.txtCelular.text() != "" and self.ui.txtCelular != None)
+        if not(celular):
+            resultado.append("Celular")
+
+        direccion = (self.ui.txtDireccion.text() != "" and self.ui.txtDireccion != None)
+        if not(direccion):
+            resultado.append("Direccion")
+
+        sede = (self.ui.txtSede.text() != "" and self.ui.txtSede != None)
+        if not(sede):
+            resultado.append("Sede")
+
+        institucion = (self.ui.txtInstitucion.text() != "" and self.ui.txtInstitucion != None)
+        if not(institucion):
+            resultado.append("Institucion")
+
+        dane = (self.ui.txtDane.text() != "" and self.ui.txtDane != None)
+        if not(dane):
+            resultado.append("Codigo Dane")
+
+        grado = (self.ui.txtGrado.text() != "" and self.ui.txtGrado != None)
+        if not(grado):
+            resultado.append("Grado")
+
+        secretaria = (self.ui.txtSecretaria.text() != "" and self.ui.txtSecretaria != None)
+        if not(secretaria):
+            resultado.append("Secretaria de educacion")
+
+        municipio = (self.ui.txtMunicipio.text() != "" and self.ui.txtMunicipio != None)
+        if not(municipio):
+            resultado.append("Municipio")
+
+        if(self.ui.TutorSi.isChecked()):
+            tutSi=True
+        else:
+            tutSi=False
+        if(self.ui.TutorNo.isChecked()):
+            tutNo=True
+        else:
+            tutNo=False
+        tutor=((tutSi==True and tutNo==False)or(tutSi==False and tutNo==True))
+        if not(tutor):
+            resultado.append("Tutoria PTA")
+
+        if(self.ui.ColAprendeSi.isChecked()):
+            colSi=True
+        else:
+            colSi=False
+        if(self.ui.ColAprendeNo.isChecked()):
+            colNo=True
+        else:
+            colNo=False
+        colAprende=((colSi==True and colNo==False)or(colSi==False and colNo==True))
+        if not(colAprende):
+            resultado.append("Usuario Colombiaprende")
+
+        if(self.ui.masculino.isChecked()):
+            masc=True
+        else:
+            masc=False
+        if(self.ui.femenino.isChecked()):
+            fem=True
+        else:
+            fem=False
+        sexo=((masc==True and fem==False)or(masc==False and fem==True))
+        if not(sexo):
+            resultado.append("Sexo")
+
+        return resultado
+
+
+
 
     def check_state(self):
         sender = self.sender()
@@ -103,8 +201,13 @@ class CrearAspirante ( QDialog ):
 
 
             #print("AKSNDOAI:",newcurso.id)
-            if (cedula=="" or nombre=="" or apellidos==""):
-                QMessageBox.information(self, "Aspirante", "El campo Identificacion, Nombre y Apellidos son obligatorios")
+            if len(self.validacionVacios())!=0:
+                cadena=""
+                validado=self.validacionVacios()
+                for campo in validado:
+                    cadena+=campo+", "
+                QMessageBox.information(self, "Aspirante", "Faltan los siguientes campos por llenar:\n"
+                                                           +cadena)
             elif (self.validacion() != 1):
                 if (self.buscaCaracter("@", correo) == True):
                     QMessageBox.information(self, "Aspirante", "Correo debe contener un punto despues del arroba")
