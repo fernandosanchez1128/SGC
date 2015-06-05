@@ -91,10 +91,6 @@ class CrearAspirante ( QDialog ):
         if not(grado):
             resultado.append("Grado")
 
-        secretaria = (self.ui.txtSecretaria.text() != "" and self.ui.txtSecretaria != None)
-        if not(secretaria):
-            resultado.append("Secretaria de educacion")
-
         municipio = (self.ui.txtMunicipio.text() != "" and self.ui.txtMunicipio != None)
         if not(municipio):
             resultado.append("Municipio")
@@ -183,7 +179,7 @@ class CrearAspirante ( QDialog ):
             institucion=str(self.ui.txtInstitucion.text())
             Dane=str(self.ui.txtDane.text())
             grado=str(self.ui.txtGrado.text())
-            secretaria=str(self.ui.txtSecretaria.text())
+            secretaria=str(self.ui.txtSecretaria.currentText())
             municipio=str(self.ui.txtMunicipio.text())
             ###2 DE 3
 
