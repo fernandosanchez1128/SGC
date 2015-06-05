@@ -2,7 +2,9 @@
 from reportlab.lib.styles import ParagraphStyle
 
 __author__ = 'braymrr'
+from PyQt4.QtCore import *
 from ORM.Curso import Curso
+from ORM.LeaderTeacher import LeaderTeacher
 from ORM.basetest import *
 from ORM.Matricula import Matricula
 from reportlab.platypus import (SimpleDocTemplate, PageBreak, Image, Spacer,
@@ -16,9 +18,9 @@ from reportlab.lib.pagesizes import A4
 # from ORM.Matricula import *
 # from ORM.LeaderTeacher import *
 from ORM.Cohorte import Cohorte
-#import pygal
+import pygal
 from Modelo.LogicaCursos import LogicaCursos
-#from pygal.style import *
+from pygal.style import *
 from reportlab.lib import colors
 from reportlab.lib.styles import _baseFontName, _baseFontNameI
 from reportlab import *
@@ -154,7 +156,7 @@ class Reporte:
         story=[]
         bodyStyle = ParagraphStyle('Body', fontName=_baseFontName, fontSize=24, leading=28, spaceBefore=6,
                                    align = "CENTER")
-        msg = "Detalles de Estudiantes del Curso " + curso + " Durante el Mes de " +mes+ " del año " + anio
+        msg = QString.fromUtf8("Detalles de Estudiantes del Curso " + curso + " Durante el Mes de " +mes+ " del año " + anio)
         titulo = Paragraph(msg, bodyStyle)
         t.setStyle([('FONTSIZE',(0,0), (-1, -1), 16),
                     ('FONTSIZE',(0,0), (1, 0), 17),
@@ -199,7 +201,7 @@ class Reporte:
         story=[]
         bodyStyle = ParagraphStyle('Body', fontName=_baseFontName, fontSize=24, leading=28, spaceBefore=6,
                                    align = "CENTER")
-        msg = "Estudiantes Que Aprobaron el Curso " + curso + " Durante el Mes de " +mes+ " del ano " + anio
+        msg = QString.fromUtf8("Estudiantes Que Aprobaron el Curso " + curso + " Durante el Mes de " +mes+ " del año " + anio)
         titulo = Paragraph(msg, bodyStyle)
         t.setStyle([('FONTSIZE',(0,0), (-1, -1), 16),
                     ('FONTSIZE',(0,0), (1, 0), 17),
