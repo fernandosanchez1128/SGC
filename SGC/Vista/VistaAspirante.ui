@@ -148,7 +148,7 @@
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Informacion Profesional&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -282,15 +282,55 @@
          <string>Institucion a la que pertenece</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="txtSecretaria">
+       <widget class="QComboBox" name="txtSecretaria">
         <property name="geometry">
          <rect>
           <x>330</x>
           <y>30</y>
           <width>281</width>
-          <height>27</height>
+          <height>31</height>
          </rect>
         </property>
+        <item>
+         <property name="text">
+          <string>Valle del Cauca</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Cauca</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Narino</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Tolima</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Huila</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Caqueta</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Putumayo</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Amazonas</string>
+         </property>
+        </item>
        </widget>
       </widget>
       <widget class="QWidget" name="tab_2">
@@ -682,7 +722,6 @@
   <tabstop>txtInstitucion</tabstop>
   <tabstop>txtDane</tabstop>
   <tabstop>txtGrado</tabstop>
-  <tabstop>txtSecretaria</tabstop>
   <tabstop>txtMunicipio</tabstop>
   <tabstop>TutorNo</tabstop>
   <tabstop>TutorSi</tabstop>

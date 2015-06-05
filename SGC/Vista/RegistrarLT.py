@@ -140,7 +140,10 @@ class RegistrarLT ( QDialog ):
                 self.ui.txtescalafon.setText(lt.escalafon)
                 self.ui.txtsede.setText(lt.sede)
                 self.ui.txtdane.setText(lt.codigo_dane)
-                self.ui.txtsecretaria.setText(lt.dpto_secretaria)
+                dptotemp=lt.dpto_secretaria
+                coldpto ={'Valle del Cauca':0,'Cauca':1,'Narino':2,'Tolima':3,'Huila':4,'Caqueta':5,'Putumayo':6,'Amazonas':7}
+                indexdpto=coldpto[dptotemp]
+                self.ui.txtsecretaria.setCurrentIndex(indexdpto)
                 if(lt.usuario_col_aprende):
                     self.ui.col_aprendeSi.setChecked(True)
                 else:
@@ -343,7 +346,7 @@ class RegistrarLT ( QDialog ):
         uescalafon=str(self.ui.txtescalafon.text())
         usede=str(self.ui.txtsede.text())
         udane=str(self.ui.txtdane.text())
-        usecretaria=str(self.ui.txtsecretaria.text())
+        usecretaria=str(self.ui.txtsecretaria.currentText())
 
         #VALIDACION CAMPOS TEXTO VACIOS
         if(self.tipo==2):

@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c6389d95-d92f-4c67-9e70-4868a320bf48" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Vista/CrearCurso.py" afterPath="$PROJECT_DIR$/Vista/CrearCurso.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Vista/LeaderTeacher-por-departamento.svg" afterPath="$PROJECT_DIR$/Vista/LeaderTeacher-por-departamento.svg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Modelo/LogicaActividades.py" afterPath="$PROJECT_DIR$/Modelo/LogicaActividades.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Modelo/LogicaCohorte.py" afterPath="$PROJECT_DIR$/Modelo/LogicaCohorte.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Modelo/LogicaCursos.py" afterPath="$PROJECT_DIR$/Modelo/LogicaCursos.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Modelo/LogicaMatricula.py" afterPath="$PROJECT_DIR$/Modelo/LogicaMatricula.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Vista/Top10.svg" afterPath="$PROJECT_DIR$/Vista/Top10.svg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ORM/basetest.py" afterPath="$PROJECT_DIR$/ORM/basetest.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ORM/usuarios.sql" afterPath="$PROJECT_DIR$/ORM/usuarios.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="SGC.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -641,10 +633,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="63" y="-4" width="1303" height="772" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32964602" sideWeight="0.49957228" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32817337" sideWeight="0.8652082" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32817337" sideWeight="0.8652082" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39933628" sideWeight="0.49957228" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32817337" sideWeight="0.16706444" order="8" side_tool="true" content_ui="tabs" />
@@ -655,7 +647,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28162292" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32964602" sideWeight="0.49957228" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32817337" sideWeight="0.8329356" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32817337" sideWeight="0.8329356" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
