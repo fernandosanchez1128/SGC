@@ -8,7 +8,7 @@ from Singleton import Singleton
 from Control.ControlCoordinador import ControlCoordinador
 ( Ui_Asignacion, QMainWindow ) = uic.loadUiType( 'estudiantes_dpto.ui' )
 
-@Singleton
+
 class EstudiantesDpto( QMainWindow ):
     """Asignacion inherits QMainWindow"""
     controlcordinador = ControlCoordinador()

@@ -6,14 +6,14 @@ from PyQt4 import QtCore, QtGui
 from datetime import datetime,date
 from PyQt4.QtGui import QFileDialog
 from Control.ControlCoordinador import ControlCoordinador
-( Ui_PorcAprob, QDialog ) = uic.loadUiType( 'porcentaje_aprobados.ui' )
+( Ui_PorcReprob, QDialog ) = uic.loadUiType( 'porcentaje_reprobados.ui' )
 
-class PorcentajeAprob( QDialog ):
+class PorcentajesReprob( QDialog ):
     """Asignacion inherits QMainWindow"""
     controlcordinador = ControlCoordinador()
     def __init__ ( self,parent = None):
         QDialog.__init__( self, parent )
-        self.ui = Ui_PorcAprob()
+        self.ui = Ui_PorcReprob()
         self.ui.setupUi( self )
         self.cargar_cursos()
         self.connect(self.ui.btnReporte, SIGNAL("clicked()"), self.generar_reporte)
@@ -41,7 +41,7 @@ class PorcentajeAprob( QDialog ):
 
         ruta = QFileDialog.getSaveFileName(self, 'Guardar Reporte', '', selectedFilter='*.pdf')
         if ruta:
-            exito =self.controlcordinador.porcentaje_aprobado(str(ruta), id_curso, curso, str(year), semestre)
+            exito =self.controlcordinador.porcentaje_reprobado(str(ruta), id_curso, curso, str(year), semestre)
             if exito == 0 :
                 QtGui.QMessageBox.warning(self, 'Error',"No se encontraron datos para generar reporte\npara este curso"
                                                         " en el semestre seleccionado",

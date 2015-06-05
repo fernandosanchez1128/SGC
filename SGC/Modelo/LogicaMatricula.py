@@ -31,12 +31,17 @@ class LogicaMatricula():
         else:
             num_e = self.consultarNestudiantes(id_curso,ult_coh.id_cohorte)
             if num_e==30:
-                lc.agregarCohorte(id_curso, ano, semestre)
-                ult_coh = lc.ultimoCohorte(id_curso,ano,semestre)
+                num_c = lc.numCohortes(id_curso,ano,semestre)
+                if num_c<10:
+                    lc.agregarCohorte(id_curso, ano, semestre)
+                    ult_coh = lc.ultimoCohorte(id_curso,ano,semestre)
+                else:
+                    return 1
         mat = Matricula(cedula_lt= cedula_lt, id_curso= id_curso, id_cohorte = ult_coh.id_cohorte, nota_definitiva =0)
         self.session.add(mat)
         self.session.commit()
         self.session.close()
+        return 0
 
     def consultarMatricula(self, ncedula_lt, nid_cohorte, nid_curso):
         matricula = self.session.query(Matricula).filter_by(cedula_lt=ncedula_lt, id_cohorte=nid_cohorte,
@@ -82,6 +87,13 @@ class LogicaMatricula():
         self.session.close()
         return registros
 
+    def consultar_cursos_terminados_estudiantes(self, cedula_lt):
+        fechaActual = date.today()
+        registros = self.session.query(Matricula).join(Cohorte).filter(Matricula.cedula_lt == cedula_lt).\
+            filter(Cohorte.fecha_fin<fechaActual).all()
+        self.session.close()
+        return registros
+
     def consultar_cohorte_estudiante(self, cedula, id_curso):
         mat = self.session.query(Matricula).filter_by(id_curso=id_curso, cedula_lt=cedula).first()
         self.session.close()
@@ -114,7 +126,7 @@ class LogicaMatricula():
                 porcentaje=0.0
             else:
                 porcentaje = float(aprobados)*100.0/total
-            dep_porcentajes.append((dep[0], porcentaje))
+            dep_porcentajes.append((dep[0], str(porcentaje)+"%"))
 
         self.session.close()
         print dep_porcentajes
@@ -133,13 +145,13 @@ class LogicaMatricula():
         for dep in departamentos:
             aprobados = int(self.session.query(LeaderTeacher).join(Matricula).join(Cohorte).
             filter(Cohorte.id_curso == idCurso).filter(Cohorte.semestre == semestreBuscar).
-                filter(Cohorte.ano == anoBuscar).filter(LeaderTeacher.dpto_secretaria == dep[0].encode("utf-8")).
+                filter(Cohorte.ano == anoBuscar).filter(LeaderTeacher.dpto_secretaria == dep[0]).
                 filter(Matricula.nota_definitiva>2.5).filter(Cohorte.fecha_fin<fechaActual).count())
             print "aprobados", aprobados
 
             reprobados = int(self.session.query(LeaderTeacher).join(Matricula).join(Cohorte).
             filter(Cohorte.id_curso == idCurso).filter(Cohorte.semestre == semestreBuscar).
-                filter(Cohorte.ano == anoBuscar).filter(LeaderTeacher.dpto_secretaria == dep[0].encode("utf-8")).
+                filter(Cohorte.ano == anoBuscar).filter(LeaderTeacher.dpto_secretaria == dep[0]).
                 filter(Matricula.nota_definitiva<=2.5).filter(Cohorte.fecha_fin<fechaActual).count())
 
             print "reprobados", reprobados
@@ -149,7 +161,7 @@ class LogicaMatricula():
                 porcentaje=0.0
             else:
                 porcentaje = float(reprobados)*100.0/total
-            dep_porcentajes.append((dep[0].encode("utf-8"), porcentaje))
+            dep_porcentajes.append((dep[0], str(porcentaje)+"%"))
 
         self.session.close()
         print dep_porcentajes
@@ -198,6 +210,15 @@ and lead.cedula = us.cedula order by lead.dpto_secretaria'''''
                    Cohorte.fecha_fin<= fecha_fin, Matricula.id_cohorte == Cohorte.id_cohorte).group_by(LeaderTeacher.dpto_secretaria).all()
         self.session.close()
         return promedios
+#BRAYAN
+    def cinco_peor_avance(self, fecha_act):
+        tuples= self.session.query(func.avg(Matricula.nota_definitiva), Matricula.id_curso).\
+            filter(Matricula.id_cohorte ==Cohorte.id_cohorte, Matricula.id_curso ==Cohorte.id_curso,
+                   Cohorte.fecha_fin<=fecha_act).\
+            group_by(Matricula.id_curso).order_by(func.avg(Matricula.nota_definitiva).asc()).all()
+        if len(tuples)<=5:
+            return tuples
+        return tuples[:5]
 
 
 

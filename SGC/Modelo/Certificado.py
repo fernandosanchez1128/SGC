@@ -45,7 +45,10 @@ class Certificado:
         pdf.setFont("Courier", 25)
         pdf.drawCentredString(letter[1] / 2, inch * 2.5, str(nombreCurso).upper())
         pdf.setFont("Courier", 15)
-        pdf.drawCentredString(letter[1] / 2, inch * 2, "Por haber aprobado todos los modulos exigidos")
+        if nota <=2.5:
+            pdf.drawCentredString(letter[1] / 2, inch * 2, "Por haber asistido a todos los modulos exigidos")
+        else:
+            pdf.drawCentredString(letter[1] / 2, inch * 2, "Por haber aprobado y asistido a todos los modulos exigidos")
         pdf.setFont("Courier", 15)
         pdf.drawCentredString(letter[1] / 2, inch * 1, "Expedido en Santiago de Cali el " + str(fechaActual))
         pdf.showPage()

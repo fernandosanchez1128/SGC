@@ -25,6 +25,8 @@ class Top10 ( QDialog ):
         self.ui.setupUi( self )
         self.connect(self.ui.btSalir, SIGNAL("clicked()"), self.salir_clicked)
         self.connect(self.ui.btgenerar, SIGNAL("clicked()"), self.generar_clicked)
+        if self.reporte!=1:
+            self.ui.label.setText("LTs por departamento en el mes")
 
 
     def __del__(self):

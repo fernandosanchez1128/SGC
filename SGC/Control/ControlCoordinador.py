@@ -16,11 +16,9 @@ from Modelo.Certificado import Certificado
 from Modelo.LogicaCohorte import LogicaCohorte
 from Modelo.Reporte import Reporte
 
-
 class ControlCoordinador:
     logCohorte = LogicaCohorte()
     reporte = Reporte()
-
 
     def __init__(self):
         #self.logCurso = LogicaCurso()
@@ -30,6 +28,7 @@ class ControlCoordinador:
         self.logicaNotas= LogicaNotas()
         self.certificado= Certificado()
         self.logicaActs = LogicaActividades()
+        self.log_l = LogicaLeaderTeacher()
         self.reportes = Reporte()
 
 
@@ -77,14 +76,28 @@ class ControlCoordinador:
             content = f.readlines()
         print content[0][7:-1]
         curso = content[0][7:-1]
-        id_curso = self.logicaCursos.consultarCurso(curso).id
-        for cont in content:
-            if cont[:7]=="Curso: ":
-                curso = cont[7:-1]
-                id_curso = self.logicaCursos.consultarCurso(curso).id
-            else:
-                logMat  = LogicaMatricula()
-                logMat.agregarMatricula(cont[:-1],id_curso,ano,semestre)
+        respuesta = ''
+        flag_curso = False
+        try:
+            curso = self.logicaCursos.consultarCurso(curso)
+            for cont in content:
+                if cont[:7]=="Curso: ":
+                    curso = cont[7:-1]
+                    curso = self.logicaCursos.consultarCurso(curso)
+                    flag_curso = False
+                else:
+                    logMat  = LogicaMatricula()
+                    cedula_lt = cont[:-1] #para quitar \n
+                    res = logMat.agregarMatricula(cedula_lt,curso.id,ano,semestre)
+                    if res==1:
+                        if flag_curso :
+                            respuesta+= cedula_lt+'\n'
+                        else:
+                            respuesta+= curso.nombre+'\n'+cedula_lt+'\n'
+                            flag_curso =True
+            return respuesta
+        except Exception,e:
+            return 2
 
     def consultarMT(self, cedula):
         log_m = LogicaMasterTeacher()
@@ -100,8 +113,7 @@ class ControlCoordinador:
         return res
 
     def consultarLT(self, cedula):
-        log_l = LogicaLeaderTeacher()
-        return log_l.consultarLT(cedula)
+        return self.log_l.consultarLT(cedula)
 
     def agregarDicta(self, cedula_mt, id_curso, id_cohorte):
         log_d = LogicaDicta()
@@ -117,6 +129,10 @@ class ControlCoordinador:
 
     def cursosEstudiantes(self, cedula):
         matriculas=self.logicaMatricula.consultar_cursos_estudiantes(cedula)
+        return matriculas
+
+    def cursosTerminadosEstudiantes(self, cedula):
+        matriculas=self.logicaMatricula.consultar_cursos_terminados_estudiantes(cedula)
         return matriculas
 
     def descargaCertificado(self, ruta, nombre, cedula, nota, nomCurso):
@@ -164,7 +180,36 @@ class ControlCoordinador:
             self.reporte.detalle_estudiantes_por_dpto(reporte,promedios,ruta,nombre_curso,mes,anio)
         else:
             exito =0
+        return exito
 
+    def notas_estudiante(self, ruta, cedula_lt, id_curso):
+        mat = self.logicaMatricula.consultar_cohorte_estudiante(cedula_lt,id_curso)
+        acts = self.logicaActs.actividades_curso(id_curso)
+        notas =[]
+        if mat!=None and acts!=[]:
+            for act in acts:
+                notas.append(self.logicaNotas.consultarNota(act.id_actividad,cedula_lt,id_curso,mat.id_cohorte).nota)
+        if acts != [] and notas != []:
+            acts = map(lambda x: (x.nombre), acts)
+            nota_def = mat.nota_definitiva
+            self.reporte.notas_estudiante(ruta,cedula_lt,id_curso,acts,notas, nota_def)
+            exito = 1
+        else:
+            exito = 0
+        return exito
+
+    #ruta con nombre .svg
+    def cursos_menos_avance(self, fecha_act, ruta):
+        avg_curso = self.logicaMatricula.cinco_peor_avance(fecha_act)
+        if avg_curso!=[]:
+            #listar los cursos en este mismo orden que me entregan pero con todo el objeto curso
+            cursos = (self.buscarCursoId(x[1]) for x in avg_curso)
+            #listar promedios
+            avgs = list(x[0] for x in avg_curso)
+            self.reporte.cursos_menos_avance(cursos, avgs,ruta)
+            exito = 1
+        else:
+            exito = 0
         return exito
 
     def porcentaje_aprobado (self, ruta, id_curso, nombre_curso, anoBuscar, semestreBuscar):
@@ -188,18 +233,43 @@ class ControlCoordinador:
         return exito
 
 
-    def notas_estudiante(self, cedula_lt, id_curso):
-        exito=0
+    def notas_estudiante(self, ruta, cedula_lt, id_curso):
         mat = self.logicaMatricula.consultar_cohorte_estudiante(cedula_lt,id_curso)
         acts = self.logicaActs.actividades_curso(id_curso)
         notas =[]
         if mat!=None and acts!=[]:
             for act in acts:
                 notas.append(self.logicaNotas.consultarNota(act.id_actividad,cedula_lt,id_curso,mat.id_cohorte).nota)
+        if acts != [] and notas != []:
+            acts = map(lambda x: (x.nombre), acts)
+            nota_def = mat.nota_definitiva
+            self.reporte.notas_estudiante(ruta,cedula_lt,id_curso,acts,notas, nota_def)
+            exito = 1
+        else:
+            exito = 0
+        return exito
+
+    #ruta con nombre .svg
+    def cursos_menos_avance(self, fecha_act, ruta):
+        avg_curso = self.logicaMatricula.cinco_peor_avance(fecha_act)
+        if avg_curso!=[]:
+            #listar los cursos en este mismo orden que me entregan pero con todo el objeto curso
+            cursos = (self.buscarCursoId(x[1]) for x in avg_curso)
+            #listar promedios
+            avgs = list(x[0] for x in avg_curso)
+            self.reporte.cursos_menos_avance(cursos, avgs,ruta)
+            exito = 1
+        else:
+            exito = 0
+        return exito
+
 
 
     def cerrarSesion(self):
         self.logicaCursos.cerrarSesion()
+
+    def cerrarSesionLT(self):
+        self.log_l.cerrarSesion()
 
 #ControlCoordinador().estudiantes_departamento("2015/05/01","2015/05/30",1,"curso1","Mayo", "2015")
 #ControlCoordinador().estudiantes_departamento_unique("2015/05/01","2015/05/30",1,"antioquia","curso1","Mayo", "2015")

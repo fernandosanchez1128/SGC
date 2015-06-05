@@ -9,7 +9,7 @@ class Actividades (Base):
 
     id_curso = Column(Integer, ForeignKey('curso.id'), primary_key=True)
     id_actividad =  Column(Integer,Sequence('sec_actividad'), primary_key=True)
-    nombre = Column(String (20))
+    nombre = Column(String (50))
     ponderado = Column(Float)
     __table_args__ = (UniqueConstraint('id_curso', 'nombre', name='unique_name'),)
 
