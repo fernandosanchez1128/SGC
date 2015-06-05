@@ -5,16 +5,19 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 
-from vistacoordinador import VistaCoordinador
-#from VistaMt import MainWindow
-from VistaLogin import VistaLogin
-#CAmBIO
+
 
 if __name__ == '__main__':
-    # create application
     app = QApplication( sys.argv )
     app.setApplicationName( 'My PyQt4 QtGui Project')
-    print "hola"
+    try:
+        # create application
+        from VistaLogin import VistaLogin
+    except Exception as e:
+        QMessageBox.information(None, "Error", "Hay un problema en la conexion a la base de datos")
+        print str(e)
+        exit()
+
     w = VistaLogin()
     w.show()
 
@@ -23,3 +26,5 @@ if __name__ == '__main__':
 
     # execute application
     sys.exit( app.exec_() )
+
+
