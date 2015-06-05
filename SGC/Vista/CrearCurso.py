@@ -99,8 +99,8 @@ class CrearCurso(QDialog):
                         acum_pon += ponderado_ac
                         actividades.append([nombre_ac, ponderado_ac])
                         i += 1
-                    if not (acum_pon == 1 or self.ui.sbNumActividades.value() == 0) and not flag:
-                        print acum_pon
+                    acum_pon_v = round(acum_pon, 2)
+                    if not (acum_pon_v == 1 or self.ui.sbNumActividades.value() == 0) and not flag:
                         QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
                                                   QString.fromUtf8(
                                                       "Recuerde que la suma de ponderados de todas las actividades debe dar 100"))
