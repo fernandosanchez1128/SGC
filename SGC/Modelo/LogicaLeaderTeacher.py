@@ -9,6 +9,8 @@ from ORM.NivelesDesempenados import Niveles
 from ORM.Etnoeducacion import Etnoeducacion
 
 from sqlalchemy import exc as sqlalchemy_exceptions
+from exceptions import *
+from sqlalchemy.exc import *
 
 
 class LogicaLeaderTeacher():
@@ -25,9 +27,18 @@ class LogicaLeaderTeacher():
             self.session.commit()
             self.session.close()
             return "Exito"
-        except Exception:
+        except sqlalchemy_exceptions.IntegrityError:
             self.session.close()
-            return "Fracaso"
+            return str("Violacion de integridad en la BD: Cedula ya existe en la Base de datos")
+        except sqlalchemy_exceptions.DisconnectionError:
+            self.session.close()
+            return str("Error de desconexion de base de datos")
+        except sqlalchemy_exceptions.InternalError:
+            self.session.close()
+            return str("Internal Error: Consulte con el adminstrador")
+        except sqlalchemy_exceptions.SQLAlchemyError:
+            self.session.close()
+            return str("Error interno en la Base de datos. Consulte con el administrador")
 
     def consultarLT(self, id_lt):
         lt=self.session.query(LeaderTeacher).filter_by(cedula=id_lt).first()
@@ -128,9 +139,21 @@ class LogicaLeaderTeacher():
 
             self.session.commit()
             return "Exito"
-        except Exception:
-            self.session.close()
-            return "Fracaso"
+        except sqlalchemy_exceptions.IntegrityError:
+            #self.session.close()
+            return str("Violacion de integridad en la BD: ")
+        except sqlalchemy_exceptions.AmbiguousForeignKeysError:
+            #self.session.close()
+            return str("Error en llave foranea, Cedula no existe o error en multivaluados")
+        except sqlalchemy_exceptions.DisconnectionError:
+            #self.session.close()
+            return str("Error de desconexion de base de datos")
+        except sqlalchemy_exceptions.InternalError:
+            #self.session.close()
+            return str("Internal Error: Consulte con el adminstrador")
+        except sqlalchemy_exceptions.SQLAlchemyError:
+            #self.session.close()
+            return str("Error interno en la Base de datos. Consulte con el administrador")
 
     def eliminarLT(self,cedula):
         try:

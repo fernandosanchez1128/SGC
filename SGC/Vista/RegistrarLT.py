@@ -17,6 +17,8 @@ class RegistrarLT ( QDialog ):
         self.tipo=modo
         self.cedula=""
         self.controldigi=ControlDigitador()
+        self.flag=False
+        self.obligatorios=""
         QDialog.__init__( self, parent )
         self.ui = Ui_VistaRegistrarLT()
         self.ui.setupUi( self )
@@ -111,14 +113,18 @@ class RegistrarLT ( QDialog ):
             if(asp==None):
                 QtGui.QMessageBox.warning(self, self.tr("Error en Base de Datos"),
                                       QString.fromUtf8("No hay Aspirante registrado con esa identificacion"))
+                self.ui.btRegistrar.setEnabled(False)
             else:
+                self.ui.btRegistrar.setEnabled(True)
                 self.ui.txtnombre.setText(asp.nombres)
                 self.ui.txtapellido.setText(asp.apellidos)
+
         else:
             #RECUPERANDO INFORMACION
             lt=self.controldigi.consultarLT(ced)
             user=self.controldigi.consultarUsuario(ced)
             if (lt!=None or user!=None):
+                self.ui.btRegistrar.setEnabled(True)
                 #DATOS DE USUARIO
                 self.ui.txtnombre.setText(user.nombres)
                 self.ui.txtapellido.setText(user.apellidos)
@@ -308,7 +314,8 @@ class RegistrarLT ( QDialog ):
                     if (ar.area==("Tecnologia")):
                         self.ui.tecnologia.setChecked(True)
             else:
-                QMessageBox.information(self, "Registro", "No se hay aspirantes con esa identificacion")
+                QMessageBox.information(self, "Registro", "No hay leaderteacher con esa identificacion")
+                self.ui.btRegistrar.setEnabled(False)
 
 
 
@@ -337,6 +344,19 @@ class RegistrarLT ( QDialog ):
         usede=str(self.ui.txtsede.text())
         udane=str(self.ui.txtdane.text())
         usecretaria=str(self.ui.txtsecretaria.text())
+
+        #VALIDACION CAMPOS TEXTO VACIOS
+        if(self.tipo==2):
+            if(unombre=="" or uapellido=="" or utelefono=="" or udireccion=="" or ucorreo =="" or ucalendario=="" or password==""
+               or umunicipio=="" or uinstitucion=="" or uescalafon=="" or usede=="" or udane=="" or usecretaria==""):
+                self.flag=True
+                self.obligatorios=self.obligatorios+"Campos de Texto"
+
+        if(self.tipo==1):
+            if(unombre=="" or uapellido=="" or password==""):
+                self.flag=True
+                self.obligatorios=self.obligatorios+"Campos de Texto"
+
         if(self.ui.col_aprendeSi.isChecked()):
             uusuario_col_aprende=True
         else:
@@ -368,6 +388,10 @@ class RegistrarLT ( QDialog ):
         elif(self.ui.modaltecnica.isChecked()):
             Modalidad="Tecnica"
         #print(Modalidad)
+
+        if(len(Zonas)==0):
+            self.flag=True
+            self.obligatorios=self.obligatorios+", Zonas"
 
         ### 2 de 8
         ModalidadTec=[]
@@ -401,7 +425,15 @@ class RegistrarLT ( QDialog ):
             ModalidadTec.append("Deporte")
         if (self.ui.otromodalidad.isChecked()):
             otram=str(self.ui.txtotromodalidad.text())
-            ModalidadTec.append(otram)
+            if(otram==""):
+                self.flag=True
+                self.obligatorios=self.obligatorios+", Otra Modalidad: vacia"
+            else:
+                ModalidadTec.append(otram)
+
+        if(len(Modalidad)==0):
+            self.flag=True
+            self.obligatorios=self.obligatorios+", Modalidad"
         #print(ModalidadTec)
         ### 3 de 8
         etnoeducativa=[]
@@ -415,6 +447,9 @@ class RegistrarLT ( QDialog ):
             etnoeducativa=[]
             etnoeducativa.append("Ninguna Etnia")
 
+        if(len(etnoeducativa)==0):
+            self.flag=True
+            self.obligatorios=self.obligatorios+", Clasificacion etnoeducativa"
         #print(etnoeducativa)
         niveles=[]
         if (self.ui.transicion.isChecked()):
@@ -431,7 +466,16 @@ class RegistrarLT ( QDialog ):
             niveles.append("Educacion Superior")
         if (self.ui.otronivel.isChecked()):
             otronivel=str(self.ui.txtotronivel.text())
-            niveles.append(otronivel)
+            if(otronivel==""):
+                self.flag=True
+                self.obligatorios=self.obligatorios+", Otro Nivel escolar:Vacio"
+            else:
+                niveles.append(otronivel)
+
+        if(len(niveles)==0):
+            self.flag=True
+            self.obligatorios=self.obligatorios+", Nivel escolar"
+
         #print(niveles)
         ###4 de 8
         grados=[]
@@ -463,7 +507,15 @@ class RegistrarLT ( QDialog ):
             grados.append("Grado 11")
         if (self.ui.gotro.isChecked()):
             otrogrado=str(self.ui.txtotrogrado.text())
-            grados.append(otrogrado)
+            if(otrogrado==""):
+                self.flag=True
+                self.obligatorios=self.obligatorios+", Otros Grados: Vacio"
+            else:
+                grados.append(otrogrado)
+
+        if(len(grados)==0):
+            self.flag=True
+            self.obligatorios=self.obligatorios+", Grados"
         #print(grados)
 
         ### 5 de 8
@@ -486,6 +538,10 @@ class RegistrarLT ( QDialog ):
             areas.append("Matematicas")
         if (self.ui.tecnologia.isChecked()):
             areas.append("Tecnologia")
+
+        if(len(areas)==0):
+            self.flag=True
+            self.obligatorios=self.obligatorios+", Areas"
         #print(areas)
 
         ### 6 de 8
@@ -507,6 +563,7 @@ class RegistrarLT ( QDialog ):
         if (self.ui.niveldoctorado.isChecked()):
             nivel_educacion="Nivel Doctorado"
         #print(nivel_educacion)
+
 
         ## 7 de 8
         exp_preescolar=int(self.ui.exppreescolar.value())
@@ -602,21 +659,33 @@ class RegistrarLT ( QDialog ):
 
         # creamos el LT Si esta en modo Crear
         if(self.tipo==1):
-            if (self.cedula=="" or unombre=="" or uapellido==""):
-                QMessageBox.information(self, "Registro", "El campo Identificacion, Nombre y Apellidos son obligatorios")
+            if (self.flag==True):
+                QMessageBox.information(self, "Registro", "Recuerde que todos los campos son obligatorios, asegurece de que\n"
+                                                          "que no haya campos vacios y seleccionar al menos una opcion de:\n"+
+                                        self.obligatorios)
+                self.obligatorios=""
+                self.flag=False
             elif(self.validarcontrasena(password)==len(password) or len(password)<6):
                 QMessageBox.information(self, "Registro", "El Password debe contener por lo menos seis caracteres y un numero")
 
-            elif(self.controldigi.agregarLT(3,parametros)=="Fracaso"):
-                QMessageBox.information(self, "Registro", "Error en Base de datos, puede que ya se encuentre registrada esa Identificacion")
             else:
-                self.controldigi.cerrarSesion()
+                msj=self.controldigi.agregarLT(3,parametros)
+                if( msj != "Exito"):
+                    QMessageBox.information(self, "Registro", "Error al momento de registrar leaderteacher\n"+msj)
+                else:
+                    QMessageBox.information(self, "Registro", "Registro de leaderteacher Exitoso!")
+                    self.controldigi.cerrarSesion()
+
 
         #Editamos LT
         if(self.tipo==2):
 
-            if (self.cedula=="" or unombre=="" or uapellido==""):
-                QMessageBox.information(self, "Registro", "El campo Identificacion, Nombre y Apellidos son obligatorios")
+            if (self.flag==True):
+                QMessageBox.information(self, "Registro", "Recuerde que todos los campos son obligatorios, asegurece de que\n"
+                                                          "que no haya campos vacios y seleccionar al menos una opcion de:\n"+
+                                        self.obligatorios)
+                self.obligatorios=""
+                self.flag=False
             elif (self.validacion() != 1):
                 if (self.buscaCaracter("@", ucorreo) == True):
                     QMessageBox.information(self, "Registro", "Correo debe contener un punto despues del arroba")
@@ -631,12 +700,15 @@ class RegistrarLT ( QDialog ):
             else:
                 mensaje="Editar Leader Teacher con cedula:"+self.cedula
                 if (QMessageBox.Yes == QMessageBox(QMessageBox.Information, "Confirmar", mensaje, QMessageBox.Yes|QMessageBox.No).exec_()):
-                    print("SI... Mandando a edicion...")
+                    print("SI... enviando a edicion...")
                     #self.controldigi.editarUsuarioLT(self.cedula,editparams)
-                    if(self.controldigi.editarLT(self.cedula,parametros)=="Fracaso"):
+                    editmsj=self.controldigi.editarLT(self.cedula,parametros)
+                    if(editmsj != "Exito"):
                         QtGui.QMessageBox.warning(self, self.tr("Error en Base de Datos"),
-                                      QString.fromUtf8("Error en Base de Datos."))
+                                      QString.fromUtf8("Error al momento de editar leaderteacher\n"+editmsj))
+
                     else:
+                        QMessageBox.information(self, "Registro", "Actualizacion de leaderteacher Exitoso!")
                         self.controldigi.cerrarSesion()
                 else:
                     print("No...")
