@@ -191,7 +191,7 @@ class CrearCurso(QDialog):
                     i += 1
         else:
             QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
-                                          QString.fromUtf8("El curso no existe."))
+                                          QString.fromUtf8("El curso no existe.\nVerifique las mayúsculas y minúsculas del nombre."))
         self.control.cerrarSesion()
     def ver_clicked(self):
         ano = date.today().year

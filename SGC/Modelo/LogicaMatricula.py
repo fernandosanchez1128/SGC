@@ -31,12 +31,17 @@ class LogicaMatricula():
         else:
             num_e = self.consultarNestudiantes(id_curso,ult_coh.id_cohorte)
             if num_e==30:
-                lc.agregarCohorte(id_curso, ano, semestre)
-                ult_coh = lc.ultimoCohorte(id_curso,ano,semestre)
+                num_c = lc.numCohortes(id_curso,ano,semestre)
+                if num_c<10:
+                    lc.agregarCohorte(id_curso, ano, semestre)
+                    ult_coh = lc.ultimoCohorte(id_curso,ano,semestre)
+                else:
+                    return 1
         mat = Matricula(cedula_lt= cedula_lt, id_curso= id_curso, id_cohorte = ult_coh.id_cohorte, nota_definitiva =0)
         self.session.add(mat)
         self.session.commit()
         self.session.close()
+        return 0
 
     def consultarMatricula(self, ncedula_lt, nid_cohorte, nid_curso):
         matricula = self.session.query(Matricula).filter_by(cedula_lt=ncedula_lt, id_cohorte=nid_cohorte,

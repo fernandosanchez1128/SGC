@@ -76,14 +76,28 @@ class ControlCoordinador:
             content = f.readlines()
         print content[0][7:-1]
         curso = content[0][7:-1]
-        id_curso = self.logicaCursos.consultarCurso(curso).id
-        for cont in content:
-            if cont[:7]=="Curso: ":
-                curso = cont[7:-1]
-                id_curso = self.logicaCursos.consultarCurso(curso).id
-            else:
-                logMat  = LogicaMatricula()
-                logMat.agregarMatricula(cont[:-1],id_curso,ano,semestre)
+        respuesta = ''
+        flag_curso = False
+        try:
+            curso = self.logicaCursos.consultarCurso(curso)
+            for cont in content:
+                if cont[:7]=="Curso: ":
+                    curso = cont[7:-1]
+                    curso = self.logicaCursos.consultarCurso(curso)
+                    flag_curso = False
+                else:
+                    logMat  = LogicaMatricula()
+                    cedula_lt = cont[:-1] #para quitar \n
+                    res = logMat.agregarMatricula(cedula_lt,curso.id,ano,semestre)
+                    if res==1:
+                        if flag_curso :
+                            respuesta+= cedula_lt+'\n'
+                        else:
+                            respuesta+= curso.nombre+'\n'+cedula_lt+'\n'
+                            flag_curso =True
+            return respuesta
+        except Exception,e:
+            return 2
 
     def consultarMT(self, cedula):
         log_m = LogicaMasterTeacher()
@@ -166,19 +180,15 @@ class ControlCoordinador:
             self.reporte.detalle_estudiantes_por_dpto(reporte,promedios,ruta,nombre_curso,mes,anio)
         else:
             exito =0
-
         return exito
-#BRAYAN
+
     def notas_estudiante(self, ruta, cedula_lt, id_curso):
         mat = self.logicaMatricula.consultar_cohorte_estudiante(cedula_lt,id_curso)
-
         acts = self.logicaActs.actividades_curso(id_curso)
-
         notas =[]
         if mat!=None and acts!=[]:
             for act in acts:
                 notas.append(self.logicaNotas.consultarNota(act.id_actividad,cedula_lt,id_curso,mat.id_cohorte).nota)
-
         if acts != [] and notas != []:
             acts = map(lambda x: (x.nombre), acts)
             nota_def = mat.nota_definitiva
@@ -188,7 +198,6 @@ class ControlCoordinador:
             exito = 0
         return exito
 
-#BRAYAN
     #ruta con nombre .svg
     def cursos_menos_avance(self, fecha_act, ruta):
         avg_curso = self.logicaMatricula.cinco_peor_avance(fecha_act)
@@ -226,14 +235,11 @@ class ControlCoordinador:
 
     def notas_estudiante(self, ruta, cedula_lt, id_curso):
         mat = self.logicaMatricula.consultar_cohorte_estudiante(cedula_lt,id_curso)
-
         acts = self.logicaActs.actividades_curso(id_curso)
-
         notas =[]
         if mat!=None and acts!=[]:
             for act in acts:
                 notas.append(self.logicaNotas.consultarNota(act.id_actividad,cedula_lt,id_curso,mat.id_cohorte).nota)
-
         if acts != [] and notas != []:
             acts = map(lambda x: (x.nombre), acts)
             nota_def = mat.nota_definitiva

@@ -69,7 +69,13 @@ class VistaCoordinador ( QMainWindow ):
             try:
                 ano = date.today().year
                 semestre  = math.ceil(float(date.today().month)/6)
-                self.control.procesarMatriculados(fname, ano, semestre)
+                resultado = self.control.procesarMatriculados(fname, ano, semestre)
+                if resultado==2:
+                    QtGui.QMessageBox.warning(self, 'Error',"No se ha logrado matricular\nPuede ser por el formato del archivo\nPor favor, comunicarse con el remitente del archivo.", QtGui.QMessageBox.Ok)
+                elif resultado=='':
+                    QtGui.QMessageBox.information(self, 'Exito',"Se han matriculado todos los estudiantes con exito.", QtGui.QMessageBox.Ok)
+                else:
+                    QtGui.QMessageBox.warning(self, 'Error',"No se ha logrado matricular los siguientes estudiantes:", QtGui.QMessageBox.Ok)
             except :
                 QtGui.QMessageBox.warning(self, 'Error',"Ha ocurrido un error en la base de datos.\nPor favor, vuelva a intentarlo.", QtGui.QMessageBox.Ok)
         else:
