@@ -205,7 +205,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>7</number>
+       <number>10</number>
       </property>
       <widget class="QWidget" name="tabWidgetPage1">
        <attribute name="title">
@@ -2137,16 +2137,6 @@ Especializacion Tecnologica y Especializaciones Profesionales)</string>
        <attribute name="title">
         <string>Adicionales 2</string>
        </attribute>
-       <widget class="QLineEdit" name="txtsecretaria">
-        <property name="geometry">
-         <rect>
-          <x>120</x>
-          <y>0</y>
-          <width>231</width>
-          <height>28</height>
-         </rect>
-        </property>
-       </widget>
        <widget class="QLabel" name="label_46">
         <property name="geometry">
          <rect>
@@ -2450,6 +2440,56 @@ Especializacion Tecnologica y Especializaciones Profesionales)</string>
           </property>
          </widget>
         </widget>
+       </widget>
+       <widget class="QComboBox" name="txtsecretaria">
+        <property name="geometry">
+         <rect>
+          <x>110</x>
+          <y>0</y>
+          <width>251</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <item>
+         <property name="text">
+          <string>Valle del Cauca</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Cauca</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Narino</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Tolima</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Huila</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Caqueta</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Putumayo</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Amazonas</string>
+         </property>
+        </item>
        </widget>
       </widget>
      </widget>
