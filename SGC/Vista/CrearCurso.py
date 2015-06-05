@@ -100,6 +100,7 @@ class CrearCurso(QDialog):
                         actividades.append([nombre_ac, ponderado_ac])
                         i += 1
                     if not (acum_pon == 1 or self.ui.sbNumActividades.value() == 0) and not flag:
+                        print acum_pon
                         QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
                                                   QString.fromUtf8(
                                                       "Recuerde que la suma de ponderados de todas las actividades debe dar 100"))
@@ -143,7 +144,8 @@ class CrearCurso(QDialog):
                         acum_pon += ponderado_ac
                         actividades.append([nombre_ac, ponderado_ac])
                         i += 1
-                    if not (acum_pon == 1 or self.ui.sbNumActividades.value() == 0) and not flag:
+                    acum_pon_v = round(acum_pon, 2)
+                    if not (acum_pon_v == 1 or self.ui.sbNumActividades.value() == 0) and not flag:
                         QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
                                                   QString.fromUtf8(
                                                       "Recuerde que la suma de ponderados de todas las actividades debe dar 100"))
@@ -160,7 +162,8 @@ class CrearCurso(QDialog):
                 except Exception, e:
                    QtGui.QMessageBox.warning(self, self.tr("Error en datos"),
                                              QString.fromUtf8(
-                                                 "Recuerde que los ponderados de las actividades deben ser numeros entre 0 y 100."))
+                                                 "Recuerde que los ponderados de las actividades deben ser numeros entre 0 y 100\n"
+                                                 "y digitar los nombres de las actividades."))
                    print e
             else:
                 QtGui.QMessageBox.warning(self, self.tr("Error en datos"),

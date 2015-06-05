@@ -19,24 +19,29 @@ class LogicaActividades():
         self.session.close()
 
     def consultarActividades(self):
+        self.session.rollback()
         actividades = self.session.query(Actividades).all()
         return actividades
 
     def consultarActividadesXCurso(self, id_curso_ac):
+        self.session.rollback()
         actividades = self.session.query(Actividades).filter_by(id_curso=id_curso_ac).all()
         self.session.close()
         return actividades
 
     def consultarCursos(self):
+        self.session.rollback()
         actividades = self.session.query(Actividades).all()
         #self.session.close()
         return actividades
 
     def consultarActividad (self,nombre,id_curso):
+        self.session.rollback()
         actividad = self.session.query(Actividades).filter_by(nombre = nombre , id_curso = id_curso).first()
         self.session.close()
         return actividad
     def consultarActividad_codigo (self,id_actividad,id_curso):
+        self.session.rollback()
         actividad = self.session.query(Actividades).filter_by(id_actividad = id_actividad, id_curso = id_curso).first()
         self.session.close()
         return actividad
@@ -51,12 +56,14 @@ class LogicaActividades():
         self.session.close()
 
     def eliminarActividades(self, idActividad):
+        self.session.rollback()
         actividades = self.session.query(Actividades).filter_by(id_actividades=idActividad).first()
         self.session.delete(actividades)
         self.session.commit()
         self.session.close()
 
     def eliminarActividadesXCurso(self, idCurso_el):
+        self.session.rollback()
         actividades = self.session.query(Actividades).filter_by(id_curso=idCurso_el).all()
         for actividad in actividades:
             self.session.delete(actividad)
@@ -64,6 +71,7 @@ class LogicaActividades():
         self.session.close()
 #BRAYAN
     def actividades_curso(self, id_curso):
+        self.session.rollback()
         actividades = self.session.query(Actividades).filter_by(id_curso=id_curso).all()
         #self.session.close()
         return actividades

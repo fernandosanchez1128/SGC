@@ -22,6 +22,7 @@ class LogicaCohorte():
     #     self.session.close()
 
     def consulta_cohorte (self,id_curso,id_cohorte):
+        self.session.rollback()
         cohorte = self.session.query(Cohorte).filter_by(id_curso=id_curso,id_cohorte = id_cohorte).first()
         self.session.close()
         return cohorte
@@ -41,6 +42,7 @@ class LogicaCohorte():
 
 
     def ultimoCohorte(self, id_curso, ano, semestre):
+        self.session.rollback()
         cohortes= self.session.query(Cohorte).filter_by(id_curso=id_curso, ano=ano, semestre=semestre).all()
         self.session.close()
         if not cohortes == []:
@@ -49,6 +51,7 @@ class LogicaCohorte():
             return None
 
     def cohorteN(self, id_curso, ano, semestre, N):
+        self.session.rollback()
         print "N", N
         print "semest", semestre
         cohortes= self.session.query(Cohorte).filter_by(id_curso=id_curso, ano=ano, semestre=semestre).all()
@@ -57,6 +60,7 @@ class LogicaCohorte():
 
 
     def numCohortes(self, id_curso, ano, semestre):
+        self.session.rollback()
         print "semestre ", semestre
         cohortes= self.session.query(Cohorte).filter_by(id_curso=id_curso, ano=ano, semestre=semestre).count()
         self.session.close()

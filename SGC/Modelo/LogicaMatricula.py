@@ -44,6 +44,7 @@ class LogicaMatricula():
         return 0
 
     def consultarMatricula(self, ncedula_lt, nid_cohorte, nid_curso):
+        self.session.rollback()
         matricula = self.session.query(Matricula).filter_by(cedula_lt=ncedula_lt, id_cohorte=nid_cohorte,
                                                             id_curso=nid_curso).first()
         self.session.close()
@@ -66,6 +67,7 @@ class LogicaMatricula():
         self.session.close()
 
     def eliminarMatricula(self, ncedula_lt, nid_cohorte, nid_curso):
+        self.session.rollback()
         matricula = self.session.query(Matricula).filter_by(cedula_lt=ncedula_lt, id_cohorte=nid_cohorte,
                                                             id_curso=nid_curso).first()
         self.session.delete(matricula)
@@ -73,21 +75,25 @@ class LogicaMatricula():
         self.session.close()
 
     def consultarNestudiantes(self, id_curso, id_cohorte):
+        self.session.rollback()
         cantidad = self.session.query(Matricula).filter_by(id_cohorte=id_cohorte, id_curso=id_curso).count()
         self.session.close()
         return cantidad
 
     def consultar_estudiantes(self, id_curso, id_cohorte):
+        self.session.rollback()
         cantidad = self.session.query(Matricula).filter_by(id_cohorte=id_cohorte, id_curso=id_curso).all()
         self.session.close()
         return cantidad
 
     def consultar_cursos_estudiantes (self,cedula_lt):
+        self.session.rollback()
         registros = self.session.query(Matricula).filter_by(cedula_lt = cedula_lt).all()
         self.session.close()
         return registros
 
     def consultar_cursos_terminados_estudiantes(self, cedula_lt):
+        self.session.rollback()
         fechaActual = date.today()
         registros = self.session.query(Matricula).join(Cohorte).filter(Matricula.cedula_lt == cedula_lt).\
             filter(Cohorte.fecha_fin<fechaActual).all()
@@ -95,11 +101,13 @@ class LogicaMatricula():
         return registros
 
     def consultar_cohorte_estudiante(self, cedula, id_curso):
+        self.session.rollback()
         mat = self.session.query(Matricula).filter_by(id_curso=id_curso, cedula_lt=cedula).first()
         self.session.close()
         return mat
 
     def consultar_estudiantes_aprobados(self, idCurso, anoBuscar, semestreBuscar):
+        self.session.rollback()
         fechaActual = date.today()
         departamentos=self.session.query(distinct(LeaderTeacher.dpto_secretaria)).join(Matricula).join(Cohorte).\
             filter(Cohorte.id_curso==idCurso).filter(Cohorte.semestre == semestreBuscar).\
@@ -135,6 +143,7 @@ class LogicaMatricula():
 
 
     def consultar_estudiantes_reprobados(self, idCurso, anoBuscar, semestreBuscar):
+        self.session.rollback()
         fechaActual = date.today()
         departamentos=self.session.query(distinct(LeaderTeacher.dpto_secretaria)).join(Matricula).join(Cohorte).\
             filter(Cohorte.id_curso==idCurso).filter(Cohorte.semestre == semestreBuscar).\
@@ -168,6 +177,7 @@ class LogicaMatricula():
         return dep_porcentajes
 
     def estudiantes_aprobados_curso (self,fecha_ini,fecha_fin,id_curso):
+        self.session.rollback()
         reporte=self.session.query(LeaderTeacher.cedula,Usuario.nombres,Usuario.apellidos,
                                    Matricula.nota_definitiva).\
             filter(Matricula.id_curso == id_curso,Matricula.cedula_lt == LeaderTeacher.cedula,
@@ -178,6 +188,7 @@ class LogicaMatricula():
         return reporte
 
     def estudiantes_departamento_unique (self, fecha_ini,fecha_fin,id_curso,dpto):
+        self.session.rollback()
         reporte=self.session.query(LeaderTeacher.cedula,Usuario.nombres,Usuario.apellidos,
                                    LeaderTeacher.dpto_secretaria,Matricula.nota_definitiva).\
             filter(Matricula.id_curso == id_curso,Matricula.cedula_lt == LeaderTeacher.cedula,
@@ -189,6 +200,7 @@ class LogicaMatricula():
 
 
     def estudiantes_departamento (self,fecha_ini,fecha_fin,id_curso):
+        self.session.rollback()
         reporte=self.session.query(LeaderTeacher.cedula,Usuario.nombres,Usuario.apellidos,
                                    LeaderTeacher.dpto_secretaria,Matricula.nota_definitiva).\
             filter(Matricula.id_curso == id_curso,Matricula.cedula_lt == LeaderTeacher.cedula,
@@ -204,6 +216,7 @@ mat.id_curso = coh.id_curso and mat.id_cohorte = coh.id_cohorte and coh.fecha_in
 and lead.cedula = us.cedula order by lead.dpto_secretaria'''''
 
     def promedio_departamento (self,fecha_ini,fecha_fin,id_curso):
+        self.session.rollback()
         promedios = self.session.query(func.avg(Matricula.nota_definitiva),LeaderTeacher.dpto_secretaria).\
             filter(Matricula.id_curso == id_curso,Matricula.cedula_lt == LeaderTeacher.cedula,
                    Matricula.id_curso ==Cohorte.id_curso,Cohorte.fecha_fin>=fecha_ini,
@@ -212,6 +225,7 @@ and lead.cedula = us.cedula order by lead.dpto_secretaria'''''
         return promedios
 #BRAYAN
     def cinco_peor_avance(self, fecha_act):
+        self.session.rollback()
         tuples= self.session.query(func.avg(Matricula.nota_definitiva), Matricula.id_curso).\
             filter(Matricula.id_cohorte ==Cohorte.id_cohorte, Matricula.id_curso ==Cohorte.id_curso,
                    Cohorte.fecha_fin<=fecha_act).\

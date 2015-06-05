@@ -20,14 +20,17 @@ class LogicaCursos():
         self.session.close()
 
     def consultarCursos(self):
+        self.session.rollback()
         cursos = self.session.query(Curso).all()
         return cursos
 
     def consultarCurso(self, nombre_curso):
+        self.session.rollback()
         curso = self.session.query(Curso).filter_by(nombre=nombre_curso).first()
         return curso
 
     def consultarCurso_id(self, id_curso):
+        self.session.rollback()
         curso = self.session.query(Curso).filter_by(id=id_curso).first()
         return curso
 
