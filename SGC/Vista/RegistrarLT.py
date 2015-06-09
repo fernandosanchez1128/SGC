@@ -106,220 +106,223 @@ class RegistrarLT ( QDialog ):
     
     def buscar_clicked(self):
         print("Buscando...")
-        ced=str(self.ui.txtid.text())
-        self.cedula=ced
-        if(self.tipo == 1):
-            asp=self.controldigi.consultarAspirante(ced)
-            if(asp==None):
-                QtGui.QMessageBox.warning(self, self.tr("Error en Base de Datos"),
-                                      QString.fromUtf8("No hay Aspirante registrado con esa identificacion"))
-                self.ui.btRegistrar.setEnabled(False)
+        try:
+            ced=str(self.ui.txtid.text())
+            self.cedula=ced
+            if(self.tipo == 1):
+                asp=self.controldigi.consultarAspirante(ced)
+                if(asp==None):
+                    QtGui.QMessageBox.warning(self, self.tr("Error en Base de Datos"),
+                                          QString.fromUtf8("No hay Aspirante registrado con esa identificacion"))
+                    self.ui.btRegistrar.setEnabled(False)
+                else:
+                    self.ui.btRegistrar.setEnabled(True)
+                    self.ui.txtnombre.setText(asp.nombres)
+                    self.ui.txtapellido.setText(asp.apellidos)
+
             else:
-                self.ui.btRegistrar.setEnabled(True)
-                self.ui.txtnombre.setText(asp.nombres)
-                self.ui.txtapellido.setText(asp.apellidos)
+                #RECUPERANDO INFORMACION
+                lt=self.controldigi.consultarLT(ced)
+                user=self.controldigi.consultarUsuario(ced)
+                if (lt!=None or user!=None):
+                    self.ui.btRegistrar.setEnabled(True)
+                    #DATOS DE USUARIO
+                    self.ui.txtnombre.setText(user.nombres)
+                    self.ui.txtapellido.setText(user.apellidos)
+                    self.ui.txttelefono.setText(user.telefono)
+                    self.ui.txtdireccion.setText(user.direccion)
+                    self.ui.txtcorreo.setText(user.correo_electronico)
+                    self.ui.txtpassword.setText(user.contrasena)
+                    self.ui.calendario.setSelectedDate(QDate(user.fecha_nacimiento))
 
-        else:
-            #RECUPERANDO INFORMACION
-            lt=self.controldigi.consultarLT(ced)
-            user=self.controldigi.consultarUsuario(ced)
-            if (lt!=None or user!=None):
-                self.ui.btRegistrar.setEnabled(True)
-                #DATOS DE USUARIO
-                self.ui.txtnombre.setText(user.nombres)
-                self.ui.txtapellido.setText(user.apellidos)
-                self.ui.txttelefono.setText(user.telefono)
-                self.ui.txtdireccion.setText(user.direccion)
-                self.ui.txtcorreo.setText(user.correo_electronico)
-                self.ui.txtpassword.setText(user.contrasena)
-                self.ui.calendario.setSelectedDate(QDate(user.fecha_nacimiento))
-
-                #DATOS de LEADER TEACHER
-                self.ui.txtmunicipio.setText(lt.municipio)
-                self.ui.txtinstitucion.setText(lt.institucion)
-                self.ui.txtescalafon.setText(lt.escalafon)
-                self.ui.txtsede.setText(lt.sede)
-                self.ui.txtdane.setText(lt.codigo_dane)
-                dptotemp=lt.dpto_secretaria
-                coldpto ={'Valle del Cauca':0,'Cauca':1,'Narino':2,'Tolima':3,'Huila':4,'Caqueta':5,'Putumayo':6,'Amazonas':7}
-                indexdpto=coldpto[dptotemp]
-                self.ui.txtsecretaria.setCurrentIndex(indexdpto)
-                if(lt.usuario_col_aprende):
-                    self.ui.col_aprendeSi.setChecked(True)
-                else:
-                    self.ui.col_aprendeNo.setChecked(True)
-                if(lt.tutor):
-                    self.ui.tutorSi.setChecked(True)
-                else:
-                    self.ui.tutorNo.setChecked(True)
-                if(lt.genero=="Femenino"):
-                    print("truetutor")
-                    self.ui.femenino.setChecked(True)
-                else:
-                    self.ui.masculino.setChecked(True)
-
-                if(lt.tipo_institucion=="Academica"):
-                    self.ui.modalacademica.setChecked(True)
-                else:
-                    self.ui.modaltecnica.setChecked(True)
-
-                #6 de 9
-                if(lt.grado=="Nivel Tecnico"):
-                    self.ui.niveltecnico.setChecked(True)
-                if(lt.grado=="Nivel Tecnologico"):
-                    self.ui.niveltecnologico.setChecked(True)
-                if(lt.grado=="Nivel Profesional"):
-                    self.ui.nivelprofesional.setChecked(True)
-                if(lt.grado=="Nivel Normalista Superior"):
-                    self.ui.nivelnormalista.setChecked(True)
-                if(lt.grado=="Nivel Licenciatura"):
-                    self.ui.nivellicenciatura.setChecked(True)
-                if(lt.grado=="Nivel Especializaciones"):
-                    self.ui.nivelespecializaciones.setChecked(True)
-                if(lt.grado=="Nivel Maestria"):
-                    self.ui.nivelmaestria.setChecked(True)
-                if(lt.grado=="Nivel Doctorado"):
-                    self.ui.niveldoctorado.setChecked(True)
-
-                #8 y 9 Experiencias
-                self.ui.exppreescolar.setValue(lt.exp_preescolar)
-                self.ui.expprimaria.setValue(lt.exp_primaria)
-                self.ui.expsecundaria.setValue(lt.exp_secundaria)
-                self.ui.expmedia.setValue(lt.exp_media)
-                self.ui.expsuperior.setValue(lt.exp_superior)
-                self.ui.exprural.setValue(lt.exp_rural)
-                self.ui.expurbana.setValue(lt.exp_urbano)
-                self.ui.exppublico.setValue(lt.exp_publico)
-                self.ui.expprivado.setValue(lt.exp_privado)
-                self.ui.exptotal.setValue(lt.exp_total)
-
-                #Caso Multivaluados
-                for z in lt.zona:
-                    if(z.zona=="Zona urbana"):
-                        self.ui.zonaurbana.setChecked(True)
-                    if (z.zona=="Zona urbana marginada"):
-                        self.ui.zonaurbanamarginada.setChecked(True)
-                    if (z.zona=="Zona rural"):
-                        self.ui.zonarural.setChecked(True)
-                    if (z.zona=="Zona rural dificil acceso"):
-                        self.ui.zonaruraldificil.setChecked(True)
-
-                for m in lt.modalidad:
-                    if (m.modalidad==("Agropecuario")):
-                        self.ui.agro.setChecked(True)
-                    elif (m.modalidad==("Comercial")):
-                        self.ui.comercial.setChecked(True)
-                    elif (m.modalidad==("Promocion Social")):
-                        self.ui.promocionSocial.setChecked(True)
-                    elif (m.modalidad==("Finanzas")):
-                        self.ui.finanzas.setChecked(True)
-                    elif (m.modalidad==("Administracion")):
-                        self.ui.administracion.setChecked(True)
-                    elif (m.modalidad==("Ecologia")):
-                        self.ui.ecologia.setChecked(True)
-                    elif (m.modalidad==("Medio Ambiente")):
-                        self.ui.medioambiente.setChecked(True)
-                    elif (m.modalidad==("Industrial")):
-                        self.ui.industrial.setChecked(True)
-                    elif (m.modalidad==("Informatica")):
-                        self.ui.informatica.setChecked(True)
-                    elif (m.modalidad==("Mineria")):
-                        self.ui.mineria.setChecked(True)
-                    elif (m.modalidad==("Salud")):
-                        self.ui.salud.setChecked(True)
-                    elif (m.modalidad==("Recreacion")):
-                        self.ui.recreacion.setChecked(True)
-                    elif (m.modalidad==("Turismo")):
-                        self.ui.turismo.setChecked(True)
-                    elif (m.modalidad==("Deporte")):
-                        self.ui.deporte.setChecked(True)
+                    #DATOS de LEADER TEACHER
+                    self.ui.txtmunicipio.setText(lt.municipio)
+                    self.ui.txtinstitucion.setText(lt.institucion)
+                    self.ui.txtescalafon.setText(lt.escalafon)
+                    self.ui.txtsede.setText(lt.sede)
+                    self.ui.txtdane.setText(lt.codigo_dane)
+                    dptotemp=lt.dpto_secretaria
+                    coldpto ={'Valle del Cauca':0,'Cauca':1,'Narino':2,'Tolima':3,'Huila':4,'Caqueta':5,'Putumayo':6,'Amazonas':7}
+                    indexdpto=coldpto[dptotemp]
+                    self.ui.txtsecretaria.setCurrentIndex(indexdpto)
+                    if(lt.usuario_col_aprende):
+                        self.ui.col_aprendeSi.setChecked(True)
                     else:
-                        self.ui.otromodalidad.setChecked(True)
-                        self.ui.txtotromodalidad.setText(m.modalidad)
-
-                    #3 de 9
-                for et in lt.etnoeducacion:
-                    if (et.etnoeducacion==("Etnia Afrocolombiana")):
-                        self.ui.afro.setChecked(True)
-                    if (et.etnoeducacion==("Etnia Indigena")):
-                        self.ui.indigena.setChecked(True)
-                    if (et.etnoeducacion==("Etnia Rom")):
-                        self.ui.rom.setChecked(True)
-                    if (et.etnoeducacion=="Ninguna Etnia"):
-                        self.ui.ningunaetnia.setChecked(True)
-
-                for niv in lt.niveles_desempenados:
-                    if (niv.niveles==("Transicion")):
-                        self.ui.transicion.setChecked(True)
-                    elif (niv.niveles==("Educacion Inicial")):
-                        self.ui.eduinicial.setChecked(True)
-                    elif (niv.niveles==("Educacion Primaria")):
-                        self.ui.eduprimaria.setChecked(True)
-                    elif (niv.niveles==("Educacion Secundaria")):
-                        self.ui.edusecundaria.setChecked(True)
-                    elif (niv.niveles==("Educacion Media")):
-                        self.ui.edumedia.setChecked(True)
-                    elif (niv.niveles==("Educacion Superior")):
-                        self.ui.edusuperior.setChecked(True)
+                        self.ui.col_aprendeNo.setChecked(True)
+                    if(lt.tutor):
+                        self.ui.tutorSi.setChecked(True)
                     else:
-                        self.ui.otronivel.setChecked(True)
-                        self.ui.txtotronivel.setText(niv.niveles)
-
-                #4 de 9
-                for gr in lt.grados_desempenados:
-                    if (gr.grados==("Grado Transicion")):
-                        self.ui.gtransicion.setChecked(True)
-                    elif (gr.grados=="Grado Inicial"):
-                        self.ui.ginicial.setChecked(True)
-                    elif (gr.grados=="Grado 1"):
-                        self.ui.g1.setChecked(True)
-                    elif (gr.grados=="Grado 2"):
-                        self.ui.g2.setChecked(True)
-                    elif (gr.grados=="Grado 3"):
-                        self.ui.g3.setChecked(True)
-                    elif (gr.grados==("Grado 4")):
-                        self.ui.g4.setChecked(True)
-                    elif (gr.grados==("Grado 5")):
-                        self.ui.g5.setChecked(True)
-                    elif (gr.grados==("Grado 6")):
-                        self.ui.g6.setChecked(True)
-                    elif (gr.grados==("Grado 7")):
-                        self.ui.g7.setChecked(True)
-                    elif (gr.grados==("Grado 8")):
-                        self.ui.g8.setChecked(True)
-                    elif (gr.grados==("Grado 9")):
-                        self.ui.g9.setChecked(True)
-                    elif (gr.grados==("Grado 10")):
-                        self.ui.g10.setChecked(True)
-                    elif (gr.grados==("Grado 11")):
-                        self.ui.g11.setChecked(True)
+                        self.ui.tutorNo.setChecked(True)
+                    if(lt.genero=="Femenino"):
+                        print("truetutor")
+                        self.ui.femenino.setChecked(True)
                     else:
-                        self.ui.gotro.setChecked(True)
-                        self.ui.txtotrogrado.setText(gr.grados)
+                        self.ui.masculino.setChecked(True)
 
-                for ar in lt.areas_desempenadas:
-                    if (ar.area==("Ciencias Naturales y Educacion Ambiental")):
-                        self.ui.naturales.setChecked(True)
-                    if (ar.area==("Ciencias Sociales")):
-                        self.ui.sociales.setChecked(True)
-                    if (ar.area==("Artistica")):
-                        self.ui.artistica.setChecked(True)
-                    if (ar.area==("Etica y Valores Humanos")):
-                        self.ui.etica.setChecked(True)
-                    if (ar.area==("Fisica Recreacion y Deportes")):
-                        self.ui.fisica.setChecked(True)
-                    if (ar.area==("Edicacion Religiosa")):
-                        self.ui.religiosa.setChecked(True)
-                    if (ar.area==("Humanidades Lengua Castellana e Idioma Extranjero")):
-                        self.ui.humanidades.setChecked(True)
-                    if (ar.area==("Matematicas")):
-                        self.ui.matematicas.setChecked(True)
-                    if (ar.area==("Tecnologia")):
-                        self.ui.tecnologia.setChecked(True)
-            else:
-                QMessageBox.information(self, "Registro", "No hay leaderteacher con esa identificacion")
-                self.ui.btRegistrar.setEnabled(False)
+                    if(lt.tipo_institucion=="Academica"):
+                        self.ui.modalacademica.setChecked(True)
+                    else:
+                        self.ui.modaltecnica.setChecked(True)
 
+                    #6 de 9
+                    if(lt.grado=="Nivel Tecnico"):
+                        self.ui.niveltecnico.setChecked(True)
+                    if(lt.grado=="Nivel Tecnologico"):
+                        self.ui.niveltecnologico.setChecked(True)
+                    if(lt.grado=="Nivel Profesional"):
+                        self.ui.nivelprofesional.setChecked(True)
+                    if(lt.grado=="Nivel Normalista Superior"):
+                        self.ui.nivelnormalista.setChecked(True)
+                    if(lt.grado=="Nivel Licenciatura"):
+                        self.ui.nivellicenciatura.setChecked(True)
+                    if(lt.grado=="Nivel Especializaciones"):
+                        self.ui.nivelespecializaciones.setChecked(True)
+                    if(lt.grado=="Nivel Maestria"):
+                        self.ui.nivelmaestria.setChecked(True)
+                    if(lt.grado=="Nivel Doctorado"):
+                        self.ui.niveldoctorado.setChecked(True)
+
+                    #8 y 9 Experiencias
+                    self.ui.exppreescolar.setValue(lt.exp_preescolar)
+                    self.ui.expprimaria.setValue(lt.exp_primaria)
+                    self.ui.expsecundaria.setValue(lt.exp_secundaria)
+                    self.ui.expmedia.setValue(lt.exp_media)
+                    self.ui.expsuperior.setValue(lt.exp_superior)
+                    self.ui.exprural.setValue(lt.exp_rural)
+                    self.ui.expurbana.setValue(lt.exp_urbano)
+                    self.ui.exppublico.setValue(lt.exp_publico)
+                    self.ui.expprivado.setValue(lt.exp_privado)
+                    self.ui.exptotal.setValue(lt.exp_total)
+
+                    #Caso Multivaluados
+                    for z in lt.zona:
+                        if(z.zona=="Zona urbana"):
+                            self.ui.zonaurbana.setChecked(True)
+                        if (z.zona=="Zona urbana marginada"):
+                            self.ui.zonaurbanamarginada.setChecked(True)
+                        if (z.zona=="Zona rural"):
+                            self.ui.zonarural.setChecked(True)
+                        if (z.zona=="Zona rural dificil acceso"):
+                            self.ui.zonaruraldificil.setChecked(True)
+
+                    for m in lt.modalidad:
+                        if (m.modalidad==("Agropecuario")):
+                            self.ui.agro.setChecked(True)
+                        elif (m.modalidad==("Comercial")):
+                            self.ui.comercial.setChecked(True)
+                        elif (m.modalidad==("Promocion Social")):
+                            self.ui.promocionSocial.setChecked(True)
+                        elif (m.modalidad==("Finanzas")):
+                            self.ui.finanzas.setChecked(True)
+                        elif (m.modalidad==("Administracion")):
+                            self.ui.administracion.setChecked(True)
+                        elif (m.modalidad==("Ecologia")):
+                            self.ui.ecologia.setChecked(True)
+                        elif (m.modalidad==("Medio Ambiente")):
+                            self.ui.medioambiente.setChecked(True)
+                        elif (m.modalidad==("Industrial")):
+                            self.ui.industrial.setChecked(True)
+                        elif (m.modalidad==("Informatica")):
+                            self.ui.informatica.setChecked(True)
+                        elif (m.modalidad==("Mineria")):
+                            self.ui.mineria.setChecked(True)
+                        elif (m.modalidad==("Salud")):
+                            self.ui.salud.setChecked(True)
+                        elif (m.modalidad==("Recreacion")):
+                            self.ui.recreacion.setChecked(True)
+                        elif (m.modalidad==("Turismo")):
+                            self.ui.turismo.setChecked(True)
+                        elif (m.modalidad==("Deporte")):
+                            self.ui.deporte.setChecked(True)
+                        else:
+                            self.ui.otromodalidad.setChecked(True)
+                            self.ui.txtotromodalidad.setText(m.modalidad)
+
+                        #3 de 9
+                    for et in lt.etnoeducacion:
+                        if (et.etnoeducacion==("Etnia Afrocolombiana")):
+                            self.ui.afro.setChecked(True)
+                        if (et.etnoeducacion==("Etnia Indigena")):
+                            self.ui.indigena.setChecked(True)
+                        if (et.etnoeducacion==("Etnia Rom")):
+                            self.ui.rom.setChecked(True)
+                        if (et.etnoeducacion=="Ninguna Etnia"):
+                            self.ui.ningunaetnia.setChecked(True)
+
+                    for niv in lt.niveles_desempenados:
+                        if (niv.niveles==("Transicion")):
+                            self.ui.transicion.setChecked(True)
+                        elif (niv.niveles==("Educacion Inicial")):
+                            self.ui.eduinicial.setChecked(True)
+                        elif (niv.niveles==("Educacion Primaria")):
+                            self.ui.eduprimaria.setChecked(True)
+                        elif (niv.niveles==("Educacion Secundaria")):
+                            self.ui.edusecundaria.setChecked(True)
+                        elif (niv.niveles==("Educacion Media")):
+                            self.ui.edumedia.setChecked(True)
+                        elif (niv.niveles==("Educacion Superior")):
+                            self.ui.edusuperior.setChecked(True)
+                        else:
+                            self.ui.otronivel.setChecked(True)
+                            self.ui.txtotronivel.setText(niv.niveles)
+
+                    #4 de 9
+                    for gr in lt.grados_desempenados:
+                        if (gr.grados==("Grado Transicion")):
+                            self.ui.gtransicion.setChecked(True)
+                        elif (gr.grados=="Grado Inicial"):
+                            self.ui.ginicial.setChecked(True)
+                        elif (gr.grados=="Grado 1"):
+                            self.ui.g1.setChecked(True)
+                        elif (gr.grados=="Grado 2"):
+                            self.ui.g2.setChecked(True)
+                        elif (gr.grados=="Grado 3"):
+                            self.ui.g3.setChecked(True)
+                        elif (gr.grados==("Grado 4")):
+                            self.ui.g4.setChecked(True)
+                        elif (gr.grados==("Grado 5")):
+                            self.ui.g5.setChecked(True)
+                        elif (gr.grados==("Grado 6")):
+                            self.ui.g6.setChecked(True)
+                        elif (gr.grados==("Grado 7")):
+                            self.ui.g7.setChecked(True)
+                        elif (gr.grados==("Grado 8")):
+                            self.ui.g8.setChecked(True)
+                        elif (gr.grados==("Grado 9")):
+                            self.ui.g9.setChecked(True)
+                        elif (gr.grados==("Grado 10")):
+                            self.ui.g10.setChecked(True)
+                        elif (gr.grados==("Grado 11")):
+                            self.ui.g11.setChecked(True)
+                        else:
+                            self.ui.gotro.setChecked(True)
+                            self.ui.txtotrogrado.setText(gr.grados)
+
+                    for ar in lt.areas_desempenadas:
+                        if (ar.area==("Ciencias Naturales y Educacion Ambiental")):
+                            self.ui.naturales.setChecked(True)
+                        if (ar.area==("Ciencias Sociales")):
+                            self.ui.sociales.setChecked(True)
+                        if (ar.area==("Artistica")):
+                            self.ui.artistica.setChecked(True)
+                        if (ar.area==("Etica y Valores Humanos")):
+                            self.ui.etica.setChecked(True)
+                        if (ar.area==("Fisica Recreacion y Deportes")):
+                            self.ui.fisica.setChecked(True)
+                        if (ar.area==("Edicacion Religiosa")):
+                            self.ui.religiosa.setChecked(True)
+                        if (ar.area==("Humanidades Lengua Castellana e Idioma Extranjero")):
+                            self.ui.humanidades.setChecked(True)
+                        if (ar.area==("Matematicas")):
+                            self.ui.matematicas.setChecked(True)
+                        if (ar.area==("Tecnologia")):
+                            self.ui.tecnologia.setChecked(True)
+                else:
+                    QMessageBox.information(self, "Registro", "No hay leaderteacher con esa identificacion")
+                    self.ui.btRegistrar.setEnabled(False)
+
+        except Exception:
+            QMessageBox.information(self, "Registro", "Error interno, campos faltantes del leaderteacher o aspirante")
 
 
 

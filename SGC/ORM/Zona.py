@@ -1,5 +1,4 @@
 from sqlalchemy import (Sequence)
-
 from basetest import *
 
 Column(Integer, Sequence('sec_zona'), primary_key=True)

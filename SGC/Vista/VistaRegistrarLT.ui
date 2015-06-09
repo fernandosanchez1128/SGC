@@ -160,6 +160,9 @@
    </property>
   </widget>
   <widget class="QPushButton" name="btRegistrar">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>480</x>
@@ -205,7 +208,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>10</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tabWidgetPage1">
        <attribute name="title">
@@ -335,6 +338,9 @@
         </property>
         <property name="text">
          <string>Academica</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
         </property>
        </widget>
        <widget class="QRadioButton" name="modaltecnica">
@@ -2198,6 +2204,9 @@ Especializacion Tecnologica y Especializaciones Profesionales)</string>
          <property name="text">
           <string>Femenino</string>
          </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
         </widget>
         <widget class="QRadioButton" name="masculino">
          <property name="geometry">
@@ -2254,6 +2263,9 @@ Especializacion Tecnologica y Especializaciones Profesionales)</string>
          </property>
          <property name="text">
           <string>No</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
          </property>
         </widget>
         <widget class="QRadioButton" name="col_aprendeSi">
@@ -2368,6 +2380,9 @@ Especializacion Tecnologica y Especializaciones Profesionales)</string>
          </property>
          <property name="text">
           <string>No</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
          </property>
         </widget>
         <widget class="QRadioButton" name="tutorSi">

@@ -7,6 +7,7 @@ from ORM.Preinscripcion import Preinscripcion
 from Modelo.LogicaPreinscripcion import LogicaPreinscripcion
 from Modelo.LogicaLeaderTeacher import LogicaLeaderTeacher
 from Modelo.LogicaUsuario import LogicaUsuario
+from Modelo.LogicaMasterTeacher import LogicaMasterTeacher
 
 
 class ControlDigitador:
@@ -17,6 +18,7 @@ class ControlDigitador:
         self.Fabrica=FabricaUsuarios()
         self.LogicaLT=LogicaLeaderTeacher()
         self.LogicaUsuarios=LogicaUsuario()
+        self.LogicaMT=LogicaMasterTeacher()
 
     def consultarCursos(self):
         cursos=self.LogicaCursos.consultarCursos()
@@ -34,11 +36,20 @@ class ControlDigitador:
         leaderTeacher=self.Fabrica.getUsuario(tipo,params)
         return self.LogicaLT.agregarLT(leaderTeacher)
 
+    def agregarMT(self, tipo, params):
+        masterT=self.Fabrica.getUsuario(tipo,params)
+        return self.LogicaMT.agregarMT(masterT)
+
 
 
     def consultarLT(self,cedula):
         lt=self.LogicaLT.consultarLT(cedula)
         return lt
+
+    def consultarMT(self,cedula):
+        lt=self.LogicaMT.consultarMT(cedula)
+        return lt
+
 
     def consultarUsuario(self, cedula):
         user=self.LogicaUsuarios.buscarUsuario(cedula)
@@ -69,8 +80,15 @@ class ControlDigitador:
         lt=self.Fabrica.getUsuario(3,params)
         return self.LogicaLT.editarLT(ced,lt)
 
+    def editarMT(self, ced, params):
+        mt=self.Fabrica.getUsuario(4,params)
+        return self.LogicaMT.editarMT(ced,mt)
+
     def eliminarLT(self, ced):
         self.LogicaLT.eliminarLT(ced)
+
+    def eliminarMT(self, ced):
+        self.LogicaMT.eliminarMT(ced)
 
     def cerrarSesion(self):
         self.LogicaUsuarios.cerrarSesion()
@@ -78,3 +96,4 @@ class ControlDigitador:
         self.LogicaCursos.cerrarSesion()
         self.LogicaAspirante.cerrarSesion()
         self.LogicaPreinscripcion.cerrarSesion()
+        self.LogicaMT.cerrarSesion()

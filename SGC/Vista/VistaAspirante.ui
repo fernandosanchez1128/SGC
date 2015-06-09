@@ -385,6 +385,9 @@
            <property name="text">
             <string>No</string>
            </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
           </widget>
          </item>
          <item>
@@ -453,6 +456,9 @@
         <property name="text">
          <string>No</string>
         </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
        </widget>
        <widget class="QWidget" name="panelSexo" native="true">
         <property name="geometry">
@@ -495,6 +501,9 @@
          </property>
          <property name="text">
           <string>Femenino</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
          </property>
         </widget>
         <widget class="QRadioButton" name="masculino">

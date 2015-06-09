@@ -60,7 +60,7 @@ class Top10 ( QDialog ):
         else:
             if(self.control.lt_por_departamento(fecha)=="Exito"):
                 QMessageBox.information(self, "LT-por-Dpto", "Reporte creado exitosamente, para visualizar la grafica abra el archivo lt-por-departamento.svg\n"
-                                                       "Ubicado en la carpeta Vista")
+                                                       "Ubicado en la carpeta Modelo")
             else:
                 QMessageBox.information(self, "LT-por-Dpto", "No hay registros para esa fecha")
 

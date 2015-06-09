@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>361</width>
+    <width>480</width>
     <height>479</height>
    </rect>
   </property>
@@ -100,33 +100,33 @@
   <widget class="QPushButton" name="btRegistrarLT">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>30</x>
      <y>280</y>
      <width>191</width>
      <height>27</height>
     </rect>
    </property>
    <property name="text">
-    <string>Registrar</string>
+    <string>Registrar LT</string>
    </property>
   </widget>
   <widget class="QPushButton" name="btConsultarLT">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>30</x>
      <y>320</y>
      <width>191</width>
      <height>27</height>
     </rect>
    </property>
    <property name="text">
-    <string>Consultar</string>
+    <string>Consultar LT</string>
    </property>
   </widget>
   <widget class="QPushButton" name="btAspirante">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>150</x>
      <y>120</y>
      <width>191</width>
      <height>27</height>
@@ -142,20 +142,20 @@
   <widget class="QPushButton" name="btModificarLT">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>30</x>
      <y>360</y>
      <width>191</width>
      <height>27</height>
     </rect>
    </property>
    <property name="text">
-    <string>Modificar</string>
+    <string>Modificar LT</string>
    </property>
   </widget>
   <widget class="QPushButton" name="btSalir">
    <property name="geometry">
     <rect>
-     <x>140</x>
+     <x>190</x>
      <y>440</y>
      <width>98</width>
      <height>27</height>
@@ -181,7 +181,7 @@
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>270</x>
+     <x>380</x>
      <y>10</y>
      <width>81</width>
      <height>20</height>
@@ -194,7 +194,7 @@
   <widget class="QPushButton" name="btPreinscribir">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>150</x>
      <y>160</y>
      <width>191</width>
      <height>26</height>
@@ -204,40 +204,12 @@
     <string>Preinscribir</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="btEliminarLT">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>90</x>
-     <y>400</y>
-     <width>191</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>..</string>
-   </property>
-   <property name="checkable">
-    <bool>false</bool>
-   </property>
-   <property name="autoDefault">
-    <bool>false</bool>
-   </property>
-   <property name="default">
-    <bool>false</bool>
-   </property>
-   <property name="flat">
-    <bool>true</bool>
-   </property>
-  </widget>
   <widget class="Line" name="line">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>190</y>
-     <width>341</width>
+     <width>461</width>
      <height>16</height>
     </rect>
    </property>
@@ -258,6 +230,97 @@
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Por favor elija que operacion desea realizar&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;con respecto a &lt;/span&gt;&lt;span style=&quot; font-weight:600; font-style:italic; text-decoration: underline;&quot;&gt;Leader Teacher&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>210</y>
+     <width>191</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;con respecto a &lt;/span&gt;&lt;span style=&quot; font-weight:600; font-style:italic; text-decoration: underline;&quot;&gt;Master  Teacher&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btConsultarLT_2">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>320</y>
+     <width>191</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Consultar MT</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btModificarLT_2">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>360</y>
+     <width>191</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Modificar MT</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btRegistrarLT_2">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>280</y>
+     <width>191</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Registrar MT</string>
+   </property>
+  </widget>
+  <widget class="Line" name="line_2">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>240</y>
+     <width>16</width>
+     <height>181</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Vertical</enum>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btEliminarLT_2">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>400</y>
+     <width>191</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Eliminar MT</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btEliminarLT">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>400</y>
+     <width>191</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Eliminar LT</string>
+   </property>
+  </widget>
  </widget>
  <tabstops>
   <tabstop>btAspirante</tabstop>
@@ -265,7 +328,6 @@
   <tabstop>btRegistrarLT</tabstop>
   <tabstop>btConsultarLT</tabstop>
   <tabstop>btModificarLT</tabstop>
-  <tabstop>btEliminarLT</tabstop>
   <tabstop>btSalir</tabstop>
  </tabstops>
  <resources/>

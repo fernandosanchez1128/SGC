@@ -182,4 +182,4 @@ class AsignacionCohortes ( QDialog ):
                 estado.setText ("Asignado")
             else :
                 QtGui.QMessageBox.warning(self, 'Error', "no se pudo guardar", QtGui.QMessageBox.Ok)
-        self.close()
+        #self.close()

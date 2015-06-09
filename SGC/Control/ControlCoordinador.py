@@ -97,6 +97,7 @@ class ControlCoordinador:
                             flag_curso =True
             return respuesta
         except Exception,e:
+            print(e)
             return 2
 
     def consultarMT(self, cedula):

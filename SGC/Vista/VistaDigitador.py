@@ -6,6 +6,7 @@ from PyQt4 import QtCore, QtGui
 from CrearAspirante import CrearAspirante
 from CrearPreinscripcion import CrearPreinscripcion
 from RegistrarLT import RegistrarLT
+from RegistrarMT import RegistrarMT
 from Singleton import Singleton
 
 
@@ -22,6 +23,12 @@ class VistaDigitador ( QDialog ):
         self.consultarlt=RegistrarLT(None,3)
         self.eliminarlt=RegistrarLT(None,4)
 
+        self.registrarmt=RegistrarMT(None,1)
+        self.editarmt=RegistrarMT(None,2)
+        self.consultarmt=RegistrarMT(None,3)
+        self.eliminarmt=RegistrarMT(None,4)
+
+
         QDialog.__init__( self, parent )
         self.ui = Ui_VistaDigitador()
         self.ui.setupUi( self )
@@ -32,6 +39,11 @@ class VistaDigitador ( QDialog ):
         self.connect(self.ui.btModificarLT, SIGNAL("clicked()"), self.editarlt_clicked)
         self.connect(self.ui.btConsultarLT, SIGNAL("clicked()"), self.consultarlt_clicked)
         self.connect(self.ui.btEliminarLT, SIGNAL("clicked()"), self.eliminarlt_clicked)
+
+        self.connect(self.ui.btRegistrarLT_2, SIGNAL("clicked()"), self.registrarmt_clicked)
+        self.connect(self.ui.btModificarLT_2, SIGNAL("clicked()"), self.editarmt_clicked)
+        self.connect(self.ui.btConsultarLT_2, SIGNAL("clicked()"), self.consultarmt_clicked)
+        self.connect(self.ui.btEliminarLT_2, SIGNAL("clicked()"), self.eliminarmt_clicked)
 
 
     def __del__ ( self ):
@@ -57,3 +69,17 @@ class VistaDigitador ( QDialog ):
 
     def eliminarlt_clicked(self):
         self.eliminarlt.show()
+
+
+
+    def registrarmt_clicked(self):
+        self.registrarmt.show()
+
+    def editarmt_clicked(self):
+        self.editarmt.show()
+
+    def consultarmt_clicked(self):
+        self.consultarmt.show()
+
+    def eliminarmt_clicked(self):
+        self.eliminarmt.show()

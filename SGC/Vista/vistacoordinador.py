@@ -75,7 +75,7 @@ class VistaCoordinador ( QMainWindow ):
                 elif resultado=='':
                     QtGui.QMessageBox.information(self, 'Exito',"Se han matriculado todos los estudiantes con exito.", QtGui.QMessageBox.Ok)
                 else:
-                    QtGui.QMessageBox.warning(self, 'Error',"No se ha logrado matricular los siguientes estudiantes:", QtGui.QMessageBox.Ok)
+                    QtGui.QMessageBox.warning(self, 'Error',"No se ha logrado matricular los siguientes estudiantes:\n"+resultado, QtGui.QMessageBox.Ok)
             except :
                 QtGui.QMessageBox.warning(self, 'Error',"Ha ocurrido un error en la base de datos.\nPor favor, vuelva a intentarlo.", QtGui.QMessageBox.Ok)
         else:

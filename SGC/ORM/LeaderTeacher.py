@@ -1,4 +1,4 @@
-__author__ = 'cenesis'
+__author__ = 'nelson'
 
 from Usuario import Usuario
 
@@ -15,7 +15,7 @@ class LeaderTeacher(Usuario, Base):
     sede = Column(String(40))
     codigo_dane = Column(String(20))
     dpto_secretaria  = Column(String(20))
-    tutor = Column(Boolean) #no estoy seguro del tipo
+    tutor = Column(Boolean)
     usuario_col_aprende = Column(String(50))
     tipo_institucion = Column(String(20))
     

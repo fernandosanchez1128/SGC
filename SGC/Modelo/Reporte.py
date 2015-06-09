@@ -36,8 +36,10 @@ class Reporte:
         #LISTA DE LISTAS
         num=[]
         nombres=[]
-        mes="agosto"
-        ano='2015'
+        meses ={1:'Enero',2:'Febrero',3:'Marzo',4:'Abril',5:'Mayo',6:'Junio',7:
+                'Julio',8:'Agosto',9:'Septiembre',10:'Octubre',11:'Noviembre',12:'Diciembre'}
+
+        nmes = meses[fechai.month]
         i=0
         y=0
         for mat in matricula:
@@ -52,7 +54,7 @@ class Reporte:
             print(num)
             print(nombres)
             bar_chart = pygal.Bar()
-            bar_chart.title = 'Cursos con mas asistentes en el mes de '+mes+' del '+ano
+            bar_chart.title = 'Cursos con mas asistentes en el mes '+str(nmes)+" de "+str(fechai.year)
             bar_chart.x_labels = map(str, nombres)
             for i in range(0,len(num)):
                 valores=[None]*(len(num)-1)
@@ -82,8 +84,10 @@ class Reporte:
         #LISTA DE LISTAS
         num=[]
         nombres=[]
-        mes="agosto"
-        ano='2015'
+        meses ={1:'Enero',2:'Febrero',3:'Marzo',4:'Abril',5:'Mayo',6:'Junio',7:
+                'Julio',8:'Agosto',9:'Septiembre',10:'Octubre',11:'Noviembre',12:'Diciembre'}
+
+        nmes = meses[fechai.month]
         i=0
         y=0
         for mat in matricula:
@@ -99,7 +103,7 @@ class Reporte:
             print(num)
             print(nombres)
             bar_chart = pygal.Bar()
-            bar_chart.title = 'Leader Teacher por departamento en el mes de '+mes+' del '+ano
+            bar_chart.title = 'Leader Teacher por departamento en el mes '+str(nmes)+" de "+str(fechai.year)
             bar_chart.x_labels = map(str, nombres)
             for i in range(0,len(num)):
                 valores=[None]*(len(num)-1)
@@ -156,7 +160,7 @@ class Reporte:
         story=[]
         bodyStyle = ParagraphStyle('Body', fontName=_baseFontName, fontSize=24, leading=28, spaceBefore=6,
                                    align = "CENTER")
-        msg = QString.fromUtf8("Detalles de Estudiantes del Curso " + curso + " Durante el Mes de " +mes+ " del año " + anio)
+        msg = "Detalles de Estudiantes del Curso " + curso + " Durante el Mes de " +mes+ " del año " + anio
         titulo = Paragraph(msg, bodyStyle)
         t.setStyle([('FONTSIZE',(0,0), (-1, -1), 16),
                     ('FONTSIZE',(0,0), (1, 0), 17),
@@ -201,7 +205,7 @@ class Reporte:
         story=[]
         bodyStyle = ParagraphStyle('Body', fontName=_baseFontName, fontSize=24, leading=28, spaceBefore=6,
                                    align = "CENTER")
-        msg = QString.fromUtf8("Estudiantes Que Aprobaron el Curso " + curso + " Durante el Mes de " +mes+ " del año " + anio)
+        msg = "Estudiantes Que Aprobaron el Curso " + curso + " Durante el Mes de " +mes+ " del año " + anio
         titulo = Paragraph(msg, bodyStyle)
         t.setStyle([('FONTSIZE',(0,0), (-1, -1), 16),
                     ('FONTSIZE',(0,0), (1, 0), 17),
